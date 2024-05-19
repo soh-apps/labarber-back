@@ -1,0 +1,11 @@
+D:\LucasToolbox\LaBarber\LaBarber.Domain\bin\Debug\net8.0\LaBarber.Domain.deps.json
+D:\LucasToolbox\LaBarber\LaBarber.Domain\bin\Debug\net8.0\LaBarber.Domain.dll
+D:\LucasToolbox\LaBarber\LaBarber.Domain\bin\Debug\net8.0\LaBarber.Domain.pdb
+D:\LucasToolbox\LaBarber\LaBarber.Domain\obj\Debug\net8.0\LaBarber.Domain.GeneratedMSBuildEditorConfig.editorconfig
+D:\LucasToolbox\LaBarber\LaBarber.Domain\obj\Debug\net8.0\LaBarber.Domain.AssemblyInfoInputs.cache
+D:\LucasToolbox\LaBarber\LaBarber.Domain\obj\Debug\net8.0\LaBarber.Domain.AssemblyInfo.cs
+D:\LucasToolbox\LaBarber\LaBarber.Domain\obj\Debug\net8.0\LaBarber.Domain.csproj.CoreCompileInputs.cache
+D:\LucasToolbox\LaBarber\LaBarber.Domain\obj\Debug\net8.0\LaBarber.Domain.dll
+D:\LucasToolbox\LaBarber\LaBarber.Domain\obj\Debug\net8.0\refint\LaBarber.Domain.dll
+D:\LucasToolbox\LaBarber\LaBarber.Domain\obj\Debug\net8.0\LaBarber.Domain.pdb
+D:\LucasToolbox\LaBarber\LaBarber.Domain\obj\Debug\net8.0\ref\LaBarber.Domain.dll

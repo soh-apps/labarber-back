@@ -1,0 +1,36 @@
+{
+  "runtimeTarget": {
+    "name": ".NETCoreApp,Version=v8.0",
+    "signature": ""
+  },
+  "compilationOptions": {},
+  "targets": {
+    ".NETCoreApp,Version=v8.0": {
+      "LaBarber.Infra/1.0.0": {
+        "dependencies": {
+          "LaBarber.Domain": "1.0.0"
+        },
+        "runtime": {
+          "LaBarber.Infra.dll": {}
+        }
+      },
+      "LaBarber.Domain/1.0.0": {
+        "runtime": {
+          "LaBarber.Domain.dll": {}
+        }
+      }
+    }
+  },
+  "libraries": {
+    "LaBarber.Infra/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    },
+    "LaBarber.Domain/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
+    }
+  }
+}

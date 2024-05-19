@@ -1,0 +1,15 @@
+D:\LucasToolbox\LaBarber\LaBarber.Application\bin\Debug\net8.0\LaBarber.Application.deps.json
+D:\LucasToolbox\LaBarber\LaBarber.Application\bin\Debug\net8.0\LaBarber.Application.dll
+D:\LucasToolbox\LaBarber\LaBarber.Application\bin\Debug\net8.0\LaBarber.Application.pdb
+D:\LucasToolbox\LaBarber\LaBarber.Application\bin\Debug\net8.0\LaBarber.Domain.dll
+D:\LucasToolbox\LaBarber\LaBarber.Application\bin\Debug\net8.0\LaBarber.Domain.pdb
+D:\LucasToolbox\LaBarber\LaBarber.Application\obj\Debug\net8.0\LaBarber.Application.csproj.AssemblyReference.cache
+D:\LucasToolbox\LaBarber\LaBarber.Application\obj\Debug\net8.0\LaBarber.Application.GeneratedMSBuildEditorConfig.editorconfig
+D:\LucasToolbox\LaBarber\LaBarber.Application\obj\Debug\net8.0\LaBarber.Application.AssemblyInfoInputs.cache
+D:\LucasToolbox\LaBarber\LaBarber.Application\obj\Debug\net8.0\LaBarber.Application.AssemblyInfo.cs
+D:\LucasToolbox\LaBarber\LaBarber.Application\obj\Debug\net8.0\LaBarber.Application.csproj.CoreCompileInputs.cache
+D:\LucasToolbox\LaBarber\LaBarber.Application\obj\Debug\net8.0\LaBarber.530D6D09.Up2Date
+D:\LucasToolbox\LaBarber\LaBarber.Application\obj\Debug\net8.0\LaBarber.Application.dll
+D:\LucasToolbox\LaBarber\LaBarber.Application\obj\Debug\net8.0\refint\LaBarber.Application.dll
+D:\LucasToolbox\LaBarber\LaBarber.Application\obj\Debug\net8.0\LaBarber.Application.pdb
+D:\LucasToolbox\LaBarber\LaBarber.Application\obj\Debug\net8.0\ref\LaBarber.Application.dll

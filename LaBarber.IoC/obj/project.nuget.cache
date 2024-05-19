@@ -1,0 +1,10 @@
+{
+  "version": 2,
+  "dgSpecHash": "r0j/ZW66p9g=",
+  "success": true,
+  "projectFilePath": "D:\\LucasToolbox\\LaBarber\\LaBarber.IoC\\LaBarber.IoC.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Lucas\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\8.0.1\\microsoft.extensions.dependencyinjection.abstractions.8.0.1.nupkg.sha512"
+  ],
+  "logs": []
+}

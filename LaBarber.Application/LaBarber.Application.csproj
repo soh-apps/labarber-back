@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\LaBarber.Domain\LaBarber.Domain.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Company\Commands\" />
+    <Folder Include="Company\Handlers\" />
+    <Folder Include="Company\UseCase\" />
+    <Folder Include="User\Boundaries\" />
+    <Folder Include="User\Commands\" />
+    <Folder Include="User\Handlers\" />
+    <Folder Include="User\UseCase\" />
+  </ItemGroup>
+
+</Project>
