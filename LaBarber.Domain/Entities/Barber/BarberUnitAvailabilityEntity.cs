@@ -4,9 +4,9 @@ using System.ComponentModel.DataAnnotations;
 namespace LaBarber.Domain.Entities.Barber
 {
     [Table("BarberUnitAvailability")]
-    public class BarberUnitAvailability
+    public class BarberUnitAvailabilityEntity
     {
-        public BarberUnitAvailability()
+        public BarberUnitAvailabilityEntity()
         {
             Id = 0;
             WorkingDay = 0;

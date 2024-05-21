@@ -27,6 +27,7 @@ namespace LaBarber.Infra.Configuration
         public DbSet<BarberEntity> Barber => Set<BarberEntity>();
         public DbSet<BarberPaymentHistoryEntity> BarberPaymentHistory => Set<BarberPaymentHistoryEntity>();
         public DbSet<BarberUnitEntity> BarberUnit => Set<BarberUnitEntity>();
+        public DbSet<BarberUnitAvailabilityEntity> BarberUnitAvailability => Set<BarberUnitAvailabilityEntity>();
         public DbSet<BarberWalletEntity> BarberWallet => Set<BarberWalletEntity>();
         public DbSet<CompanyEntity> Company => Set<CompanyEntity>();
         public DbSet<CustomerEntity> Customer => Set<CustomerEntity>();

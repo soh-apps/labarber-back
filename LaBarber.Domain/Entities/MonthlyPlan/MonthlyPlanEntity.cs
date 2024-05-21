@@ -23,7 +23,5 @@ namespace LaBarber.Domain.Entities.MonthlyPlan
 
         [Column("Value")]
         public decimal Value { get; set; }
-
-        public ICollection<CustomerEntity> Customers { get; set; }
     }
 }

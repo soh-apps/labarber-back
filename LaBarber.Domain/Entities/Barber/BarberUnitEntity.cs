@@ -14,12 +14,14 @@ namespace LaBarber.Domain.Entities.Barber
         {
             Id = 0;
             City = string.Empty;
+            Complement = string.Empty;
             State = string.Empty;
             Street = string.Empty;
             Number = string.Empty;
             ZipCode = string.Empty;
             Name = string.Empty;
             CompanyId = 0;
+            Company = new CompanyEntity();
             Status = BarberUnitStatus.Inactive;
         }
 
@@ -55,15 +57,5 @@ namespace LaBarber.Domain.Entities.Barber
 
         [Column("Status")]
         public BarberUnitStatus Status { get; set; }
-
-        public ICollection<BarberUnitAvailability> Availabilities { get; set; }
-
-        public ICollection<ServiceEntity> Services { get; set; }
-
-        public ICollection<BarberEntity> Barbers { get; set; }
-
-        public ICollection<AppointmentEntity> Appointments { get; set; }
-
-        public ICollection<AppUserEntity> Users { get; set; }
     }
 }

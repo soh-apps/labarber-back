@@ -74,11 +74,5 @@ namespace LaBarber.Domain.Entities.Barber
 
         [Column("NextPayment")]
         public DateTime? NextPayment { get; set; }
-
-        public ICollection<BarberPaymentHistoryEntity>? BarberPayments { get; set; }
-        
-        public ICollection<BarberAvailabilityEntity>? BarberAvailabilities { get; set; }
-
-        public ICollection<AppointmentEntity>? Appointments { get; set; }
     }
 }

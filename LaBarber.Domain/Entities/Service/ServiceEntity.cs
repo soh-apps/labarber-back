@@ -40,7 +40,5 @@ namespace LaBarber.Domain.Entities.Service
         public int BarberUnitId { get; set; }
 
         public BarberUnitEntity BarberUnit { get; set; }
-
-        public ICollection<AppointmentEntity> Appointments { get; set; }
     }
 }

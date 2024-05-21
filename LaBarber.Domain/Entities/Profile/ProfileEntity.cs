@@ -27,7 +27,5 @@ namespace LaBarber.Domain.Entities.Profile
 
         [Column("IsActive")]
         public bool IsActive { get; set; }
-
-        public ICollection<AppUserEntity> Users { get; set; }
     }
 }

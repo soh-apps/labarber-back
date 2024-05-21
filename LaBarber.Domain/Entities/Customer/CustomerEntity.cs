@@ -65,9 +65,5 @@ namespace LaBarber.Domain.Entities.Customer
 
         [Column("LastPayment")]
         public DateTime? LastPayment { get; set; }
-
-        public ICollection<AppointmentEntity> Appointments { get; set; }
-
-        public ICollection<CustomerPaymentHistoryEntity> CustomerPayments { get; set; }
     }
 }

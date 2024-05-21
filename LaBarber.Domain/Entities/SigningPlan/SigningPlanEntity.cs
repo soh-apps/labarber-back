@@ -37,7 +37,5 @@ namespace LaBarber.Domain.Entities.SigningPlan
 
         [Column("BarberLimit")]
         public int BarberLimit { get; set; }
-
-        public ICollection<CompanyEntity> Companies { get; set; }
     }
 }
