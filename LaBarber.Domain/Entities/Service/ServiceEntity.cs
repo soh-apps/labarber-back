@@ -39,6 +39,6 @@ namespace LaBarber.Domain.Entities.Service
         [Column("BarberUnitId")]
         public int BarberUnitId { get; set; }
 
-        public BarberUnitEntity BarberUnit { get; set; }
+        public virtual BarberUnitEntity BarberUnit { get; set; }
     }
 }

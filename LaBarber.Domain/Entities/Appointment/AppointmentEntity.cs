@@ -69,30 +69,30 @@ namespace LaBarber.Domain.Entities.Appointment
         [Column("CustomerId")]
         public int? CustomerId { get; set; }
 
-        public CustomerEntity? Customer { get; set; }
+        public virtual CustomerEntity? Customer { get; set; }
 
         [ForeignKey("Company")]
         [Column("CompanyId")]
         public int CompanyId { get; set; }
 
-        public CompanyEntity Company { get; set; }
+        public virtual CompanyEntity Company { get; set; }
 
         [ForeignKey("BarberUnit")]
         [Column("BarberUnitId")]
         public int BarberUnitId { get; set; }
 
-        public BarberUnitEntity BarberUnit { get; set; }
+        public virtual BarberUnitEntity BarberUnit { get; set; }
 
         [ForeignKey("Service")]
         [Column("ServiceId")]
         public int ServiceId { get; set; }
 
-        public ServiceEntity Service { get; set; }
+        public virtual ServiceEntity Service { get; set; }
 
         [ForeignKey("Barber")]
         [Column("BarberId")]
         public int BarberId { get; set; }
 
-        public BarberEntity Barber { get; set; }
+        public virtual BarberEntity Barber { get; set; }
     }
 }

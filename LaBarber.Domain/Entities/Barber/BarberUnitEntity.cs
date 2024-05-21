@@ -53,7 +53,7 @@ namespace LaBarber.Domain.Entities.Barber
         [Column("CompanyId")]
         public int CompanyId { get; set; }
 
-        public CompanyEntity Company { get; set; }
+        public virtual CompanyEntity Company { get; set; }
 
         [Column("Status")]
         public BarberUnitStatus Status { get; set; }

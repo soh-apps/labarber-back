@@ -37,24 +37,24 @@ namespace LaBarber.Domain.Entities.Customer
         [Column("CustomerId")]
         public int CustomerId { get; set; }
 
-        public CustomerEntity Customer { get; set; }
+        public virtual CustomerEntity Customer { get; set; }
 
         [ForeignKey("Barber")]
         [Column("BarberId")]
         public int BarberId { get; set; }
 
-        public BarberEntity Barber { get; set; }
+        public virtual BarberEntity Barber { get; set; }
 
         [ForeignKey("BarberUnit")]
         [Column("BarberUnitId")]
         public int BarberUnitId { get; set; }
 
-        public BarberUnitEntity BarberUnit { get; set; }
+        public virtual BarberUnitEntity BarberUnit { get; set; }
 
         [ForeignKey("Service")]
         [Column("ServiceId")]
         public int? ServiceId { get; set; }
 
-        public ServiceEntity? Service { get; set; }
+        public virtual ServiceEntity? Service { get; set; }
     }
 }

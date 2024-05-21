@@ -24,7 +24,7 @@ namespace LaBarber.Domain.Entities.Company
         [Column("SigningPlanId")]
         public int SigningPlanId { get; set; }
 
-        public SigningPlanEntity SigningPlan { get; set; }
+        public virtual SigningPlanEntity SigningPlan { get; set; }
 
         [Column("LastPayment")]
         public DateTime LastPayment { get; set; }

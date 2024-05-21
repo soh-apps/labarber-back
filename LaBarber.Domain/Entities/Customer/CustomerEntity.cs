@@ -52,13 +52,13 @@ namespace LaBarber.Domain.Entities.Customer
         [Column("MonthlyPlanId")]
         public int? MonthlyPlanId { get; set; }
 
-        public MonthlyPlanEntity? MonthlyPlan { get; set; }
+        public virtual MonthlyPlanEntity? MonthlyPlan { get; set; }
 
         [ForeignKey("Company")]
         [Column("CompanyId")]
         public int CompanyId { get; set; }
 
-        public CompanyEntity Company { get; set; }
+        public virtual CompanyEntity Company { get; set; }
 
         [Column("NextPayment")]
         public DateTime? NextPayment { get; set; }

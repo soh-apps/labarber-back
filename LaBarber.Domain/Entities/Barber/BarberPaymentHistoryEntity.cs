@@ -30,12 +30,12 @@ namespace LaBarber.Domain.Entities.Barber
         [Column("BarberId")]
         public int BarberId { get; set; }
 
-        public BarberEntity Barber { get; set; }
+        public virtual BarberEntity Barber { get; set; }
 
         [ForeignKey("BarberUnit")]
         [Column("BarberUnitId")]
         public int BarberUnitId { get; set; }
 
-        public BarberUnitEntity BarberUnit { get; set; }
+        public virtual BarberUnitEntity BarberUnit { get; set; }
     }
 }

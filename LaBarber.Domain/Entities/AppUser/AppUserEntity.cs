@@ -41,12 +41,12 @@ namespace LaBarber.Domain.Entities.AppUser
         [Column("ProfileId")]
         public int ProfileId { get; set; }
 
-        public ProfileEntity Profile { get; set; }
+        public virtual ProfileEntity Profile { get; set; }
 
         [ForeignKey("Company")]
         [Column("CompanyId")]
         public int? CompanyId { get; set; }
 
-        public CompanyEntity? Company { get; set; }
+        public virtual CompanyEntity? Company { get; set; }
     }
 }

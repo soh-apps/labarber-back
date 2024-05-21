@@ -59,12 +59,12 @@ namespace LaBarber.Domain.Entities.Barber
         [Column("ProfileId")]
         public int ProfileId { get; set; }
 
-        public ProfileEntity Profile { get; set; }
+        public virtual ProfileEntity Profile { get; set; }
 
         [Column("BarberUnitId")]
         public int BarberUnitId { get; set; }
 
-        public BarberUnitEntity BarberUnit { get; set; }
+        public virtual BarberUnitEntity BarberUnit { get; set; }
 
         [Column("Commissioned")]
         public bool Commissioned { get; set; }

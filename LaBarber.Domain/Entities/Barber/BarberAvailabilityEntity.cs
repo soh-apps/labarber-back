@@ -33,6 +33,6 @@ namespace LaBarber.Domain.Entities.Barber
         [Column("BarberId")]
         public int BarberId { get; set; }
 
-        public BarberEntity Barber { get; set; }
+        public virtual BarberEntity Barber { get; set; }
     }
 }

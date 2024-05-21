@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LaBarber.Infra.Migrations
 {
     [DbContext(typeof(ContextBase))]
-    [Migration("20240521023627_adding-tables")]
-    partial class addingtables
+    [Migration("20240521213731_first-migration")]
+    partial class firstmigration
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -33,9 +33,6 @@ namespace LaBarber.Infra.Migrations
                         .HasColumnName("Id");
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int?>("BarberUnitEntityId")
-                        .HasColumnType("integer");
 
                     b.Property<int?>("CompanyId")
                         .HasColumnType("integer")
@@ -64,8 +61,6 @@ namespace LaBarber.Infra.Migrations
                         .HasColumnName("Status");
 
                     b.HasKey("Id");
-
-                    b.HasIndex("BarberUnitEntityId");
 
                     b.HasIndex("CompanyId");
 
@@ -297,7 +292,7 @@ namespace LaBarber.Infra.Migrations
                     b.ToTable("BarberPaymentHistory");
                 });
 
-            modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberUnitAvailability", b =>
+            modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberUnitAvailabilityEntity", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -675,16 +670,12 @@ namespace LaBarber.Infra.Migrations
 
             modelBuilder.Entity("LaBarber.Domain.Entities.AppUser.AppUserEntity", b =>
                 {
-                    b.HasOne("LaBarber.Domain.Entities.Barber.BarberUnitEntity", null)
-                        .WithMany("Users")
-                        .HasForeignKey("BarberUnitEntityId");
-
                     b.HasOne("LaBarber.Domain.Entities.Company.CompanyEntity", "Company")
                         .WithMany()
                         .HasForeignKey("CompanyId");
 
                     b.HasOne("LaBarber.Domain.Entities.Profile.ProfileEntity", "Profile")
-                        .WithMany("Users")
+                        .WithMany()
                         .HasForeignKey("ProfileId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -697,13 +688,13 @@ namespace LaBarber.Infra.Migrations
             modelBuilder.Entity("LaBarber.Domain.Entities.Appointment.AppointmentEntity", b =>
                 {
                     b.HasOne("LaBarber.Domain.Entities.Barber.BarberEntity", "Barber")
-                        .WithMany("Appointments")
+                        .WithMany()
                         .HasForeignKey("BarberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("LaBarber.Domain.Entities.Barber.BarberUnitEntity", "BarberUnit")
-                        .WithMany("Appointments")
+                        .WithMany()
                         .HasForeignKey("BarberUnitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -715,11 +706,11 @@ namespace LaBarber.Infra.Migrations
                         .IsRequired();
 
                     b.HasOne("LaBarber.Domain.Entities.Customer.CustomerEntity", "Customer")
-                        .WithMany("Appointments")
+                        .WithMany()
                         .HasForeignKey("CustomerId");
 
                     b.HasOne("LaBarber.Domain.Entities.Service.ServiceEntity", "Service")
-                        .WithMany("Appointments")
+                        .WithMany()
                         .HasForeignKey("ServiceId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -738,7 +729,7 @@ namespace LaBarber.Infra.Migrations
             modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberAvailabilityEntity", b =>
                 {
                     b.HasOne("LaBarber.Domain.Entities.Barber.BarberEntity", "Barber")
-                        .WithMany("BarberAvailabilities")
+                        .WithMany()
                         .HasForeignKey("BarberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -749,7 +740,7 @@ namespace LaBarber.Infra.Migrations
             modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberEntity", b =>
                 {
                     b.HasOne("LaBarber.Domain.Entities.Barber.BarberUnitEntity", "BarberUnit")
-                        .WithMany("Barbers")
+                        .WithMany()
                         .HasForeignKey("BarberUnitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -768,7 +759,7 @@ namespace LaBarber.Infra.Migrations
             modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberPaymentHistoryEntity", b =>
                 {
                     b.HasOne("LaBarber.Domain.Entities.Barber.BarberEntity", "Barber")
-                        .WithMany("BarberPayments")
+                        .WithMany()
                         .HasForeignKey("BarberId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -784,10 +775,10 @@ namespace LaBarber.Infra.Migrations
                     b.Navigation("BarberUnit");
                 });
 
-            modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberUnitAvailability", b =>
+            modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberUnitAvailabilityEntity", b =>
                 {
                     b.HasOne("LaBarber.Domain.Entities.Barber.BarberUnitEntity", "BarberUnit")
-                        .WithMany("Availabilities")
+                        .WithMany()
                         .HasForeignKey("BarberUnitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -820,7 +811,7 @@ namespace LaBarber.Infra.Migrations
             modelBuilder.Entity("LaBarber.Domain.Entities.Company.CompanyEntity", b =>
                 {
                     b.HasOne("LaBarber.Domain.Entities.SigningPlan.SigningPlanEntity", "SigningPlan")
-                        .WithMany("Companies")
+                        .WithMany()
                         .HasForeignKey("SigningPlanId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -837,7 +828,7 @@ namespace LaBarber.Infra.Migrations
                         .IsRequired();
 
                     b.HasOne("LaBarber.Domain.Entities.MonthlyPlan.MonthlyPlanEntity", "MonthlyPlan")
-                        .WithMany("Customers")
+                        .WithMany()
                         .HasForeignKey("MonthlyPlanId");
 
                     b.Navigation("Company");
@@ -860,7 +851,7 @@ namespace LaBarber.Infra.Migrations
                         .IsRequired();
 
                     b.HasOne("LaBarber.Domain.Entities.Customer.CustomerEntity", "Customer")
-                        .WithMany("CustomerPayments")
+                        .WithMany()
                         .HasForeignKey("CustomerId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -881,61 +872,12 @@ namespace LaBarber.Infra.Migrations
             modelBuilder.Entity("LaBarber.Domain.Entities.Service.ServiceEntity", b =>
                 {
                     b.HasOne("LaBarber.Domain.Entities.Barber.BarberUnitEntity", "BarberUnit")
-                        .WithMany("Services")
+                        .WithMany()
                         .HasForeignKey("BarberUnitId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("BarberUnit");
-                });
-
-            modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberEntity", b =>
-                {
-                    b.Navigation("Appointments");
-
-                    b.Navigation("BarberAvailabilities");
-
-                    b.Navigation("BarberPayments");
-                });
-
-            modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberUnitEntity", b =>
-                {
-                    b.Navigation("Appointments");
-
-                    b.Navigation("Availabilities");
-
-                    b.Navigation("Barbers");
-
-                    b.Navigation("Services");
-
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("LaBarber.Domain.Entities.Customer.CustomerEntity", b =>
-                {
-                    b.Navigation("Appointments");
-
-                    b.Navigation("CustomerPayments");
-                });
-
-            modelBuilder.Entity("LaBarber.Domain.Entities.MonthlyPlan.MonthlyPlanEntity", b =>
-                {
-                    b.Navigation("Customers");
-                });
-
-            modelBuilder.Entity("LaBarber.Domain.Entities.Profile.ProfileEntity", b =>
-                {
-                    b.Navigation("Users");
-                });
-
-            modelBuilder.Entity("LaBarber.Domain.Entities.Service.ServiceEntity", b =>
-                {
-                    b.Navigation("Appointments");
-                });
-
-            modelBuilder.Entity("LaBarber.Domain.Entities.SigningPlan.SigningPlanEntity", b =>
-                {
-                    b.Navigation("Companies");
                 });
 #pragma warning restore 612, 618
         }

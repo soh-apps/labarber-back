@@ -7,24 +7,106 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LaBarber.Infra.Migrations
 {
     /// <inheritdoc />
-    public partial class addentities : Migration
+    public partial class firstmigration : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<DateTime>(
-                name: "RegisterDate",
-                table: "Profile",
-                type: "timestamp with time zone",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
+            migrationBuilder.CreateTable(
+                name: "MonthlyPlan",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Description = table.Column<string>(type: "text", nullable: false),
+                    Value = table.Column<decimal>(type: "numeric", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_MonthlyPlan", x => x.Id);
+                });
 
-            migrationBuilder.AddColumn<int>(
-                name: "CompanyId",
-                table: "Customer",
-                type: "integer",
-                nullable: false,
-                defaultValue: 0);
+            migrationBuilder.CreateTable(
+                name: "Profile",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    RegisterDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    IsActive = table.Column<bool>(type: "boolean", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Profile", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "SigningPlan",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Value = table.Column<decimal>(type: "numeric", nullable: false),
+                    PaymentType = table.Column<int>(type: "integer", nullable: false),
+                    BarberUnitLimit = table.Column<int>(type: "integer", nullable: false),
+                    BarberLimit = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SigningPlan", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Company",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    SigningPlanId = table.Column<int>(type: "integer", nullable: false),
+                    LastPayment = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    NextPayment = table.Column<DateTime>(type: "timestamp with time zone", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Company", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Company_SigningPlan_SigningPlanId",
+                        column: x => x.SigningPlanId,
+                        principalTable: "SigningPlan",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "AppUser",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Name = table.Column<string>(type: "text", nullable: false),
+                    Password = table.Column<string>(type: "text", nullable: false),
+                    Status = table.Column<int>(type: "integer", nullable: false),
+                    RegisterDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
+                    ProfileId = table.Column<int>(type: "integer", nullable: false),
+                    CompanyId = table.Column<int>(type: "integer", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_AppUser", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_AppUser_Company_CompanyId",
+                        column: x => x.CompanyId,
+                        principalTable: "Company",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_AppUser_Profile_ProfileId",
+                        column: x => x.ProfileId,
+                        principalTable: "Profile",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
 
             migrationBuilder.CreateTable(
                 name: "BarberUnit",
@@ -54,38 +136,36 @@ namespace LaBarber.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "AppUser",
+                name: "Customer",
                 columns: table => new
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     Password = table.Column<string>(type: "text", nullable: false),
+                    Email = table.Column<string>(type: "text", nullable: false),
+                    MonthlyPayer = table.Column<bool>(type: "boolean", nullable: false),
+                    MonthlyValue = table.Column<decimal>(type: "numeric", nullable: true),
                     Status = table.Column<int>(type: "integer", nullable: false),
-                    RegisterDate = table.Column<DateTime>(type: "timestamp with time zone", nullable: false),
-                    ProfileId = table.Column<int>(type: "integer", nullable: false),
-                    CompanyId = table.Column<int>(type: "integer", nullable: true),
-                    BarberUnitEntityId = table.Column<int>(type: "integer", nullable: true)
+                    MonthlyPlanId = table.Column<int>(type: "integer", nullable: true),
+                    CompanyId = table.Column<int>(type: "integer", nullable: false),
+                    NextPayment = table.Column<DateTime>(type: "timestamp with time zone", nullable: true),
+                    LastPayment = table.Column<DateTime>(type: "timestamp with time zone", nullable: true)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_AppUser", x => x.Id);
+                    table.PrimaryKey("PK_Customer", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_AppUser_BarberUnit_BarberUnitEntityId",
-                        column: x => x.BarberUnitEntityId,
-                        principalTable: "BarberUnit",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_AppUser_Company_CompanyId",
+                        name: "FK_Customer_Company_CompanyId",
                         column: x => x.CompanyId,
                         principalTable: "Company",
-                        principalColumn: "Id");
-                    table.ForeignKey(
-                        name: "FK_AppUser_Profile_ProfileId",
-                        column: x => x.ProfileId,
-                        principalTable: "Profile",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_Customer_MonthlyPlan_MonthlyPlanId",
+                        column: x => x.MonthlyPlanId,
+                        principalTable: "MonthlyPlan",
+                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateTable(
@@ -221,6 +301,27 @@ namespace LaBarber.Infra.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "BarberWallet",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "integer", nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    Commission = table.Column<decimal>(type: "numeric", nullable: false),
+                    Earnings = table.Column<decimal>(type: "numeric", nullable: false),
+                    BarberId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_BarberWallet", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_BarberWallet_Barber_BarberId",
+                        column: x => x.BarberId,
+                        principalTable: "Barber",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Appointment",
                 columns: table => new
                 {
@@ -317,21 +418,6 @@ namespace LaBarber.Infra.Migrations
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Customer_CompanyId",
-                table: "Customer",
-                column: "CompanyId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Customer_MonthlyPlanId",
-                table: "Customer",
-                column: "MonthlyPlanId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Company_SigningPlanId",
-                table: "Company",
-                column: "SigningPlanId");
-
-            migrationBuilder.CreateIndex(
                 name: "IX_Appointment_BarberId",
                 table: "Appointment",
                 column: "BarberId");
@@ -355,11 +441,6 @@ namespace LaBarber.Infra.Migrations
                 name: "IX_Appointment_ServiceId",
                 table: "Appointment",
                 column: "ServiceId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_AppUser_BarberUnitEntityId",
-                table: "AppUser",
-                column: "BarberUnitEntityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_AppUser_CompanyId",
@@ -407,6 +488,26 @@ namespace LaBarber.Infra.Migrations
                 column: "BarberUnitId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_BarberWallet_BarberId",
+                table: "BarberWallet",
+                column: "BarberId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Company_SigningPlanId",
+                table: "Company",
+                column: "SigningPlanId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customer_CompanyId",
+                table: "Customer",
+                column: "CompanyId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Customer_MonthlyPlanId",
+                table: "Customer",
+                column: "MonthlyPlanId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_CustomerPaymentHistory_BarberId",
                 table: "CustomerPaymentHistory",
                 column: "BarberId");
@@ -430,46 +531,11 @@ namespace LaBarber.Infra.Migrations
                 name: "IX_Service_BarberUnitId",
                 table: "Service",
                 column: "BarberUnitId");
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Company_SigningPlan_SigningPlanId",
-                table: "Company",
-                column: "SigningPlanId",
-                principalTable: "SigningPlan",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Customer_Company_CompanyId",
-                table: "Customer",
-                column: "CompanyId",
-                principalTable: "Company",
-                principalColumn: "Id",
-                onDelete: ReferentialAction.Cascade);
-
-            migrationBuilder.AddForeignKey(
-                name: "FK_Customer_MonthlyPlan_MonthlyPlanId",
-                table: "Customer",
-                column: "MonthlyPlanId",
-                principalTable: "MonthlyPlan",
-                principalColumn: "Id");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.DropForeignKey(
-                name: "FK_Company_SigningPlan_SigningPlanId",
-                table: "Company");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Customer_Company_CompanyId",
-                table: "Customer");
-
-            migrationBuilder.DropForeignKey(
-                name: "FK_Customer_MonthlyPlan_MonthlyPlanId",
-                table: "Customer");
-
             migrationBuilder.DropTable(
                 name: "Appointment");
 
@@ -486,36 +552,34 @@ namespace LaBarber.Infra.Migrations
                 name: "BarberUnitAvailability");
 
             migrationBuilder.DropTable(
+                name: "BarberWallet");
+
+            migrationBuilder.DropTable(
                 name: "CustomerPaymentHistory");
 
             migrationBuilder.DropTable(
                 name: "Barber");
 
             migrationBuilder.DropTable(
+                name: "Customer");
+
+            migrationBuilder.DropTable(
                 name: "Service");
+
+            migrationBuilder.DropTable(
+                name: "Profile");
+
+            migrationBuilder.DropTable(
+                name: "MonthlyPlan");
 
             migrationBuilder.DropTable(
                 name: "BarberUnit");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Customer_CompanyId",
-                table: "Customer");
+            migrationBuilder.DropTable(
+                name: "Company");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Customer_MonthlyPlanId",
-                table: "Customer");
-
-            migrationBuilder.DropIndex(
-                name: "IX_Company_SigningPlanId",
-                table: "Company");
-
-            migrationBuilder.DropColumn(
-                name: "RegisterDate",
-                table: "Profile");
-
-            migrationBuilder.DropColumn(
-                name: "CompanyId",
-                table: "Customer");
+            migrationBuilder.DropTable(
+                name: "SigningPlan");
         }
     }
 }
