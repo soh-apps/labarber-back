@@ -2,7 +2,7 @@ namespace LaBarber.Domain.Entities.Customer
 {
     public enum CustomerStatus
     {
-        Active = 0,
-        Inactive = 1,
+        Inactive = 0,
+        Active = 1,
     }
 }

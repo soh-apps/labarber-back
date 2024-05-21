@@ -1,5 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using LaBarber.Domain.Entities.Company;
 using LaBarber.Domain.Enums;
 
 namespace LaBarber.Domain.Entities.SigningPlan
@@ -27,7 +28,6 @@ namespace LaBarber.Domain.Entities.SigningPlan
         [Column("Value")]
         public decimal Value { get; set; }
 
-
         //O que seria isso?? Recurrence????
         [Column("PaymentType")]
         public PaymentType PaymentType { get; set; }
@@ -37,5 +37,7 @@ namespace LaBarber.Domain.Entities.SigningPlan
 
         [Column("BarberLimit")]
         public int BarberLimit { get; set; }
+
+        public ICollection<CompanyEntity> Companies { get; set; }
     }
 }

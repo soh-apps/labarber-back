@@ -1,0 +1,23 @@
+version: "3"
+services:
+  postgres-db:
+    hostname: postgres-compose
+    image: postgres
+    environment:
+      POSTGRES_PASSWORD: "teste@2024"
+    ports:
+      - "15432:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+
+  pgadmin-compose:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: "teste@test.com"
+      PGADMIN_DEFAULT_PASSWORD: "teste@2024"
+    ports:
+      - "16543:80"
+    depends_on:
+      - postgres-db
+volumes:
+  pgdata:

@@ -1,3 +1,6 @@
+using LaBarber.Domain.Entities.Appointment;
+using LaBarber.Domain.Entities.Company;
+using LaBarber.Domain.Entities.MonthlyPlan;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -18,6 +21,9 @@ namespace LaBarber.Domain.Entities.Customer
             NextPayment = null;
             LastPayment = null;
             MonthlyPlanId = null;
+            MonthlyPlan = null;
+            CompanyId = 0;
+            Company = new CompanyEntity();
         }
 
         [Key]
@@ -46,11 +52,22 @@ namespace LaBarber.Domain.Entities.Customer
         [Column("MonthlyPlanId")]
         public int? MonthlyPlanId { get; set; }
 
+        public MonthlyPlanEntity? MonthlyPlan { get; set; }
+
+        [ForeignKey("Company")]
+        [Column("CompanyId")]
+        public int CompanyId { get; set; }
+
+        public CompanyEntity Company { get; set; }
+
         [Column("NextPayment")]
         public DateTime? NextPayment { get; set; }
 
         [Column("LastPayment")]
         public DateTime? LastPayment { get; set; }
 
+        public ICollection<AppointmentEntity> Appointments { get; set; }
+
+        public ICollection<CustomerPaymentHistoryEntity> CustomerPayments { get; set; }
     }
 }

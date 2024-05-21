@@ -10,7 +10,6 @@
     <Folder Include="Base\Communication\" />
     <Folder Include="Base\Messages\" />
     <Folder Include="Dtos\User\" />
-    <Folder Include="Entities\User\" />
     <Folder Include="Enums\" />
   </ItemGroup>
 

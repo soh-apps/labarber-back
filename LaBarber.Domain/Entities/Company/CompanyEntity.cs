@@ -1,3 +1,4 @@
+using LaBarber.Domain.Entities.SigningPlan;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,8 +11,9 @@ namespace LaBarber.Domain.Entities.Company
         {
             Id = 0;
             SigningPlanId = 0;
-            LatPayment = DateTime.Now;
+            LastPayment = DateTime.Now;
             NextPayment = DateTime.Now;
+            SigningPlan = new SigningPlanEntity();
         }
 
         [Key]
@@ -22,8 +24,10 @@ namespace LaBarber.Domain.Entities.Company
         [Column("SigningPlanId")]
         public int SigningPlanId { get; set; }
 
+        public SigningPlanEntity SigningPlan { get; set; }
+
         [Column("LastPayment")]
-        public DateTime LatPayment { get; set; }
+        public DateTime LastPayment { get; set; }
 
         [Column("NextPayment")]
         public DateTime NextPayment { get; set; }
