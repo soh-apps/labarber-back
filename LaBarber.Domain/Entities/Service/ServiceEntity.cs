@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LaBarber.Domain.Entities.Service
 {
+    [Table("Service")]
     public class ServiceEntity
     {
         public ServiceEntity()

@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LaBarber.Domain.Entities.AppUser
 {
+    [Table("AppUser")]
     public class AppUserEntity
     {
         public AppUserEntity()

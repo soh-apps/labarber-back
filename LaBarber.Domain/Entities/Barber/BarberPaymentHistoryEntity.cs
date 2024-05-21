@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LaBarber.Domain.Entities.Barber
 {
+    [Table("BarberPaymentHistory")]
     public class BarberPaymentHistoryEntity
     {
         public BarberPaymentHistoryEntity()

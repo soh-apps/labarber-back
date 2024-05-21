@@ -3,6 +3,7 @@ using System;
 using LaBarber.Infra.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LaBarber.Infra.Migrations
 {
     [DbContext(typeof(ContextBase))]
-    partial class ContextBaseModelSnapshot : ModelSnapshot
+    [Migration("20240521022540_add-entities")]
+    partial class addentities
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -383,34 +386,6 @@ namespace LaBarber.Infra.Migrations
                     b.HasIndex("CompanyId");
 
                     b.ToTable("BarberUnit");
-                });
-
-            modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberWalletEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("integer")
-                        .HasColumnName("Id");
-
-                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
-
-                    b.Property<int>("BarberId")
-                        .HasColumnType("integer")
-                        .HasColumnName("BarberId");
-
-                    b.Property<decimal>("Commission")
-                        .HasColumnType("numeric")
-                        .HasColumnName("Commission");
-
-                    b.Property<decimal>("Earnings")
-                        .HasColumnType("numeric")
-                        .HasColumnName("Earnings");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("BarberId");
-
-                    b.ToTable("BarberWallet");
                 });
 
             modelBuilder.Entity("LaBarber.Domain.Entities.Company.CompanyEntity", b =>
@@ -801,17 +776,6 @@ namespace LaBarber.Infra.Migrations
                         .IsRequired();
 
                     b.Navigation("Company");
-                });
-
-            modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberWalletEntity", b =>
-                {
-                    b.HasOne("LaBarber.Domain.Entities.Barber.BarberEntity", "Barber")
-                        .WithMany()
-                        .HasForeignKey("BarberId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Barber");
                 });
 
             modelBuilder.Entity("LaBarber.Domain.Entities.Company.CompanyEntity", b =>

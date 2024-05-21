@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LaBarber.Domain.Entities.Barber
 {
+    [Table("Barber")]
     public class BarberEntity
     {
         public BarberEntity()
@@ -74,10 +75,10 @@ namespace LaBarber.Domain.Entities.Barber
         [Column("NextPayment")]
         public DateTime? NextPayment { get; set; }
 
-        public ICollection<BarberPaymentHistoryEntity> BarberPayments { get; set; }
+        public ICollection<BarberPaymentHistoryEntity>? BarberPayments { get; set; }
         
-        public ICollection<BarberAvailabilityEntity> BarberAvailabilities { get; set; }
+        public ICollection<BarberAvailabilityEntity>? BarberAvailabilities { get; set; }
 
-        public ICollection<AppointmentEntity> Appointments { get; set; }
+        public ICollection<AppointmentEntity>? Appointments { get; set; }
     }
 }

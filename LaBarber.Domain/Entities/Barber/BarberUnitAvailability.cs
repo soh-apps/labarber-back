@@ -3,6 +3,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace LaBarber.Domain.Entities.Barber
 {
+    [Table("BarberUnitAvailability")]
     public class BarberUnitAvailability
     {
         public BarberUnitAvailability()

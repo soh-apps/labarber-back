@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LaBarber.Domain.Entities.Appointment
 {
+    [Table("Appointment")]
     public class AppointmentEntity
     {
         public AppointmentEntity()
