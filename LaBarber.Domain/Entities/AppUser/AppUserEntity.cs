@@ -1,5 +1,6 @@
 ﻿using LaBarber.Domain.Entities.Company;
 using LaBarber.Domain.Entities.Profile;
+using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 

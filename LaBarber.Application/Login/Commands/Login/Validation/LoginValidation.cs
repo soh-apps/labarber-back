@@ -1,7 +1,7 @@
 ﻿using FluentValidation;
-using LaBarber.Application.AppUser.Boundaries;
+using LaBarber.Application.Login.Boundaries;
 
-namespace LaBarber.Application.AppUser.Commands.Login.Validation
+namespace LaBarber.Application.Login.Commands.Login.Validation
 {
     public class LoginValidation : AbstractValidator<LoginInput>
     {

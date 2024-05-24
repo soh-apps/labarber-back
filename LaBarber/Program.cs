@@ -24,6 +24,7 @@ else
 builder.Services.AddDbContext<ContextBase>(
     options => options.UseNpgsql(connectionString));
 
+builder.Services.AddAuthenticationJwt(builder.Configuration.GetSection("ClientSecret").Value!);
 builder.Services.AddServices();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
@@ -40,6 +41,7 @@ if (app.Environment.IsDevelopment())
 
 app.UseHttpsRedirection();
 
+app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();

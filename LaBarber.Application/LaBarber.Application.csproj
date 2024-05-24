@@ -14,11 +14,12 @@
     <Folder Include="Company\Commands\" />
     <Folder Include="Company\Handlers\" />
     <Folder Include="Company\UseCase\" />
-    <Folder Include="AppUser\UseCase\" />
   </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="FluentValidation" Version="11.9.1" />
+    <PackageReference Include="Microsoft.Extensions.Options" Version="8.0.0" />
+    <PackageReference Include="System.IdentityModel.Tokens.Jwt" Version="7.5.2" />
   </ItemGroup>
 
 </Project>

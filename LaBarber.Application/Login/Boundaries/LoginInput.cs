@@ -1,4 +1,4 @@
-﻿namespace LaBarber.Application.AppUser.Boundaries
+﻿namespace LaBarber.Application.Login.Boundaries
 {
     public class LoginInput
     {

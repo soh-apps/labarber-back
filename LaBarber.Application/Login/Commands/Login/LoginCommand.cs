@@ -1,10 +1,10 @@
-﻿using LaBarber.Application.AppUser.Boundaries;
-using LaBarber.Application.AppUser.Commands.Login.Validation;
+﻿using LaBarber.Application.Login.Boundaries;
+using LaBarber.Application.Login.Commands.Login.Validation;
 using LaBarber.Domain.Base.Messages;
 
-namespace LaBarber.Application.AppUser.Commands.Login
+namespace LaBarber.Application.Login.Commands.Login
 {
-    public class LoginCommand : Command<bool>
+    public class LoginCommand : Command<LoginOutput>
     {
         public LoginCommand(LoginInput input) 
         {

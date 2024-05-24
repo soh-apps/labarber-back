@@ -1,7 +1,9 @@
-﻿namespace LaBarber.Domain.Entities.AppUser
+﻿using LaBarber.Domain.Dtos.Login;
+
+namespace LaBarber.Domain.Entities.AppUser
 {
     public interface IAppUserRepository
     {
-        Task<bool> LoginAppUser(string username, string pwd);
+        Task<LoginDto> LoginAppUser(string username, string pwd);
     }
 }
