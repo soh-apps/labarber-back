@@ -34,11 +34,31 @@ namespace LaBarber.Infra.Repository.Credential
                 switch (credential.ProfileId)
                 {
                     case 1:
-                        credential.UserId = await context.AppUser.Where(u => u.CredentialId == credential.CredentialId)
+                    case 2:
+                    case 3:
+                        credential.UserId = await context.AppUser
+                            .Where(u => u.CredentialId == credential.CredentialId)
                             .AsNoTracking()
                             .Select(u => u.Id)
                             .FirstOrDefaultAsync();
                         break;
+
+                    case 4:
+                        credential.UserId = await context.Barber
+                            .Where(u => u.CredentialId == credential.CredentialId)
+                            .AsNoTracking()
+                            .Select(u => u.Id)
+                            .FirstOrDefaultAsync();
+                        break;
+
+                    case 5:
+                        credential.UserId = await context.Customer
+                            .Where(u => u.CredentialId == credential.CredentialId)
+                            .AsNoTracking()
+                            .Select(u => u.Id)
+                            .FirstOrDefaultAsync();
+                        break;
+
                     default:
                         credential.UserId = 0;
                         break;
