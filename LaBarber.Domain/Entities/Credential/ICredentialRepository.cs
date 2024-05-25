@@ -1,8 +1,8 @@
 ﻿using LaBarber.Domain.Dtos.Login;
 
-namespace LaBarber.Application.AppUser.UseCase
+namespace LaBarber.Domain.Entities.Credential
 {
-    public interface IAppUserUseCase
+    public interface ICredentialRepository
     {
         Task<LoginDto> Login(string username, string pwd);
     }

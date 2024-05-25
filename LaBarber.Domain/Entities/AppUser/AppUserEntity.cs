@@ -1,4 +1,5 @@
 ﻿using LaBarber.Domain.Entities.Company;
+using LaBarber.Domain.Entities.Credential;
 using LaBarber.Domain.Entities.Profile;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
@@ -13,13 +14,12 @@ namespace LaBarber.Domain.Entities.AppUser
         {
             Id = 0;
             Name = string.Empty;
-            Password = string.Empty;
             Status = UserStatus.Inactive;
             RegisterDate = DateTime.Now;
-            ProfileId = 0;
-            Profile = new ProfileEntity();
             CompanyId = null;
             Company = null;
+            CredentialId = 0;
+            Credential = new CredentialEntity();
         }
 
         [Key]
@@ -29,25 +29,22 @@ namespace LaBarber.Domain.Entities.AppUser
         [Column("Name")]
         public string Name { get; set; }
 
-        [Column("Password")]
-        public string Password { get; set; }
-
         [Column("Status")]
         public UserStatus Status { get; set; }
 
         [Column("RegisterDate")]
         public DateTime RegisterDate { get; set; }
 
-        [ForeignKey("Profile")]
-        [Column("ProfileId")]
-        public int ProfileId { get; set; }
-
-        public virtual ProfileEntity Profile { get; set; }
-
         [ForeignKey("Company")]
         [Column("CompanyId")]
         public int? CompanyId { get; set; }
 
         public virtual CompanyEntity? Company { get; set; }
+
+        [ForeignKey("Credential")]
+        [Column("CredentialId")]
+        public int CredentialId { get; set; }
+
+        public CredentialEntity Credential { get; set; }
     }
 }

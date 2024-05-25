@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace LaBarber.Infra.Migrations
 {
     [DbContext(typeof(ContextBase))]
-    [Migration("20240521213731_first-migration")]
+    [Migration("20240525135550_first-migration")]
     partial class firstmigration
     {
         /// <inheritdoc />
@@ -38,19 +38,14 @@ namespace LaBarber.Infra.Migrations
                         .HasColumnType("integer")
                         .HasColumnName("CompanyId");
 
+                    b.Property<int>("CredentialId")
+                        .HasColumnType("integer")
+                        .HasColumnName("CredentialId");
+
                     b.Property<string>("Name")
                         .IsRequired()
                         .HasColumnType("text")
                         .HasColumnName("Name");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Password");
-
-                    b.Property<int>("ProfileId")
-                        .HasColumnType("integer")
-                        .HasColumnName("ProfileId");
 
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("timestamp with time zone")
@@ -64,7 +59,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.HasIndex("ProfileId");
+                    b.HasIndex("CredentialId");
 
                     b.ToTable("AppUser");
                 });
@@ -204,6 +199,10 @@ namespace LaBarber.Infra.Migrations
                         .HasColumnType("boolean")
                         .HasColumnName("Commissioned");
 
+                    b.Property<int>("CredentialId")
+                        .HasColumnType("integer")
+                        .HasColumnName("CredentialId");
+
                     b.Property<DateTime?>("LastPayment")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("LastPayment");
@@ -216,15 +215,6 @@ namespace LaBarber.Infra.Migrations
                     b.Property<DateTime?>("NextPayment")
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("NextPayment");
-
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Password");
-
-                    b.Property<int>("ProfileId")
-                        .HasColumnType("integer")
-                        .HasColumnName("ProfileId");
 
                     b.Property<DateTime>("RegisterDate")
                         .HasColumnType("timestamp with time zone")
@@ -253,7 +243,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasIndex("BarberUnitId");
 
-                    b.HasIndex("ProfileId");
+                    b.HasIndex("CredentialId");
 
                     b.ToTable("Barber");
                 });
@@ -439,6 +429,36 @@ namespace LaBarber.Infra.Migrations
                     b.ToTable("Company");
                 });
 
+            modelBuilder.Entity("LaBarber.Domain.Entities.Credential.CredentialEntity", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer")
+                        .HasColumnName("Id");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
+
+                    b.Property<string>("Password")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Password");
+
+                    b.Property<int>("ProfileId")
+                        .HasColumnType("integer")
+                        .HasColumnName("ProfileId");
+
+                    b.Property<string>("Username")
+                        .IsRequired()
+                        .HasColumnType("text")
+                        .HasColumnName("Username");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProfileId");
+
+                    b.ToTable("Credential");
+                });
+
             modelBuilder.Entity("LaBarber.Domain.Entities.Customer.CustomerEntity", b =>
                 {
                     b.Property<int>("Id")
@@ -451,6 +471,10 @@ namespace LaBarber.Infra.Migrations
                     b.Property<int>("CompanyId")
                         .HasColumnType("integer")
                         .HasColumnName("CompanyId");
+
+                    b.Property<int>("CredentialId")
+                        .HasColumnType("integer")
+                        .HasColumnName("CredentialId");
 
                     b.Property<string>("Email")
                         .IsRequired()
@@ -482,11 +506,6 @@ namespace LaBarber.Infra.Migrations
                         .HasColumnType("timestamp with time zone")
                         .HasColumnName("NextPayment");
 
-                    b.Property<string>("Password")
-                        .IsRequired()
-                        .HasColumnType("text")
-                        .HasColumnName("Password");
-
                     b.Property<int>("Status")
                         .HasColumnType("integer")
                         .HasColumnName("Status");
@@ -494,6 +513,8 @@ namespace LaBarber.Infra.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CompanyId");
+
+                    b.HasIndex("CredentialId");
 
                     b.HasIndex("MonthlyPlanId");
 
@@ -594,6 +615,43 @@ namespace LaBarber.Infra.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Profile");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            IsActive = true,
+                            Name = "Master",
+                            RegisterDate = new DateTime(2024, 5, 25, 13, 55, 49, 538, DateTimeKind.Utc).AddTicks(1972)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            IsActive = true,
+                            Name = "Admin",
+                            RegisterDate = new DateTime(2024, 5, 25, 13, 55, 49, 538, DateTimeKind.Utc).AddTicks(1975)
+                        },
+                        new
+                        {
+                            Id = 3,
+                            IsActive = true,
+                            Name = "Manager",
+                            RegisterDate = new DateTime(2024, 5, 25, 13, 55, 49, 538, DateTimeKind.Utc).AddTicks(1976)
+                        },
+                        new
+                        {
+                            Id = 4,
+                            IsActive = true,
+                            Name = "Barber",
+                            RegisterDate = new DateTime(2024, 5, 25, 13, 55, 49, 538, DateTimeKind.Utc).AddTicks(1977)
+                        },
+                        new
+                        {
+                            Id = 5,
+                            IsActive = true,
+                            Name = "Customer",
+                            RegisterDate = new DateTime(2024, 5, 25, 13, 55, 49, 538, DateTimeKind.Utc).AddTicks(1978)
+                        });
                 });
 
             modelBuilder.Entity("LaBarber.Domain.Entities.Service.ServiceEntity", b =>
@@ -674,15 +732,15 @@ namespace LaBarber.Infra.Migrations
                         .WithMany()
                         .HasForeignKey("CompanyId");
 
-                    b.HasOne("LaBarber.Domain.Entities.Profile.ProfileEntity", "Profile")
+                    b.HasOne("LaBarber.Domain.Entities.Credential.CredentialEntity", "Credential")
                         .WithMany()
-                        .HasForeignKey("ProfileId")
+                        .HasForeignKey("CredentialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Company");
 
-                    b.Navigation("Profile");
+                    b.Navigation("Credential");
                 });
 
             modelBuilder.Entity("LaBarber.Domain.Entities.Appointment.AppointmentEntity", b =>
@@ -745,15 +803,15 @@ namespace LaBarber.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LaBarber.Domain.Entities.Profile.ProfileEntity", "Profile")
+                    b.HasOne("LaBarber.Domain.Entities.Credential.CredentialEntity", "Credential")
                         .WithMany()
-                        .HasForeignKey("ProfileId")
+                        .HasForeignKey("CredentialId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("BarberUnit");
 
-                    b.Navigation("Profile");
+                    b.Navigation("Credential");
                 });
 
             modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberPaymentHistoryEntity", b =>
@@ -819,6 +877,17 @@ namespace LaBarber.Infra.Migrations
                     b.Navigation("SigningPlan");
                 });
 
+            modelBuilder.Entity("LaBarber.Domain.Entities.Credential.CredentialEntity", b =>
+                {
+                    b.HasOne("LaBarber.Domain.Entities.Profile.ProfileEntity", "Profile")
+                        .WithMany()
+                        .HasForeignKey("ProfileId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Profile");
+                });
+
             modelBuilder.Entity("LaBarber.Domain.Entities.Customer.CustomerEntity", b =>
                 {
                     b.HasOne("LaBarber.Domain.Entities.Company.CompanyEntity", "Company")
@@ -827,11 +896,19 @@ namespace LaBarber.Infra.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
+                    b.HasOne("LaBarber.Domain.Entities.Credential.CredentialEntity", "Credential")
+                        .WithMany()
+                        .HasForeignKey("CredentialId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("LaBarber.Domain.Entities.MonthlyPlan.MonthlyPlanEntity", "MonthlyPlan")
                         .WithMany()
                         .HasForeignKey("MonthlyPlanId");
 
                     b.Navigation("Company");
+
+                    b.Navigation("Credential");
 
                     b.Navigation("MonthlyPlan");
                 });

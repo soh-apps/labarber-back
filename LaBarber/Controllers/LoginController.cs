@@ -3,6 +3,7 @@ using LaBarber.Application.Login.Commands.Login;
 using LaBarber.Domain.Base.Communication;
 using LaBarber.Domain.Base.Messages.Notification;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace LaBarber.API.Controllers
@@ -30,6 +31,14 @@ namespace LaBarber.API.Controllers
             {
                 return BadRequest(GetMessages());
             }
+        }
+
+        [HttpGet("Teste")]
+        [Authorize]
+        public async Task<IActionResult> Teste()
+        {
+            var userId = GetUserId();
+            return Ok();
         }
     }
 }

@@ -1,6 +1,8 @@
-﻿using LaBarber.Domain.Base.Messages.Notification;
+﻿using LaBarber.Domain.Base.Exceptions;
+using LaBarber.Domain.Base.Messages.Notification;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 
 namespace LaBarber.API.Controllers
 {
@@ -21,6 +23,18 @@ namespace LaBarber.API.Controllers
         protected IEnumerable<string> GetMessages()
         {
             return _notificationHandler.GetNotifications().Select(x => x.Value).ToList();
+        }
+
+        protected int GetUserId()
+        {
+            if (!string.IsNullOrEmpty(User.FindFirstValue(ClaimTypes.NameIdentifier)))
+            {
+                return int.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+            }
+            else
+            {
+                throw new DomainException("Id do usuário não encontrado.");
+            }
         }
     }
 }

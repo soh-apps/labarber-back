@@ -11,6 +11,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="AppUser\" />
     <Folder Include="Company\Commands\" />
     <Folder Include="Company\Handlers\" />
     <Folder Include="Company\UseCase\" />

@@ -1,5 +1,6 @@
 using LaBarber.Domain.Entities.Appointment;
 using LaBarber.Domain.Entities.Company;
+using LaBarber.Domain.Entities.Credential;
 using LaBarber.Domain.Entities.MonthlyPlan;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -13,7 +14,6 @@ namespace LaBarber.Domain.Entities.Customer
         {
             Id = 0;
             Name = string.Empty;
-            Password = string.Empty;
             Email = string.Empty;
             MonthlyPayer = false;
             Status = CustomerStatus.Inactive;
@@ -24,6 +24,8 @@ namespace LaBarber.Domain.Entities.Customer
             MonthlyPlan = null;
             CompanyId = 0;
             Company = new CompanyEntity();
+            CredentialId = 0;
+            Credential = new CredentialEntity();
         }
 
         [Key]
@@ -32,9 +34,6 @@ namespace LaBarber.Domain.Entities.Customer
 
         [Column("Name")]
         public string Name { get; set; }
-
-        [Column("Password")]
-        public string Password { get; set; }
 
         [Column("Email")]
         public string Email { get; set; }
@@ -65,5 +64,12 @@ namespace LaBarber.Domain.Entities.Customer
 
         [Column("LastPayment")]
         public DateTime? LastPayment { get; set; }
+
+
+        [ForeignKey("Credential")]
+        [Column("CredentialId")]
+        public int CredentialId { get; set; }
+
+        public CredentialEntity Credential { get; set; }
     }
 }

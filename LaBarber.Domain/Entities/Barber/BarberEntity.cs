@@ -1,4 +1,5 @@
 ﻿using LaBarber.Domain.Entities.Appointment;
+using LaBarber.Domain.Entities.Credential;
 using LaBarber.Domain.Entities.Profile;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -12,20 +13,19 @@ namespace LaBarber.Domain.Entities.Barber
         {
             Id = 0;
             Name = string.Empty;
-            Password = string.Empty;
             City = string.Empty;
             State = string.Empty;
             Street = string.Empty;
             ZipCode = string.Empty;
             Status = 0;
             RegisterDate = DateTime.Now;
-            ProfileId = 0;
-            Profile = new ProfileEntity();
             BarberUnitId = 0;
             BarberUnit = new BarberUnitEntity();
             Commissioned = false;
             LastPayment = DateTime.Now;
             NextPayment = DateTime.Now;
+            CredentialId = 0;
+            Credential = new CredentialEntity();
         }
 
         [Key]
@@ -34,9 +34,6 @@ namespace LaBarber.Domain.Entities.Barber
 
         [Column("Name")]
         public string Name { get; set; }
-
-        [Column("Password")]
-        public string Password { get; set; }
 
         [Column("City")]
         public string City { get; set; }
@@ -56,11 +53,6 @@ namespace LaBarber.Domain.Entities.Barber
         [Column("RegisterDate")]
         public DateTime RegisterDate { get; set; }
 
-        [Column("ProfileId")]
-        public int ProfileId { get; set; }
-
-        public virtual ProfileEntity Profile { get; set; }
-
         [Column("BarberUnitId")]
         public int BarberUnitId { get; set; }
 
@@ -74,5 +66,12 @@ namespace LaBarber.Domain.Entities.Barber
 
         [Column("NextPayment")]
         public DateTime? NextPayment { get; set; }
+
+
+        [ForeignKey("Credential")]
+        [Column("CredentialId")]
+        public int CredentialId { get; set; }
+
+        public CredentialEntity Credential { get; set; }
     }
 }

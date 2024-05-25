@@ -15,6 +15,14 @@ namespace LaBarber.Domain.Entities.Profile
             RegisterDate = DateTime.Now;
         }
 
+        public ProfileEntity(int id, string name, DateTime registerDate, bool isActive)
+        {
+            Id = id;
+            Name = name;
+            RegisterDate = registerDate;
+            IsActive = isActive;
+        }
+
         [Key]
         [Column("Id")]
         public int Id { get; set; }

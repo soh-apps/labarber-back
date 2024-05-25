@@ -1,12 +1,12 @@
-﻿using LaBarber.Application.AppUser.UseCase;
+﻿using LaBarber.Application.Login.UseCase;
 using LaBarber.Application.Login.Boundaries;
 using LaBarber.Application.Login.Commands.Login;
 using LaBarber.Application.Login.Handlers;
 using LaBarber.Application.Token;
 using LaBarber.Domain.Base.Communication;
 using LaBarber.Domain.Base.Messages.Notification;
-using LaBarber.Domain.Entities.AppUser;
-using LaBarber.Infra.Repository.User;
+using LaBarber.Domain.Entities.Credential;
+using LaBarber.Infra.Repository.Credential;
 using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Http;
@@ -28,10 +28,10 @@ namespace LaBarber.IoC
 
             services.AddTransient<IRequestHandler<LoginCommand, LoginOutput>, LoginHandler>();
 
-            services.AddScoped<IAppUserUseCase, AppUserUseCase>();
+            services.AddScoped<ILoginUseCase, LoginUseCase>();
             services.AddScoped<ITokenUseCase, TokenUseCase>();
 
-            services.AddScoped<IAppUserRepository, AppUserRepository>();
+            services.AddScoped<ICredentialRepository, CredentialRepository>();
         }
 
         public static void AddAuthenticationJwt(this IServiceCollection services, string secret)
