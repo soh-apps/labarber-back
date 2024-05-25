@@ -63,14 +63,6 @@ namespace LaBarber.Infra.Configuration
                 && types.Contains(i.GenericTypeArguments[0]))
                 );
 
-            modelBuilder.Entity<ProfileEntity>().HasData(
-                  new ProfileEntity(1, "Master", new DateTime(2024, 5, 25, 18, 25, 36, 478, DateTimeKind.Utc).AddTicks(5560), true)
-                , new ProfileEntity(2, "Admin", new DateTime(2024, 5, 25, 18, 25, 36, 478, DateTimeKind.Utc).AddTicks(5560), true)
-                , new ProfileEntity(3, "Manager", new DateTime(2024, 5, 25, 18, 25, 36, 478, DateTimeKind.Utc).AddTicks(5560), true)
-                , new ProfileEntity(4, "Barber", new DateTime(2024, 5, 25, 18, 25, 36, 478, DateTimeKind.Utc).AddTicks(5560), true)
-                , new ProfileEntity(5, "Customer", new DateTime(2024, 5, 25, 18, 25, 36, 478, DateTimeKind.Utc).AddTicks(5560), true)
-                );
-
             base.OnModelCreating(modelBuilder);
         }
     }
