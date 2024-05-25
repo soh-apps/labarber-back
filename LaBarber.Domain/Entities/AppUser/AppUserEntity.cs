@@ -1,7 +1,7 @@
-﻿using LaBarber.Domain.Entities.Company;
+﻿using LaBarber.Domain.Dtos.AppUser;
+using LaBarber.Domain.Entities.Company;
 using LaBarber.Domain.Entities.Credential;
-using LaBarber.Domain.Entities.Profile;
-using Microsoft.EntityFrameworkCore;
+using LaBarber.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -15,11 +15,22 @@ namespace LaBarber.Domain.Entities.AppUser
             Id = 0;
             Name = string.Empty;
             Status = UserStatus.Inactive;
-            RegisterDate = DateTime.Now;
+            RegisterDate = DateTime.UtcNow;
             CompanyId = null;
             Company = null;
             CredentialId = 0;
-            Credential = new CredentialEntity();
+            Credential = null;
+        }
+
+        public AppUserEntity(CreateAppUserDto dto)
+        {
+            Name = dto.Name;
+            Status = dto.Status;
+            RegisterDate = dto.RegisterDate;
+            CompanyId = dto.CompanyId;
+            CredentialId = dto.CredentialId;
+            Credential = null;
+            Company = null;
         }
 
         [Key]
@@ -45,6 +56,6 @@ namespace LaBarber.Domain.Entities.AppUser
         [Column("CredentialId")]
         public int CredentialId { get; set; }
 
-        public CredentialEntity Credential { get; set; }
+        public virtual CredentialEntity? Credential { get; set; }
     }
 }

@@ -18,12 +18,12 @@ namespace LaBarber.Domain.Entities.Barber
             Street = string.Empty;
             ZipCode = string.Empty;
             Status = 0;
-            RegisterDate = DateTime.Now;
+            RegisterDate = DateTime.UtcNow;
             BarberUnitId = 0;
             BarberUnit = new BarberUnitEntity();
             Commissioned = false;
-            LastPayment = DateTime.Now;
-            NextPayment = DateTime.Now;
+            LastPayment = DateTime.UtcNow;
+            NextPayment = DateTime.UtcNow;
             CredentialId = 0;
             Credential = new CredentialEntity();
         }

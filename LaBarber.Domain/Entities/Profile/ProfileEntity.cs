@@ -12,7 +12,7 @@ namespace LaBarber.Domain.Entities.Profile
             Id = 0;
             Name = string.Empty;
             IsActive = false;
-            RegisterDate = DateTime.Now;
+            RegisterDate = DateTime.UtcNow;
         }
 
         public ProfileEntity(int id, string name, DateTime registerDate, bool isActive)

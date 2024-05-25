@@ -14,8 +14,8 @@ namespace LaBarber.Domain.Entities.Appointment
         {
             Id = 0;
             CustomerName = string.Empty;
-            StartAppointmentDate = DateTime.Now;
-            EndAppointmentDate = DateTime.Now;
+            StartAppointmentDate = DateTime.UtcNow;
+            EndAppointmentDate = DateTime.UtcNow;
             Value = 0;
             IsCommissioned = false;
             CommissionValue = null;

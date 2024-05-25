@@ -11,7 +11,7 @@ namespace LaBarber.Domain.Entities.Customer
         public CustomerPaymentHistoryEntity()
         {
             Id = 0;
-            PaymentDate = DateTime.Now;
+            PaymentDate = DateTime.UtcNow;
             PaymentValue = 0;
             BarberId = 0;
             Barber = new BarberEntity();

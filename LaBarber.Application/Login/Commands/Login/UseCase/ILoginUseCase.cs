@@ -5,5 +5,6 @@ namespace LaBarber.Application.Login.UseCase
     public interface ILoginUseCase
     {
         Task<LoginDto> Login(string username, string pwd);
+        Task<int> CreateLogin(CreateCredentialDto dto);
     }
 }

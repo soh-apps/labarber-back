@@ -17,6 +17,18 @@ namespace LaBarber.Infra.Repository.Credential
             _optionsBuilder = new DbContextOptions<ContextBase>();
             _secrets = secrets;
         }
+
+        public async Task<int> CreateCredential(CreateCredentialDto dto)
+        {
+            using var context = new ContextBase(_optionsBuilder, _secrets);
+            var credential = new CredentialEntity(dto);
+
+            await context.Credential.AddAsync(credential);
+            await context.SaveChangesAsync();
+
+            return credential.Id;
+        }
+
         public async Task<LoginDto> Login(string username, string pwd)
         {
             using var context = new ContextBase(_optionsBuilder, _secrets);

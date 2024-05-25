@@ -5,5 +5,6 @@ namespace LaBarber.Domain.Entities.Credential
     public interface ICredentialRepository
     {
         Task<LoginDto> Login(string username, string pwd);
+        Task<int> CreateCredential(CreateCredentialDto dto);
     }
 }

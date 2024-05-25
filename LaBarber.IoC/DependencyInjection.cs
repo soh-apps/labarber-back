@@ -19,6 +19,10 @@ using LaBarber.Infra.Repository.Company;
 using LaBarber.Application.Company.Commands;
 using LaBarber.Application.Company.Handlers;
 using LaBarber.Application.Company.UseCase;
+using LaBarber.Application.Company.Commands.CreateCompanyUser;
+using LaBarber.Application.AppUser.UseCase;
+using LaBarber.Domain.Entities.AppUser;
+using LaBarber.Infra.Repository.AppUser;
 
 namespace LaBarber.IoC
 {
@@ -27,7 +31,7 @@ namespace LaBarber.IoC
         public static void AddServices(this IServiceCollection services)
         {
             services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
-            
+
             services.AddScoped<IMediatorHandler, MediatorHandler>();
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
 
@@ -38,10 +42,15 @@ namespace LaBarber.IoC
 
             services.AddScoped<ICredentialRepository, CredentialRepository>();
 
+            //AppUser
+            services.AddScoped<IAppUserUseCase, AppUserUseCase>();
+            services.AddScoped<IAppUserRepository, AppUserRepository>();
+
             //Company
             services.AddScoped<ICompanyRepository, CompanyRepository>();
             services.AddScoped<ICompanyUseCase, CompanyUseCase>();
             services.AddTransient<IRequestHandler<CreateCompanyCommand, bool>, CreateCompanyHandler>();
+            services.AddTransient<IRequestHandler<CreateCompanyUserCommand, bool>, CreateCompanyUserHandler>();
         }
 
         public static void AddAuthenticationJwt(this IServiceCollection services, string secret)
@@ -75,6 +84,6 @@ namespace LaBarber.IoC
 
                 });
         }
-        
+
     }
 }

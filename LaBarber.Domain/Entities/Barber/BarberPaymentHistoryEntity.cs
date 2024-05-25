@@ -9,7 +9,7 @@ namespace LaBarber.Domain.Entities.Barber
         public BarberPaymentHistoryEntity()
         {
             Id = 0;
-            PaymentDate = DateTime.Now;
+            PaymentDate = DateTime.UtcNow;
             PaymentValue = 0;
             BarberId = 0;
             Barber = new BarberEntity();

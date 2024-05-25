@@ -1,4 +1,5 @@
-﻿using LaBarber.Domain.Entities.Profile;
+﻿using LaBarber.Domain.Dtos.Login;
+using LaBarber.Domain.Entities.Profile;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -13,7 +14,21 @@ namespace LaBarber.Domain.Entities.Credential
             Username = string.Empty;
             Password = string.Empty;
             ProfileId = 0;
-            Profile = new ProfileEntity();
+            Profile =  null;
+            ChangedPassword = false;
+            ChangePasswordCode = string.Empty;
+            Email = string.Empty;
+        }
+
+        public CredentialEntity(CreateCredentialDto dto)
+        {
+            Username = dto.Username;
+            Password = dto.Password;
+            ChangePasswordCode = string.Empty;
+            ProfileId = Convert.ToInt32(dto.Profile);
+            Email = dto.Email;
+            ChangedPassword = false;
+            Profile = null;
         }
 
         [Key]
@@ -26,10 +41,19 @@ namespace LaBarber.Domain.Entities.Credential
         [Column("Password")]
         public string Password { get; set; }
 
+        [Column("ChangePasswordCode")]
+        public string ChangePasswordCode { get; set; }
+
+        [Column("ChangedPassword")]
+        public bool ChangedPassword { get; set; }
+
+        [Column("Email")]
+        public string Email { get; set; }
+
         [ForeignKey("Profile")]
         [Column("ProfileId")]
         public int ProfileId { get; set; }
 
-        public virtual ProfileEntity Profile { get; set; }
+        public virtual ProfileEntity? Profile { get; set; }
     }
 }

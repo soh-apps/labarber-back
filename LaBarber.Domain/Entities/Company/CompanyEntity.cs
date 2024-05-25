@@ -12,8 +12,8 @@ namespace LaBarber.Domain.Entities.Company
         {
             Id = 0;
             SigningPlanId = 0;
-            LastPayment = DateTime.Now;
-            NextPayment = DateTime.Now;
+            LastPayment = DateTime.UtcNow;
+            NextPayment = DateTime.UtcNow;
             SigningPlan = new SigningPlanEntity();
             Name = string.Empty;
             CNPJ = string.Empty;
