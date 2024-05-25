@@ -1,3 +1,4 @@
+using System.Reflection;
 using LaBarber.Domain.Configuration;
 using LaBarber.Infra.Configuration;
 using LaBarber.IoC;
@@ -21,6 +22,8 @@ else
     connectionString = builder.Configuration.GetSection("ConnectionString").Value ?? string.Empty;
 }
 
+var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+
 builder.Services.AddDbContext<ContextBase>(
     options => options.UseNpgsql(connectionString));
 
@@ -28,7 +31,7 @@ builder.Services.AddAuthenticationJwt(builder.Configuration.GetSection("ClientSe
 builder.Services.AddServices();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
-builder.Services.AddSwaggerGen();
+builder.Services.AddSwaggerGenConfig(xmlFile);
 
 var app = builder.Build();
 

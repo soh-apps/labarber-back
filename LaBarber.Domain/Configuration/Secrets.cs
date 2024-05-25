@@ -11,6 +11,7 @@
             ConnectionString = string.Empty;
             PreSalt = string.Empty;
             PosSalt = string.Empty;
+            ClientSecret = string.Empty;
         }
     }
 }

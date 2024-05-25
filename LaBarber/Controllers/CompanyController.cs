@@ -1,34 +1,43 @@
 ﻿using LaBarber.Application.Company.Boundaries;
+using LaBarber.Application.Company.Commands;
+using LaBarber.Domain.Base.Communication;
+using LaBarber.Domain.Base.Messages.Notification;
+using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace LaBarber.API.Controllers
 {
     [ApiController]
     [Route("[controller]")]
-    public class CompanyController : ControllerBase
+    [Authorize]
+    public class CompanyController : BaseController
     {
-        public CompanyController()
+        private readonly IMediatorHandler _handler;
+        public CompanyController(INotificationHandler<DomainNotification> notificationHandler, IMediatorHandler handler) : base(notificationHandler)
         {
+            _handler = handler;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Get()
+        [HttpPost("CreateCompany")]
+        [Authorize(Roles = "Master")]
+        [SwaggerResponse(201, "Empresa criada com sucesso")]
+        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
+        public async Task<IActionResult> CreateCompany(CreateCompanyInput company)
         {
-            IEnumerable<CompanyOutput> company = new List<CompanyOutput>()
+            var command = new CreateCompanyCommand(company);
+
+            await _handler.SendCommand<CreateCompanyCommand, bool>(command);
+
+            if (IsValidOperation())
             {
-                new CompanyOutput()
-                {
-                    Id = 1,
-                    Name = "Teste"
-                }
-            };
-            return Ok(await Task.FromResult(company));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Post(NewCompanyInput company)
-        {
-            return Ok();
+                return Created();
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
         }
     }
 }

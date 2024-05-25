@@ -14,6 +14,11 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
 using System.Reflection;
 using System.Text;
+using LaBarber.Domain.Entities.Company;
+using LaBarber.Infra.Repository.Company;
+using LaBarber.Application.Company.Commands;
+using LaBarber.Application.Company.Handlers;
+using LaBarber.Application.Company.UseCase;
 
 namespace LaBarber.IoC
 {
@@ -32,6 +37,11 @@ namespace LaBarber.IoC
             services.AddScoped<ITokenUseCase, TokenUseCase>();
 
             services.AddScoped<ICredentialRepository, CredentialRepository>();
+
+            //Company
+            services.AddScoped<ICompanyRepository, CompanyRepository>();
+            services.AddScoped<ICompanyUseCase, CompanyUseCase>();
+            services.AddTransient<IRequestHandler<CreateCompanyCommand, bool>, CreateCompanyHandler>();
         }
 
         public static void AddAuthenticationJwt(this IServiceCollection services, string secret)

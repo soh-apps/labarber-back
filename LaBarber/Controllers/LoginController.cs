@@ -5,6 +5,7 @@ using LaBarber.Domain.Base.Messages.Notification;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Swashbuckle.AspNetCore.Annotations;
 
 namespace LaBarber.API.Controllers
 {
@@ -19,6 +20,8 @@ namespace LaBarber.API.Controllers
         }
 
         [HttpPost]
+        [SwaggerResponse(200, "Login realizado com sucesso", typeof(LoginOutput))]
+        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
         public async Task<IActionResult> Login([FromBody] LoginInput input)
         {
             var command = new LoginCommand(input);
@@ -31,14 +34,6 @@ namespace LaBarber.API.Controllers
             {
                 return BadRequest(GetMessages());
             }
-        }
-
-        [HttpGet("Teste")]
-        [Authorize]
-        public async Task<IActionResult> Teste()
-        {
-            var userId = GetUserId();
-            return Ok();
         }
     }
 }
