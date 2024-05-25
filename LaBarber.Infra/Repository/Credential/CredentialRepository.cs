@@ -35,7 +35,6 @@ namespace LaBarber.Infra.Repository.Credential
                 {
                     case 1:
                     case 2:
-                    case 3:
                         credential.UserId = await context.AppUser
                             .Where(u => u.CredentialId == credential.CredentialId)
                             .AsNoTracking()
@@ -43,6 +42,7 @@ namespace LaBarber.Infra.Repository.Credential
                             .FirstOrDefaultAsync();
                         break;
 
+                    case 3:
                     case 4:
                         credential.UserId = await context.Barber
                             .Where(u => u.CredentialId == credential.CredentialId)
