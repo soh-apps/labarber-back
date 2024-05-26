@@ -23,6 +23,10 @@ using LaBarber.Application.Company.Commands.CreateCompanyUser;
 using LaBarber.Application.AppUser.UseCase;
 using LaBarber.Domain.Entities.AppUser;
 using LaBarber.Infra.Repository.AppUser;
+using LaBarber.Domain.Base.Email;
+using LaBarber.Infra.Services;
+using LaBarber.Application.Login.Commands.ForgotPassword;
+using LaBarber.Application.Login.Commands.RecoverPassword;
 
 namespace LaBarber.IoC
 {
@@ -35,9 +39,13 @@ namespace LaBarber.IoC
             services.AddScoped<IMediatorHandler, MediatorHandler>();
             services.AddScoped<INotificationHandler<DomainNotification>, DomainNotificationHandler>();
 
-            services.AddTransient<IRequestHandler<LoginCommand, LoginOutput>, LoginHandler>();
-
+            //Login
             services.AddScoped<ILoginUseCase, LoginUseCase>();
+            services.AddTransient<IRequestHandler<LoginCommand, LoginOutput>, LoginHandler>();
+            services.AddTransient<IRequestHandler<ForgotPasswordCommand, bool>, ForgotPasswordHandler>();
+            services.AddTransient<IRequestHandler<RecoverPasswordCommand, bool>, RecoverPasswordHandler>();
+
+
             services.AddScoped<ITokenUseCase, TokenUseCase>();
 
             services.AddScoped<ICredentialRepository, CredentialRepository>();
@@ -51,6 +59,9 @@ namespace LaBarber.IoC
             services.AddScoped<ICompanyUseCase, CompanyUseCase>();
             services.AddTransient<IRequestHandler<CreateCompanyCommand, bool>, CreateCompanyHandler>();
             services.AddTransient<IRequestHandler<CreateCompanyUserCommand, bool>, CreateCompanyUserHandler>();
+
+            //Email
+            services.AddScoped<IEmailSender, EmailSender>();
         }
 
         public static void AddAuthenticationJwt(this IServiceCollection services, string secret)

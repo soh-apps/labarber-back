@@ -4,6 +4,6 @@ namespace LaBarber.Application.AppUser.UseCase
 {
     public interface IAppUserUseCase 
     {
-        Task CreateAppUser(CreateAppUserDto dto);
+        Task<bool> CreateAppUser(CreateAppUserDto dto);
     }
 }

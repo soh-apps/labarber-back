@@ -12,9 +12,18 @@ namespace LaBarber.Application.AppUser.UseCase
             _repository = repository;
         }
 
-        public async Task CreateAppUser(CreateAppUserDto dto)
+        public async Task<bool> CreateAppUser(CreateAppUserDto dto)
         {
-            await _repository.CreateAppUser(dto);
+            try
+            {
+                await _repository.CreateAppUser(dto);
+                return true;
+            }
+            catch
+            {
+                return false;
+            }
+
         }
     }
 }

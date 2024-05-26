@@ -39,11 +39,15 @@ namespace LaBarber.Application.Company.Handlers
                 if (credentialId > 0)
                 {
                     var appUserDto = new CreateAppUserDto(input.Name, UserStatus.Active, DateTime.UtcNow, input.CompanyId, credentialId);
-                    await _appUserUseCase.CreateAppUser(appUserDto);
-                    return true;
+                    var success = await _appUserUseCase.CreateAppUser(appUserDto);
+                    if(success)
+                    {
+                        return true;
+                    }
+                    else {
+                        await _loginUseCase.DeleteLogin(credentialId);
+                    }
                 }
-
-                //TODO, desfazer a credential caso a falha seja no AppUser
 
                 await _handler.PublishNotification(new DomainNotification(request.MessageType, "Ocorreu um erro ao criar o usuário"));
             }

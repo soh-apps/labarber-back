@@ -6,5 +6,6 @@ namespace LaBarber.Application.Token
     {
         string EncryptPassword(string password);
         string GenerateToken(string name, string role, int userId);
+        string GenerateRecoveryCode();
     }
 }
