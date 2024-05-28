@@ -19,5 +19,18 @@ services:
       - "16543:80"
     depends_on:
       - postgres-db
+  
+  # backend:
+  #   build:
+  #     context: .
+  #     dockerfile: ./LaBarber/Dockerfile
+  #     args:
+  #       - BUILD_CONFIGURATION=Debug
+  #   ports:
+  #     - "5270:8080"
+  #   environment: 
+  #     - ASPNETCORE_ENVIRONMENT=Development
+  #     - ConnectionString=Host=postgres-db;Database=barber;User Id=postgres;Password=teste@2024;Pooling=true;
+
 volumes:
   pgdata:

@@ -8,16 +8,25 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+var loggerFactory = LoggerFactory.Create(builder =>
+{
+    builder.AddConsole();
+    builder.AddDebug();
+});
+var logger = loggerFactory.CreateLogger<Program>();
+
+
 builder.Services.AddControllers();
 string connectionString = string.Empty;
 string secret = string.Empty;
 
 if (builder.Environment.IsProduction())
 {
-
+logger.LogInformation("Ambiente de produção detectado.");
 }
 else
 {
+    logger.LogInformation("Ambiente de Desenvolvimento/Local detectado.");
     builder.Services.Configure<Secrets>(builder.Configuration);
     connectionString = builder.Configuration.GetSection("ConnectionString").Value ?? string.Empty;
 }
@@ -36,8 +45,9 @@ builder.Services.AddSwaggerGenConfig(xmlFile);
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
-if (app.Environment.IsDevelopment())
+if (builder.Environment.IsDevelopment())
 {
+    logger.LogInformation("Swagger configurado");
     app.UseSwagger();
     app.UseSwaggerUI();
 }
