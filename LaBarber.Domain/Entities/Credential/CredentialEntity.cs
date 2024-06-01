@@ -20,6 +20,18 @@ namespace LaBarber.Domain.Entities.Credential
             Email = string.Empty;
         }
 
+        public CredentialEntity(int id, string username, string password, int profileId, string email)
+        {
+            Id = id;
+            Username = username;
+            Password = password;
+            ProfileId = profileId;
+            Profile =  null;
+            ChangedPassword = false;
+            ChangePasswordCode = string.Empty;
+            Email = email;
+        }
+
         public CredentialEntity(CreateCredentialDto dto)
         {
             Username = dto.Username;

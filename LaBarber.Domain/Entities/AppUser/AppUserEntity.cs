@@ -21,6 +21,17 @@ namespace LaBarber.Domain.Entities.AppUser
             CredentialId = 0;
             Credential = null;
         }
+        public AppUserEntity(int id, string name, int? companyId, int credentialId)
+        {
+            Id = id;
+            Name = name;
+            Status = UserStatus.Active;
+            RegisterDate = DateTime.UtcNow;
+            CompanyId = companyId;
+            Company = null;
+            CredentialId = credentialId;
+            Credential = null;
+        }
 
         public AppUserEntity(CreateAppUserDto dto)
         {
