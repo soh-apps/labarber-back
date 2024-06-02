@@ -27,5 +27,17 @@ namespace LaBarber.Infra.Repository.AppUser
             await context.AppUser.AddAsync(user);
             await context.SaveChangesAsync();
         }
+
+        public async Task<GetAppUserDto> GetById(int id)
+        {
+            using var context = new ContextBase(_optionsBuilder, _secrets);
+
+            var result = await context.AppUser.FindAsync(id);
+            if (result == null)
+            {
+                return await Task.FromResult<GetAppUserDto>(null);
+            }
+            return new GetAppUserDto(result);
+        }
     }
 }

@@ -36,5 +36,17 @@ namespace LaBarber.API.Controllers
                 throw new DomainException("Id do usuário não encontrado.");
             }
         }
+
+        protected string GetUserRole()
+        {
+            if (!string.IsNullOrEmpty(User.FindFirstValue(ClaimTypes.Role)))
+            {
+                return User.FindFirstValue(ClaimTypes.Role)!;
+            }
+            else
+            {
+                throw new DomainException("Id do usuário não encontrado.");
+            }
+        }
     }
 }

@@ -25,5 +25,17 @@ namespace LaBarber.Application.AppUser.UseCase
             }
 
         }
+
+        public async Task<GetAppUserDto> GetAppUserById(int id)
+        {
+            try
+            {
+                return await _repository.GetById(id);
+            }
+            catch
+            {
+                return await Task.FromResult(new GetAppUserDto());
+            }
+        }
     }
 }

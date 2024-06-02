@@ -27,6 +27,11 @@ using LaBarber.Domain.Base.Email;
 using LaBarber.Infra.Services;
 using LaBarber.Application.Login.Commands.ForgotPassword;
 using LaBarber.Application.Login.Commands.RecoverPassword;
+using LaBarber.Application.BarberUnit.Commands;
+using LaBarber.Application.BarberUnit.Handlers;
+using LaBarber.Application.BarberUnit.UseCase;
+using LaBarber.Domain.Entities.Barber;
+using LaBarber.Infra.Repository.Barber;
 
 namespace LaBarber.IoC
 {
@@ -59,6 +64,11 @@ namespace LaBarber.IoC
             services.AddScoped<ICompanyUseCase, CompanyUseCase>();
             services.AddTransient<IRequestHandler<CreateCompanyCommand, bool>, CreateCompanyHandler>();
             services.AddTransient<IRequestHandler<CreateCompanyUserCommand, bool>, CreateCompanyUserHandler>();
+            
+            //BarberUnit
+            services.AddScoped<IBarberUnitUseCase, BarberUnitUseCase>();
+            services.AddScoped<IBarberUnitRepository, BarberUnitRepository>();
+            services.AddTransient<IRequestHandler<CreateBarberUnitCommand, bool>, CreateBarberUnitHandler>();
 
             //Email
             services.AddScoped<IEmailSender, EmailSender>();

@@ -1,7 +1,5 @@
-﻿using LaBarber.Domain.Entities.Appointment;
-using LaBarber.Domain.Entities.AppUser;
+﻿using LaBarber.Domain.Dtos.BarberUnit;
 using LaBarber.Domain.Entities.Company;
-using LaBarber.Domain.Entities.Service;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -23,6 +21,21 @@ namespace LaBarber.Domain.Entities.Barber
             CompanyId = 0;
             Company = new CompanyEntity();
             Status = BarberUnitStatus.Inactive;
+        }
+
+        public BarberUnitEntity(CreateBarberUnitDto input)
+        {
+            Id = 0;
+            City = input.City;
+            Complement = input.Complement;
+            State = input.State;
+            Street = input.Street;
+            Number = input.Number;
+            ZipCode = input.ZipCode;
+            Name = input.Name;
+            CompanyId = input.CompanyId;
+            Company = null;
+            Status = BarberUnitStatus.Active;
         }
 
         [Key]
@@ -53,7 +66,7 @@ namespace LaBarber.Domain.Entities.Barber
         [Column("CompanyId")]
         public int CompanyId { get; set; }
 
-        public virtual CompanyEntity Company { get; set; }
+        public virtual CompanyEntity? Company { get; set; }
 
         [Column("Status")]
         public BarberUnitStatus Status { get; set; }
