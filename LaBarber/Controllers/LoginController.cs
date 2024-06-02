@@ -2,6 +2,7 @@
 using LaBarber.Application.Login.Commands.ForgotPassword;
 using LaBarber.Application.Login.Commands.Login;
 using LaBarber.Application.Login.Commands.RecoverPassword;
+using LaBarber.Application.Login.Commands.RefreshToken;
 using LaBarber.Domain.Base.Communication;
 using LaBarber.Domain.Base.Messages.Notification;
 using MediatR;
@@ -29,6 +30,23 @@ namespace LaBarber.API.Controllers
         {
             var command = new LoginCommand(input);
             var response = await _handler.SendCommand<LoginCommand, LoginOutput>(command);
+            if (IsValidOperation())
+            {
+                return Ok(response);
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
+        }
+
+        [HttpPost("RefreshToken")]
+        [SwaggerResponse(200, "Login realizado com sucesso", typeof(LoginOutput))]
+        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
+        public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenInput input)
+        {
+            var command = new RefreshTokenCommand(input);
+            var response = await _handler.SendCommand<RefreshTokenCommand, LoginOutput>(command);
             if (IsValidOperation())
             {
                 return Ok(response);

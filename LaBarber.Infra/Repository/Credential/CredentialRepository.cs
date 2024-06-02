@@ -104,6 +104,29 @@ namespace LaBarber.Infra.Repository.Credential
             return new CredentialDto();
         }
 
+        public async Task<LoginDto> LoginById(int credentialId)
+        {
+            using var context = new ContextBase(_optionsBuilder, _secrets);
+
+            var credential = await (from login in context.Credential
+                                    join profile in context.Profile
+                                    on login.ProfileId equals profile.Id
+                                    where login.Id == credentialId
+                                    select new LoginDto(login.Username, profile.Name, 0, profile.Id, login.Id))
+              .AsNoTracking()
+              .FirstOrDefaultAsync();
+
+            if (credential != null)
+            {
+                credential.UserId = await GetUserId(credential.ProfileId, credential.CredentialId, context);
+                return credential;
+            }
+            else
+            {
+                return new LoginDto();
+            }
+        }
+
         public async Task<LoginDto> Login(string username, string pwd)
         {
             using var context = new ContextBase(_optionsBuilder, _secrets);
@@ -118,44 +141,51 @@ namespace LaBarber.Infra.Repository.Credential
 
             if (credential != null)
             {
-                switch (credential.ProfileId)
-                {
-                    case 1:
-                    case 2:
-                        credential.UserId = await context.AppUser
-                            .Where(u => u.CredentialId == credential.CredentialId)
-                            .AsNoTracking()
-                            .Select(u => u.Id)
-                            .FirstOrDefaultAsync();
-                        break;
-
-                    case 3:
-                    case 4:
-                        credential.UserId = await context.Barber
-                            .Where(u => u.CredentialId == credential.CredentialId)
-                            .AsNoTracking()
-                            .Select(u => u.Id)
-                            .FirstOrDefaultAsync();
-                        break;
-
-                    case 5:
-                        credential.UserId = await context.Customer
-                            .Where(u => u.CredentialId == credential.CredentialId)
-                            .AsNoTracking()
-                            .Select(u => u.Id)
-                            .FirstOrDefaultAsync();
-                        break;
-
-                    default:
-                        credential.UserId = 0;
-                        break;
-                }
+                credential.UserId = await GetUserId(credential.ProfileId, credential.CredentialId, context);
                 return credential;
             }
             else
             {
                 return new LoginDto();
             }
+        }
+
+        private async Task<int> GetUserId(int profileId, int credentialId, ContextBase context)
+        {
+            int userId = 0;
+            switch (profileId)
+            {
+                case 1:
+                case 2:
+                    userId = await context.AppUser
+                        .Where(u => u.CredentialId == credentialId)
+                        .AsNoTracking()
+                        .Select(u => u.Id)
+                        .FirstOrDefaultAsync();
+                    break;
+
+                case 3:
+                case 4:
+                    userId = await context.Barber
+                        .Where(u => u.CredentialId == credentialId)
+                        .AsNoTracking()
+                        .Select(u => u.Id)
+                        .FirstOrDefaultAsync();
+                    break;
+
+                case 5:
+                    userId = await context.Customer
+                        .Where(u => u.CredentialId == credentialId)
+                        .AsNoTracking()
+                        .Select(u => u.Id)
+                        .FirstOrDefaultAsync();
+                    break;
+
+                default:
+                    userId = 0;
+                    break;
+            }
+            return userId;
         }
     }
 }

@@ -32,6 +32,7 @@ using LaBarber.Application.BarberUnit.Handlers;
 using LaBarber.Application.BarberUnit.UseCase;
 using LaBarber.Domain.Entities.Barber;
 using LaBarber.Infra.Repository.Barber;
+using LaBarber.Application.Login.Commands.RefreshToken;
 
 namespace LaBarber.IoC
 {
@@ -49,10 +50,11 @@ namespace LaBarber.IoC
             services.AddTransient<IRequestHandler<LoginCommand, LoginOutput>, LoginHandler>();
             services.AddTransient<IRequestHandler<ForgotPasswordCommand, bool>, ForgotPasswordHandler>();
             services.AddTransient<IRequestHandler<RecoverPasswordCommand, bool>, RecoverPasswordHandler>();
+            services.AddTransient<IRequestHandler<RefreshTokenCommand, LoginOutput>, RefreshTokenHandler>();
 
 
             services.AddScoped<ITokenUseCase, TokenUseCase>();
-
+            services.AddScoped<ILoggedUserRepository, LoggedUserRepository>();
             services.AddScoped<ICredentialRepository, CredentialRepository>();
 
             //AppUser
@@ -64,7 +66,7 @@ namespace LaBarber.IoC
             services.AddScoped<ICompanyUseCase, CompanyUseCase>();
             services.AddTransient<IRequestHandler<CreateCompanyCommand, bool>, CreateCompanyHandler>();
             services.AddTransient<IRequestHandler<CreateCompanyUserCommand, bool>, CreateCompanyUserHandler>();
-            
+
             //BarberUnit
             services.AddScoped<IBarberUnitUseCase, BarberUnitUseCase>();
             services.AddScoped<IBarberUnitRepository, BarberUnitRepository>();

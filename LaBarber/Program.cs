@@ -1,4 +1,6 @@
 using System.Reflection;
+using Amazon.DynamoDBv2;
+using Amazon.DynamoDBv2.DataModel;
 using LaBarber.Domain.Configuration;
 using LaBarber.Infra.Configuration;
 using LaBarber.IoC;
@@ -22,14 +24,24 @@ string secret = string.Empty;
 
 if (builder.Environment.IsProduction())
 {
-logger.LogInformation("Ambiente de produção detectado.");
+    logger.LogInformation("Ambiente de produção detectado.");
 }
 else
 {
     logger.LogInformation("Ambiente de Desenvolvimento/Local detectado.");
-    builder.Services.Configure<Secrets>(builder.Configuration);
     connectionString = builder.Configuration.GetSection("ConnectionString").Value ?? string.Empty;
 }
+
+var awsOptions = builder.Configuration.GetAWSOptions();
+builder.Services.AddDefaultAWSOptions(awsOptions);
+builder.Services.AddAWSService<IAmazonDynamoDB>();
+builder.Services.AddScoped<IDynamoDBContext, DynamoDBContext>();
+
+builder.Services.Configure<Secrets>(builder.Configuration);
+
+var dynamoLocalOptions = new DynamoLocalOptions();
+builder.Configuration.GetSection("DynamoLocal").Bind(dynamoLocalOptions);
+builder.Services.AddSingleton(dynamoLocalOptions);
 
 var xmlFile = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
 

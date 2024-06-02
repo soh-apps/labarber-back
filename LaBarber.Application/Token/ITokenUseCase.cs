@@ -1,11 +1,12 @@
-﻿using LaBarber.Domain.Enums;
+﻿using LaBarber.Domain.Dtos.Login;
+using LaBarber.Domain.Enums;
 
 namespace LaBarber.Application.Token
 {
     public interface ITokenUseCase
     {
         string EncryptPassword(string password);
-        string GenerateToken(string name, string role, int userId);
+        TokenDto GenerateToken(string name, string role, int userId);
         string GenerateRecoveryCode();
     }
 }

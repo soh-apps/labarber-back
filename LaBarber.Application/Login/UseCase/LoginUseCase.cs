@@ -8,12 +8,14 @@ namespace LaBarber.Application.Login.UseCase
     public class LoginUseCase : ILoginUseCase
     {
         private readonly ICredentialRepository _repository;
+        private readonly ILoggedUserRepository _loggedUserRepository;
         private readonly IMediatorHandler _handler;
 
-        public LoginUseCase(ICredentialRepository repository, IMediatorHandler handler)
+        public LoginUseCase(ICredentialRepository repository, IMediatorHandler handler, ILoggedUserRepository loggedUserRepository)
         {
             _repository = repository;
             _handler = handler;
+            _loggedUserRepository = loggedUserRepository;
         }
 
         public async Task AddRecoveryCode(int credentialId, string recoveryCode)
@@ -61,6 +63,22 @@ namespace LaBarber.Application.Login.UseCase
         public async Task<LoginDto> Login(string username, string pwd)
         {
             return await _repository.Login(username, pwd);
+        }
+
+        public async Task<LoginDto> LoginById(int credentialId, string refreshToken)
+        {
+            var exists = await _loggedUserRepository.RefreshTokenExists(credentialId, refreshToken);
+            if (exists)
+            {
+                return await _repository.LoginById(credentialId);
+            }
+
+            return new LoginDto();
+        }
+
+        public async Task SaveRefreshToken(int credentialId, string refreshToken)
+        {
+            await _loggedUserRepository.SaveUserRefreshToken(credentialId, refreshToken);
         }
     }
 }

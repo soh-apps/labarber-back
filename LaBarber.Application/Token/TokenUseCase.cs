@@ -1,4 +1,5 @@
 ﻿using LaBarber.Domain.Configuration;
+using LaBarber.Domain.Dtos.Login;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System.IdentityModel.Tokens.Jwt;
@@ -24,7 +25,7 @@ namespace LaBarber.Application.Token
             return GetStringFromHash(hash);
         }
 
-        public string GenerateToken(string name, string role, int userId)
+        public TokenDto GenerateToken(string name, string role, int userId)
         {
             var tokenHandler = new JwtSecurityTokenHandler();
             var secret = _secrets.ClientSecret;
@@ -40,8 +41,11 @@ namespace LaBarber.Application.Token
                 Expires = DateTime.UtcNow.AddHours(1),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha512Signature),
             };
-            var token = tokenHandler.CreateToken(tokenDescriptor);
-            return tokenHandler.WriteToken(token);
+            var createToken = tokenHandler.CreateToken(tokenDescriptor);
+            var token = tokenHandler.WriteToken(createToken);
+            var refreshToken = GenerateRefreshToken();
+
+            return new TokenDto(token, refreshToken);
         }
 
         public string GenerateRecoveryCode()
@@ -57,6 +61,14 @@ namespace LaBarber.Application.Token
             }
 
             return otp;
+        }
+
+        private static string GenerateRefreshToken()
+        {
+            var randomNumber = new byte[64];
+            using var rng = RandomNumberGenerator.Create();
+            rng.GetBytes(randomNumber);
+            return Convert.ToBase64String(randomNumber);
         }
 
         private static string GetStringFromHash(byte[] hash)

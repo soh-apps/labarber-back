@@ -10,5 +10,7 @@ namespace LaBarber.Application.Login.UseCase
         Task<CredentialDto> GetCredentialByEmail(string email);
         Task AddRecoveryCode(int credentialId, string recoveryCode);
         Task<bool> ChangePassword(string code, string password);
+        Task SaveRefreshToken(int credentialId, string refreshToken);
+        Task<LoginDto> LoginById(int credentialId, string refreshToken);
     }
 }
