@@ -14,7 +14,7 @@ namespace LaBarber.Application.BarberUnit.UseCase
 
         public async Task<bool> CreateBarberUnit(CreateBarberUnitDto input)
         {
-            return await _repository.CreateBarberUnitAsync(input);
+            return await _repository.CreateBarberUnit(input);
         }
     }
 }

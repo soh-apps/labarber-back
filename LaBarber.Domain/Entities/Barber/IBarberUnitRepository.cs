@@ -4,6 +4,6 @@ namespace LaBarber.Domain.Entities.Barber
 {
     public interface IBarberUnitRepository
     {
-        Task<bool> CreateBarberUnitAsync(CreateBarberUnitDto input);
+        Task<bool> CreateBarberUnit(CreateBarberUnitDto input);
     }
 }

@@ -16,20 +16,13 @@ namespace LaBarber.Infra.Repository.Barber
             _optionsBuilder = optionsBuilder;
             _secrets = secrets;
         }
-        public async Task<bool> CreateBarberUnitAsync(CreateBarberUnitDto input)
+        public async Task<bool> CreateBarberUnit(CreateBarberUnitDto input)
         {
-            try
-            {
-                using var context = new ContextBase(_optionsBuilder, _secrets);
-                var barberUnit = new BarberUnitEntity(input);
-                await context.BarberUnit.AddAsync(barberUnit);
-                await context.SaveChangesAsync();
-                return true;
-            }
-            catch
-            {
-                return false;
-            }
+            using var context = new ContextBase(_optionsBuilder, _secrets);
+            var barberUnit = new BarberUnitEntity(input);
+            var created = await context.BarberUnit.AddAsync(barberUnit);
+            await context.SaveChangesAsync();
+            return true;
         }
     }
 }

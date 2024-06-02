@@ -32,10 +32,14 @@ namespace LaBarber.Infra.Repository.AppUser
         {
             using var context = new ContextBase(_optionsBuilder, _secrets);
 
-            var result = await context.AppUser.FindAsync(id);
+            var result = await context.AppUser
+                .Where(x => x.Id == id)
+                .AsNoTracking()
+                .FirstOrDefaultAsync();
+
             if (result == null)
             {
-                return await Task.FromResult<GetAppUserDto>(null);
+                return null;
             }
             return new GetAppUserDto(result);
         }
