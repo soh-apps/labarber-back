@@ -45,5 +45,26 @@ namespace LaBarber.API.Controllers
                 return BadRequest(GetMessages());
             }
         }
+
+        [HttpPost("CreateBarberUnitManager")]
+        [Authorize(Roles = "Admin")]
+        [SwaggerResponse(201, "Gerente da barbearia criada com sucesso")]
+        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
+        public async Task<IActionResult> CreateBarberUnitManager(CreateBarberUnitManagerInput input)
+        {
+            input.SetAdminId(GetUserId());
+            var command = new CreateBarberUnitManagerCommand(input);
+
+            await _handler.SendCommand<CreateBarberUnitManagerCommand, bool>(command);
+
+            if (IsValidOperation())
+            {
+                return StatusCode(StatusCodes.Status201Created);
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
+        }
     }
 }

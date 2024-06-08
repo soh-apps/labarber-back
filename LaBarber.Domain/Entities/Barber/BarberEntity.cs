@@ -1,4 +1,5 @@
-﻿using LaBarber.Domain.Entities.Appointment;
+﻿using LaBarber.Domain.Dtos.BarberUnit;
+using LaBarber.Domain.Entities.Appointment;
 using LaBarber.Domain.Entities.Credential;
 using LaBarber.Domain.Entities.Profile;
 using System.ComponentModel.DataAnnotations;
@@ -28,6 +29,26 @@ namespace LaBarber.Domain.Entities.Barber
             Credential = new CredentialEntity();
         }
 
+        public BarberEntity(CreateBarberUnitManagerDto managerDto)
+        {
+            Name = managerDto.Name;
+            City = managerDto.City;
+            State = managerDto.State;
+            Street = managerDto.Street;
+            Number = managerDto.Number;
+            ZipCode = managerDto.ZipCode;
+            Complement = managerDto.Complement;
+            Status = BarberStatus.Active;
+            RegisterDate = DateTime.UtcNow;
+            LastPayment = null;
+            NextPayment = null;
+            Commissioned = managerDto.Commissioned;
+            BarberUnitId = managerDto.BarberUnitId;
+            BarberUnit = null;
+            CredentialId = managerDto.CredentialId;
+            Credential = null;
+        }
+
         [Key]
         [Column("Id")]
         public int Id { get; set; }
@@ -44,6 +65,12 @@ namespace LaBarber.Domain.Entities.Barber
         [Column("Street")]
         public string Street { get; set; }
 
+        [Column("Number")]
+        public string Number { get; set; }
+
+        [Column("Complement")]
+        public string Complement { get; set; }
+
         [Column("ZipCode")]
         public string ZipCode { get; set; }
 
@@ -56,7 +83,7 @@ namespace LaBarber.Domain.Entities.Barber
         [Column("BarberUnitId")]
         public int BarberUnitId { get; set; }
 
-        public virtual BarberUnitEntity BarberUnit { get; set; }
+        public virtual BarberUnitEntity? BarberUnit { get; set; }
 
         [Column("Commissioned")]
         public bool Commissioned { get; set; }
@@ -72,6 +99,6 @@ namespace LaBarber.Domain.Entities.Barber
         [Column("CredentialId")]
         public int CredentialId { get; set; }
 
-        public CredentialEntity Credential { get; set; }
+        public CredentialEntity? Credential { get; set; }
     }
 }

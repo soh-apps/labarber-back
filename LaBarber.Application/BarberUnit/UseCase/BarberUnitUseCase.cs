@@ -16,5 +16,15 @@ namespace LaBarber.Application.BarberUnit.UseCase
         {
             return await _repository.CreateBarberUnit(input);
         }
+
+        public async Task<bool> CreateBarberUnitManager(CreateBarberUnitManagerDto input)
+        {
+            return await _repository.CreateBarberUnitManager(input);
+        }
+
+        public async Task<IEnumerable<BarberUnitDto>> GetBarberUnitsByCompany(int companyId)
+        {
+            return await _repository.GetBarberUnitsByCompany(companyId);
+        }
     }
 }

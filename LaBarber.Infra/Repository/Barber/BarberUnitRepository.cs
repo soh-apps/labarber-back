@@ -24,5 +24,25 @@ namespace LaBarber.Infra.Repository.Barber
             await context.SaveChangesAsync();
             return true;
         }
+
+        public async Task<bool> CreateBarberUnitManager(CreateBarberUnitManagerDto input)
+        {
+            using var context = new ContextBase(_optionsBuilder, _secrets);
+            var barberUnit = new BarberEntity(input);
+            var created = await context.Barber.AddAsync(barberUnit);
+            await context.SaveChangesAsync();
+            return true;
+        }
+
+        public async Task<IEnumerable<BarberUnitDto>> GetBarberUnitsByCompany(int companyId)
+        {
+            using var context = new ContextBase(_optionsBuilder, _secrets);
+            return await (from barberUnit in context.BarberUnit
+                          where barberUnit.CompanyId == companyId
+                          select new BarberUnitDto(
+                               barberUnit.Id,barberUnit.Name,barberUnit.City,barberUnit.State,barberUnit.Street,barberUnit.Number,barberUnit.Complement,barberUnit.ZipCode,barberUnit.CompanyId,barberUnit.Status))
+                          .AsNoTracking()
+                          .ToListAsync();
+        }
     }
 }

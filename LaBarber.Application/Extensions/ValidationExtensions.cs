@@ -14,7 +14,7 @@ namespace LaBarber.Application.Extensions
             return ruleBuilder
                 .NotNull()
                 .Must((value) => regex.IsMatch(value?.ToString() ?? ""))
-                .WithMessage("Código postal inválido.");
+                .WithMessage("CEP inválido.");
         }
 
         public static IRuleBuilderOptions<T, string> StateAcronym<T>(this IRuleBuilder<T, string> ruleBuilder)
