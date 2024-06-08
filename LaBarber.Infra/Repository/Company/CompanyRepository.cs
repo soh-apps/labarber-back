@@ -50,5 +50,21 @@ namespace LaBarber.Infra.Repository.Company
 
             return new CompanyDto();
         }
+
+        public async Task<bool> UpdateCompany(UpdateCompanyDto dto)
+        {
+            using var context = new ContextBase(_optionsBuilder, _secrets);
+
+            var entity = await context.Company.FindAsync(dto.CompanyId);
+
+            if (entity != null)
+            {
+                entity = new CompanyEntity(entity, dto);
+                context.Company.Update(entity);
+                await context.SaveChangesAsync();
+            }
+
+            return true;
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace LaBarber.Application.Company.UseCase
         Task<bool> CreateCompany(CreateCompanyDto dto);
         Task<List<CompanyDto>> GetAllCompanies();
         Task<CompanyDto> GetCompanyById(int companyId);
+        Task<bool> UpdateCompany(UpdateCompanyDto dto);
     }
 
 }

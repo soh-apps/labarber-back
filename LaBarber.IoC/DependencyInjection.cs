@@ -36,6 +36,7 @@ using LaBarber.Application.Login.Commands.RefreshToken;
 using LaBarber.Application.Company.Commands.GetAllCompanies;
 using LaBarber.Application.Company.Boundaries;
 using LaBarber.Application.Company.Commands.GetCompanyById;
+using LaBarber.Application.Company.Commands.UpdateCompany;
 
 namespace LaBarber.IoC
 {
@@ -71,6 +72,7 @@ namespace LaBarber.IoC
             services.AddTransient<IRequestHandler<CreateCompanyUserCommand, bool>, CreateCompanyUserHandler>();
             services.AddTransient<IRequestHandler<GetAllCompaniesCommand, List<CompanyOutput>>, GetAllCompaniesHandler>();
             services.AddTransient<IRequestHandler<GetCompanyByIdCommand, CompanyOutput>, GetCompanyByIdHandler>();
+            services.AddTransient<IRequestHandler<UpdateCompanyCommand, bool>, UpdateCompanyHandler>();
 
             //BarberUnit
             services.AddScoped<IBarberUnitUseCase, BarberUnitUseCase>();

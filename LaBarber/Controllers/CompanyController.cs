@@ -3,6 +3,7 @@ using LaBarber.Application.Company.Commands;
 using LaBarber.Application.Company.Commands.CreateCompanyUser;
 using LaBarber.Application.Company.Commands.GetAllCompanies;
 using LaBarber.Application.Company.Commands.GetCompanyById;
+using LaBarber.Application.Company.Commands.UpdateCompany;
 using LaBarber.Domain.Base.Communication;
 using LaBarber.Domain.Base.Messages.Notification;
 using MediatR;
@@ -27,7 +28,7 @@ namespace LaBarber.API.Controllers
         [Authorize(Roles = "Master")]
         [SwaggerResponse(201, "Empresa criada com sucesso")]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
-        public async Task<IActionResult> CreateCompany(CreateCompanyInput company)
+        public async Task<IActionResult> CreateCompany([FromBody] CreateCompanyInput company)
         {
             var command = new CreateCompanyCommand(company);
 
@@ -47,7 +48,7 @@ namespace LaBarber.API.Controllers
         [Authorize(Roles = "Master")]
         [SwaggerResponse(201, "usuario criado com sucesso")]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
-        public async Task<IActionResult> CreateCompanyUser(CreateCompanyUserInput user)
+        public async Task<IActionResult> CreateCompanyUser([FromBody] CreateCompanyUserInput user)
         {
             var command = new CreateCompanyUserCommand(user);
 
@@ -101,6 +102,30 @@ namespace LaBarber.API.Controllers
                     return NotFound();
 
                 return Ok(company);
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
+        }
+
+        [HttpPut("UpdateCompany")]
+        [Authorize(Roles = "Master,Admin")]
+        [SwaggerResponse(204, "Empresa atualizada com succeso")]
+        [SwaggerResponse(404, "Empresa não encontrada")]
+        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
+        public async Task<IActionResult> UpdateCompany([FromBody] UpdateCompanyInput company)
+        {
+            var command = new UpdateCompanyCommand(company);
+
+            var sucesso = await _handler.SendCommand<UpdateCompanyCommand, bool>(command);
+
+            if (IsValidOperation())
+            {
+                if (sucesso)
+                    return NoContent();
+                
+                return NotFound();
             }
             else
             {

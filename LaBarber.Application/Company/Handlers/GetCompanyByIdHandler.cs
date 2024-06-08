@@ -27,24 +27,14 @@ namespace LaBarber.Application.Company.Handlers
         {
             if (request.IsValid())
             {
-                CompanyDto company;
                 var user = await _appUserUseCase.GetAppUserById(request.UserId);
 
-                if (user.CompanyId != null && user.CompanyId == request.CompanyId)
+                if ((user.CompanyId != null && user.CompanyId == request.CompanyId) || user.CompanyId == null)
                 {
-                    company = await _useCase.GetCompanyById(request.CompanyId);
+                    var company = await _useCase.GetCompanyById(request.CompanyId);
+                    return new CompanyOutput(company);
                 }
-                else if (user.CompanyId == null)
-                {
-                    company = await _useCase.GetCompanyById(request.CompanyId);
-                }
-                else
-                {
-                    return new CompanyOutput();
-                }
-
-                return new CompanyOutput(company);
-
+                return new CompanyOutput();
             }
             foreach (var error in request.ValidationResult.Errors)
             {

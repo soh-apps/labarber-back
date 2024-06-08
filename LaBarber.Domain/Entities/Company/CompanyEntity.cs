@@ -14,7 +14,7 @@ namespace LaBarber.Domain.Entities.Company
             SigningPlanId = 0;
             LastPayment = DateTime.UtcNow;
             NextPayment = DateTime.UtcNow;
-            SigningPlan = new SigningPlanEntity();
+            SigningPlan = null;
             Name = string.Empty;
             CNPJ = string.Empty;
         }
@@ -27,7 +27,18 @@ namespace LaBarber.Domain.Entities.Company
             LastPayment = dto.LastPayment;
             NextPayment = dto.NextPayment;
             SigningPlanId = dto.SigningPlanId;
-            SigningPlan = new SigningPlanEntity();
+            SigningPlan = null;
+        }
+
+        public CompanyEntity(CompanyEntity entity, UpdateCompanyDto dto)
+        {
+            Id = entity.Id;
+            Name = dto.Name;
+            CNPJ = dto.CNPJ;
+            LastPayment = entity.LastPayment;
+            NextPayment = entity.NextPayment;
+            SigningPlanId = entity.SigningPlanId;
+            SigningPlan = null;
         }
 
         [Key]
@@ -44,7 +55,7 @@ namespace LaBarber.Domain.Entities.Company
         [Column("SigningPlanId")]
         public int SigningPlanId { get; set; }
 
-        public virtual SigningPlanEntity SigningPlan { get; set; }
+        public virtual SigningPlanEntity? SigningPlan { get; set; }
 
         [Column("LastPayment")]
         public DateTime LastPayment { get; set; }
