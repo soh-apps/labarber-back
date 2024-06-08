@@ -4,7 +4,9 @@ namespace LaBarber.Application.Company.UseCase
 {
     public interface ICompanyUseCase
     {
-    Task<bool> CreateCompany(CreateCompanyDto dto);
+        Task<bool> CreateCompany(CreateCompanyDto dto);
+        Task<List<CompanyDto>> GetAllCompanies();
+        Task<CompanyDto> GetCompanyById(int companyId);
     }
 
 }

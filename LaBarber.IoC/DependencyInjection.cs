@@ -33,6 +33,9 @@ using LaBarber.Application.BarberUnit.UseCase;
 using LaBarber.Domain.Entities.Barber;
 using LaBarber.Infra.Repository.Barber;
 using LaBarber.Application.Login.Commands.RefreshToken;
+using LaBarber.Application.Company.Commands.GetAllCompanies;
+using LaBarber.Application.Company.Boundaries;
+using LaBarber.Application.Company.Commands.GetCompanyById;
 
 namespace LaBarber.IoC
 {
@@ -66,6 +69,8 @@ namespace LaBarber.IoC
             services.AddScoped<ICompanyUseCase, CompanyUseCase>();
             services.AddTransient<IRequestHandler<CreateCompanyCommand, bool>, CreateCompanyHandler>();
             services.AddTransient<IRequestHandler<CreateCompanyUserCommand, bool>, CreateCompanyUserHandler>();
+            services.AddTransient<IRequestHandler<GetAllCompaniesCommand, List<CompanyOutput>>, GetAllCompaniesHandler>();
+            services.AddTransient<IRequestHandler<GetCompanyByIdCommand, CompanyOutput>, GetCompanyByIdHandler>();
 
             //BarberUnit
             services.AddScoped<IBarberUnitUseCase, BarberUnitUseCase>();
