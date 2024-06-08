@@ -59,8 +59,9 @@ namespace LaBarber.Infra.Repository.Company
 
             if (entity != null)
             {
-                entity = new CompanyEntity(entity, dto);
-                context.Company.Update(entity);
+                entity.CNPJ = dto.CNPJ;
+                entity.Name = dto.Name;
+                context.Update(entity);
                 await context.SaveChangesAsync();
             }
 

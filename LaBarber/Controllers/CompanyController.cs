@@ -116,6 +116,7 @@ namespace LaBarber.API.Controllers
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
         public async Task<IActionResult> UpdateCompany([FromBody] UpdateCompanyInput company)
         {
+            company.SetUserId(GetUserId());
             var command = new UpdateCompanyCommand(company);
 
             var sucesso = await _handler.SendCommand<UpdateCompanyCommand, bool>(command);
