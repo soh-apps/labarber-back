@@ -15,5 +15,20 @@ namespace LaBarber.Application.Company.UseCase
         {
             return await _repository.CreateCompany(dto);
         }
+
+        public async Task<List<CompanyDto>> GetAllCompanies()
+        {
+            return await _repository.GetAllCompanies();
+        }
+
+        public async Task<CompanyDto> GetCompanyById(int companyId)
+        {
+            return await _repository.GetCompanyById(companyId);
+        }
+
+        public async Task<bool> UpdateCompany(UpdateCompanyDto dto)
+        {
+            return await _repository.UpdateCompany(dto);
+        }
     }
 }

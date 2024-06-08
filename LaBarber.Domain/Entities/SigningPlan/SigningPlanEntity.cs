@@ -18,6 +18,16 @@ namespace LaBarber.Domain.Entities.SigningPlan
             BarberUnitLimit = 0;
         }
 
+        public SigningPlanEntity(int id, string name, int value, PaymentType paymentType, int barberLimit, int barberUnitLimit)
+        {
+            Id = id;
+            Name = name;
+            Value = value;
+            PaymentType = paymentType;
+            BarberLimit = barberLimit;
+            BarberUnitLimit = barberUnitLimit;
+        }
+
         [Key]
         [Column("Id")]
         public int Id { get; set; }
