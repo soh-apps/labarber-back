@@ -16,6 +16,23 @@
         public int BarberUnitId { get; set; }
         public int AdminId { get; private set; }
 
+        public CreateBarberUnitManagerInput()
+        {
+            Username = string.Empty;
+            Email = string.Empty;
+            Password = string.Empty;
+            Name = string.Empty;
+            City = string.Empty;
+            State = string.Empty;
+            Street = string.Empty;
+            Number = string.Empty;
+            Complement = string.Empty;
+            ZipCode = string.Empty;
+            Commissioned = false;
+            BarberUnitId = 0;
+            AdminId = 0;
+        }
+
         public CreateBarberUnitManagerInput(string username, string email, string password, string name, string city, string state, string street, string number, string complement, string zipCode, bool commissioned, int barberUnitId)
         {
             Username = username;

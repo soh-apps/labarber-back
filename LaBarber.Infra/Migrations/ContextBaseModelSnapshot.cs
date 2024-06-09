@@ -58,7 +58,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasIndex("CredentialId");
 
-                    b.ToTable("AppUser");
+                    b.ToTable("AppUser", (string)null);
 
                     b.HasData(
                         new
@@ -149,7 +149,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("Appointment");
+                    b.ToTable("Appointment", (string)null);
                 });
 
             modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberAvailabilityEntity", b =>
@@ -181,7 +181,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasIndex("BarberId");
 
-                    b.ToTable("BarberAvailability");
+                    b.ToTable("BarberAvailability", (string)null);
                 });
 
             modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberEntity", b =>
@@ -262,7 +262,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasIndex("CredentialId");
 
-                    b.ToTable("Barber");
+                    b.ToTable("Barber", (string)null);
                 });
 
             modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberPaymentHistoryEntity", b =>
@@ -296,7 +296,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasIndex("BarberUnitId");
 
-                    b.ToTable("BarberPaymentHistory");
+                    b.ToTable("BarberPaymentHistory", (string)null);
                 });
 
             modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberUnitAvailabilityEntity", b =>
@@ -328,7 +328,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasIndex("BarberUnitId");
 
-                    b.ToTable("BarberUnitAvailability");
+                    b.ToTable("BarberUnitAvailability", (string)null);
                 });
 
             modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberUnitEntity", b =>
@@ -387,7 +387,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasIndex("CompanyId");
 
-                    b.ToTable("BarberUnit");
+                    b.ToTable("BarberUnit", (string)null);
                 });
 
             modelBuilder.Entity("LaBarber.Domain.Entities.Barber.BarberWalletEntity", b =>
@@ -415,7 +415,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasIndex("BarberId");
 
-                    b.ToTable("BarberWallet");
+                    b.ToTable("BarberWallet", (string)null);
                 });
 
             modelBuilder.Entity("LaBarber.Domain.Entities.Company.CompanyEntity", b =>
@@ -453,7 +453,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasIndex("SigningPlanId");
 
-                    b.ToTable("Company");
+                    b.ToTable("Company", (string)null);
                 });
 
             modelBuilder.Entity("LaBarber.Domain.Entities.Credential.CredentialEntity", b =>
@@ -497,7 +497,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasIndex("ProfileId");
 
-                    b.ToTable("Credential");
+                    b.ToTable("Credential", (string)null);
 
                     b.HasData(
                         new
@@ -571,7 +571,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasIndex("MonthlyPlanId");
 
-                    b.ToTable("Customer");
+                    b.ToTable("Customer", (string)null);
                 });
 
             modelBuilder.Entity("LaBarber.Domain.Entities.Customer.CustomerPaymentHistoryEntity", b =>
@@ -617,7 +617,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasIndex("ServiceId");
 
-                    b.ToTable("CustomerPaymentHistory");
+                    b.ToTable("CustomerPaymentHistory", (string)null);
                 });
 
             modelBuilder.Entity("LaBarber.Domain.Entities.MonthlyPlan.MonthlyPlanEntity", b =>
@@ -640,7 +640,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("MonthlyPlan");
+                    b.ToTable("MonthlyPlan", (string)null);
                 });
 
             modelBuilder.Entity("LaBarber.Domain.Entities.Profile.ProfileEntity", b =>
@@ -667,7 +667,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Profile");
+                    b.ToTable("Profile", (string)null);
 
                     b.HasData(
                         new
@@ -741,7 +741,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasIndex("BarberUnitId");
 
-                    b.ToTable("Service");
+                    b.ToTable("Service", (string)null);
                 });
 
             modelBuilder.Entity("LaBarber.Domain.Entities.SigningPlan.SigningPlanEntity", b =>
@@ -776,7 +776,7 @@ namespace LaBarber.Infra.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("SigningPlan");
+                    b.ToTable("SigningPlan", (string)null);
 
                     b.HasData(
                         new

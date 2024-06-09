@@ -37,6 +37,7 @@ using LaBarber.Application.Company.Commands.GetAllCompanies;
 using LaBarber.Application.Company.Boundaries;
 using LaBarber.Application.Company.Commands.GetCompanyById;
 using LaBarber.Application.Company.Commands.UpdateCompany;
+using LaBarber.Domain.Dtos.BarberUnit;
 
 namespace LaBarber.IoC
 {
@@ -79,6 +80,7 @@ namespace LaBarber.IoC
             services.AddScoped<IBarberUnitRepository, BarberUnitRepository>();
             services.AddTransient<IRequestHandler<CreateBarberUnitCommand, bool>, CreateBarberUnitHandler>();
             services.AddTransient<IRequestHandler<CreateBarberUnitManagerCommand, bool>, CreateBarberUnitManagerHandler>();
+            services.AddTransient<IRequestHandler<GetBarberUnitsByCompanyCommand, IEnumerable<BarberUnitDto>>, GetBarberUnitsByCompanyHandler>();
 
             //Email
             services.AddScoped<IEmailSender, EmailSender>();

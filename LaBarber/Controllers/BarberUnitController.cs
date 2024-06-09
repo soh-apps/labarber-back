@@ -1,15 +1,12 @@
-﻿using LaBarber.Application.Company.Boundaries;
-using LaBarber.Application.Company.Commands.CreateCompanyUser;
-using LaBarber.Application.Company.Commands;
+﻿using LaBarber.Application.BarberUnit.Boundaries;
+using LaBarber.Application.BarberUnit.Commands;
+using LaBarber.Domain.Base.Communication;
 using LaBarber.Domain.Base.Messages.Notification;
+using LaBarber.Domain.Dtos.BarberUnit;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Swashbuckle.AspNetCore.Annotations;
-using System.Reflection.Metadata;
-using LaBarber.Domain.Base.Communication;
-using LaBarber.Application.BarberUnit.Boundaries;
-using LaBarber.Application.BarberUnit.Commands;
 
 namespace LaBarber.API.Controllers
 {
@@ -46,11 +43,31 @@ namespace LaBarber.API.Controllers
             }
         }
 
+        [HttpGet("GetBarberUnitsByCompany/{id}")]
+        [Authorize(Roles = "Master,Admin")]
+        [SwaggerResponse(200, "Barbearias listadas com sucesso")]
+        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
+        public async Task<IActionResult> GetBarberUnitsByCompany(int id)
+        {
+            var command = new GetBarberUnitsByCompanyCommand(GetUserId(), GetUserRole(), id);
+
+            var barberUnits = await _handler.SendCommand<GetBarberUnitsByCompanyCommand, IEnumerable<BarberUnitDto>>(command);
+
+            if (IsValidOperation())
+            {
+                return Ok(barberUnits);
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
+        }
+
         [HttpPost("CreateBarberUnitManager")]
         [Authorize(Roles = "Admin")]
         [SwaggerResponse(201, "Gerente da barbearia criada com sucesso")]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
-        public async Task<IActionResult> CreateBarberUnitManager(CreateBarberUnitManagerInput input)
+        public async Task<IActionResult> CreateBarberUnitManager([FromBody] CreateBarberUnitManagerInput input)
         {
             input.SetAdminId(GetUserId());
             var command = new CreateBarberUnitManagerCommand(input);

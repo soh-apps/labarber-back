@@ -39,8 +39,7 @@ namespace LaBarber.Infra.Repository.Barber
             using var context = new ContextBase(_optionsBuilder, _secrets);
             return await (from barberUnit in context.BarberUnit
                           where barberUnit.CompanyId == companyId
-                          select new BarberUnitDto(
-                               barberUnit.Id,barberUnit.Name,barberUnit.City,barberUnit.State,barberUnit.Street,barberUnit.Number,barberUnit.Complement,barberUnit.ZipCode,barberUnit.CompanyId,barberUnit.Status))
+                          select new BarberUnitDto(barberUnit.Id,barberUnit.Name,barberUnit.City,barberUnit.State,barberUnit.Street,barberUnit.Number,barberUnit.Complement,barberUnit.ZipCode,barberUnit.CompanyId,barberUnit.Status))
                           .AsNoTracking()
                           .ToListAsync();
         }
