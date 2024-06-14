@@ -1,10 +1,12 @@
 using System.Reflection;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
+using LaBarber.API;
 using LaBarber.Domain.Configuration;
 using LaBarber.Infra.Configuration;
 using LaBarber.IoC;
 using Microsoft.EntityFrameworkCore;
+using Swashbuckle.AspNetCore.Filters;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -51,6 +53,7 @@ builder.Services.AddDbContext<ContextBase>(
 builder.Services.AddAuthenticationJwt(builder.Configuration.GetSection("ClientSecret").Value!);
 builder.Services.AddServices();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddSwaggerExamplesFromAssemblies(Assembly.GetEntryAssembly());
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGenConfig(xmlFile);
 
@@ -59,9 +62,14 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (builder.Environment.IsDevelopment())
 {
-    logger.LogInformation("Swagger configurado");
     app.UseSwagger();
     app.UseSwaggerUI();
+
+    app.UseReDoc(c =>
+    {
+        c.DocumentTitle = "REDOC API Documentation";
+        c.SpecUrl = "/swagger/v1/swagger.json";
+    });
 }
 
 app.UseHttpsRedirection();

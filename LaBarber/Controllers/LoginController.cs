@@ -15,6 +15,7 @@ namespace LaBarber.API.Controllers
     [ApiController]
     [Route("[Controller]")]
     [AllowAnonymous]
+    [SwaggerTag("Endpoints relacionados ao login")]
     public class LoginController : BaseController
     {
         private readonly IMediatorHandler _handler;
@@ -24,6 +25,9 @@ namespace LaBarber.API.Controllers
         }
 
         [HttpPost]
+        [SwaggerOperation(
+            Summary = "Login",
+            Description = "Autentica o usuário e retorna seu perfil")]
         [SwaggerResponse(200, "Login realizado com sucesso", typeof(LoginOutput))]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
         public async Task<IActionResult> Login([FromBody] LoginInput input)
@@ -41,6 +45,9 @@ namespace LaBarber.API.Controllers
         }
 
         [HttpPost("RefreshToken")]
+        [SwaggerOperation(
+            Summary = "Atualizar token",
+            Description = "Gera um novo token para o usuário através do refresh token evitando que o usuário tenha que se autenticar novamente")]
         [SwaggerResponse(200, "Login realizado com sucesso", typeof(LoginOutput))]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
         public async Task<IActionResult> RefreshToken([FromBody] RefreshTokenInput input)
@@ -58,6 +65,9 @@ namespace LaBarber.API.Controllers
         }
 
         [HttpPost("ForgotPassword")]
+        [SwaggerOperation(
+            Summary = "Esqueceu a senha",
+            Description = "Envia um e-mail com o código de recuperação de senha")]
         [SwaggerResponse(200, "E-mail foi enviado para o usuario com o codigo")]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
         public async Task<IActionResult> ForgotPassword([FromBody] ForgotPasswordInput input)
@@ -77,6 +87,9 @@ namespace LaBarber.API.Controllers
         }
 
         [HttpPost("RecoverPassword")]
+        [SwaggerOperation(
+            Summary = "Recuperar senha",
+            Description = "Altera a senha do usuário com a senha recebida e o código que o usuário recebeu por e-mail")]
         [SwaggerResponse(200, "Senha alterada com sucesso")]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
         public async Task<IActionResult> RecoverPassword([FromBody] RecoverPasswordInput input)

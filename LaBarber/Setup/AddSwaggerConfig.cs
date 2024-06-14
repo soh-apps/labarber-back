@@ -1,9 +1,9 @@
-using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
+using LaBarber.API.SwaggerExamples;
 using Microsoft.OpenApi.Models;
+using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace LaBarber.IoC
+namespace LaBarber.API
 {
     public static class AddSwaggerConfig
     {
@@ -39,7 +39,9 @@ namespace LaBarber.IoC
                 }});
 
                 c.CustomSchemaIds((Type x) => x.FullName);
-                c.IncludeXmlComments(xmlPath);
+                c.IncludeXmlComments(xmlPath, includeControllerXmlComments: true);
+                c.SchemaFilter<EnumSchemaFilter>();
+                c.ExampleFilters();
             });
         }
     }

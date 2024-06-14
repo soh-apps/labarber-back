@@ -16,6 +16,7 @@ namespace LaBarber.API.Controllers
     [ApiController]
     [Route("[controller]")]
     [Authorize]
+    [SwaggerTag("Endpoints relacionados a empresa, sendo necessário se autenticar")]
     public class CompanyController : BaseController
     {
         private readonly IMediatorHandler _handler;
@@ -26,8 +27,11 @@ namespace LaBarber.API.Controllers
 
         [HttpPost("CreateCompany")]
         [Authorize(Roles = "Master")]
+        [SwaggerOperation(
+            Summary = "Criar Empresa",
+            Description = "Cria uma empresa vinculada a um plano")]
         [SwaggerResponse(201, "Empresa criada com sucesso")]
-        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
+        [SwaggerResponse(400, "Erros de dominio", typeof(IEnumerable<string>))]
         public async Task<IActionResult> CreateCompany([FromBody] CreateCompanyInput company)
         {
             var command = new CreateCompanyCommand(company);
@@ -46,8 +50,11 @@ namespace LaBarber.API.Controllers
 
         [HttpPost("CreateCompanyUser")]
         [Authorize(Roles = "Master")]
+        [SwaggerOperation(
+            Summary = "Criar usuario da empresa",
+            Description = "Cria um usuario vinculada a uma empresa")]
         [SwaggerResponse(201, "usuario criado com sucesso")]
-        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
+        [SwaggerResponse(400, "Erros de dominio", typeof(IEnumerable<string>))]
         public async Task<IActionResult> CreateCompanyUser([FromBody] CreateCompanyUserInput user)
         {
             var command = new CreateCompanyUserCommand(user);
@@ -66,8 +73,11 @@ namespace LaBarber.API.Controllers
 
         [HttpGet("GetAllCompanies")]
         [Authorize(Roles = "Master")]
+        [SwaggerOperation(
+            Summary = "Listar empresas",
+            Description = "Retorna uma lista com todas as empresas")]
         [SwaggerResponse(200, "Todas as empresas", typeof(List<CompanyOutput>))]
-        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
+        [SwaggerResponse(400, "Erros de dominio", typeof(IEnumerable<string>))]
         public async Task<IActionResult> GetAllCompanies()
         {
             var command = new GetAllCompaniesCommand();
@@ -86,9 +96,12 @@ namespace LaBarber.API.Controllers
 
         [HttpGet("GetCompanyById/{id}")]
         [Authorize(Roles = "Master,Admin")]
+        [SwaggerOperation(
+            Summary = "Buscas empresa por Id",
+            Description = "Retorna dos dados de uma empresa com o Id informado")]
         [SwaggerResponse(200, "Empresa", typeof(CompanyOutput))]
         [SwaggerResponse(404, "Empresa não encontrada")]
-        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
+        [SwaggerResponse(400, "Erros de dominio", typeof(IEnumerable<string>))]
         public async Task<IActionResult> GetCompanyById([FromRoute] int id)
         {
             var userId = GetUserId();
@@ -111,9 +124,12 @@ namespace LaBarber.API.Controllers
 
         [HttpPut("UpdateCompany")]
         [Authorize(Roles = "Master,Admin")]
+        [SwaggerOperation(
+            Summary = "Atualizar Empresa",
+            Description = "Atualiza os dados da empresa")]
         [SwaggerResponse(204, "Empresa atualizada com succeso")]
         [SwaggerResponse(404, "Empresa não encontrada")]
-        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
+        [SwaggerResponse(400, "Erros de dominio", typeof(IEnumerable<string>))]
         public async Task<IActionResult> UpdateCompany([FromBody] UpdateCompanyInput company)
         {
             company.SetUserId(GetUserId());
@@ -125,7 +141,7 @@ namespace LaBarber.API.Controllers
             {
                 if (sucesso)
                     return NoContent();
-                
+
                 return NotFound();
             }
             else

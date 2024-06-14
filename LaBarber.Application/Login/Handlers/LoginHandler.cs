@@ -4,6 +4,7 @@ using LaBarber.Application.Login.UseCase;
 using LaBarber.Application.Token;
 using LaBarber.Domain.Base.Communication;
 using LaBarber.Domain.Base.Messages.Notification;
+using LaBarber.Domain.Enums;
 using MediatR;
 
 namespace LaBarber.Application.Login.Handlers
@@ -32,7 +33,7 @@ namespace LaBarber.Application.Login.Handlers
                 {
                     var dto = _tokenUseCase.GenerateToken(loginDto.Name, loginDto.Role, loginDto.UserId);
                     await _loginUseCase.SaveRefreshToken(loginDto.CredentialId, dto.RefreshToken);
-                    return new LoginOutput(dto.Token, dto.RefreshToken, loginDto.ProfileId, loginDto.Name, loginDto.CredentialId);
+                    return new LoginOutput(dto.Token, dto.RefreshToken, (UserType)loginDto.ProfileId, loginDto.Name, loginDto.CredentialId);
                 }
                 await _mediatorHandler.PublishNotification(new DomainNotification(request.MessageType, "Usuário ou senha inválidos."));
             }

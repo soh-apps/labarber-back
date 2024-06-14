@@ -4,7 +4,7 @@ namespace LaBarber.Application.Login.Boundaries
 {
     public class LoginOutput
     {
-        public LoginOutput(string token, string refreshToken, int userType, string name, int credentialId)
+        public LoginOutput(string token, string refreshToken, UserType userType, string name, int credentialId)
         {
             Token = token;
             RefreshToken = refreshToken;
@@ -17,14 +17,14 @@ namespace LaBarber.Application.Login.Boundaries
         {
             Token = string.Empty;
             RefreshToken = string.Empty;
-            UserType = 0;
+            UserType = UserType.Customer;
             Name = string.Empty;
             CredentialId = 0;
         }
 
         public string Token { get; set; }
         public string RefreshToken { get; set; }
-        public int UserType { get; set; }
+        public UserType UserType { get; set; }
         public int CredentialId { get; set; }
         public string Name { get; set; }
     }
