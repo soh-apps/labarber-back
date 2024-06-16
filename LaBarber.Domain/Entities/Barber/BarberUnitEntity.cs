@@ -37,6 +37,20 @@ namespace LaBarber.Domain.Entities.Barber
             Company = null;
             Status = BarberUnitStatus.Active;
         }
+        public BarberUnitEntity(UpdateBarberUnitDto input)
+        {
+            Id = input.Id;
+            City = input.City;
+            Complement = input.Complement;
+            State = input.State;
+            Street = input.Street;
+            Number = input.Number;
+            ZipCode = input.ZipCode;
+            Name = input.Name;
+            CompanyId = input.CompanyId;
+            Company = null;
+            Status = BarberUnitStatus.Active;
+        }
 
         [Key]
         [Column("Id")]

@@ -1,8 +1,6 @@
-﻿using LaBarber.Domain.Entities.Barber;
-
-namespace LaBarber.Domain.Dtos.BarberUnit
+﻿namespace LaBarber.Domain.Dtos.BarberUnit
 {
-    public class BarberUnitDto
+    public class UpdateBarberUnitDto
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -13,9 +11,8 @@ namespace LaBarber.Domain.Dtos.BarberUnit
         public string Complement { get; set; }
         public string ZipCode { get; set; }
         public int CompanyId { get; set; }
-        public BarberUnitStatus Status { get; set; }
 
-        public BarberUnitDto()
+        public UpdateBarberUnitDto()
         {
             Id = 0;
             Name = string.Empty;
@@ -25,11 +22,9 @@ namespace LaBarber.Domain.Dtos.BarberUnit
             Number = string.Empty;
             Complement = string.Empty;
             ZipCode = string.Empty;
-            CompanyId = 0;
-            Status = BarberUnitStatus.Inactive;
         }
 
-        public BarberUnitDto(int id, string name, string city, string state, string street, string number, string complement, string zipCode, int companyId, BarberUnitStatus status)
+        public UpdateBarberUnitDto(int id, string name, string city, string state, string street, string number, string complement, string zipCode, int companyId)
         {
             Id = id;
             Name = name;
@@ -40,7 +35,6 @@ namespace LaBarber.Domain.Dtos.BarberUnit
             Complement = complement;
             ZipCode = zipCode;
             CompanyId = companyId;
-            Status = status;
         }
     }
 }

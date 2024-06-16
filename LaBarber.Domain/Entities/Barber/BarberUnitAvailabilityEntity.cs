@@ -13,7 +13,16 @@ namespace LaBarber.Domain.Entities.Barber
             StartWorkingHour = new TimeSpan(0, 0, 0);
             EndWorkingHour = new TimeSpan(0, 0, 0);
             BarberUnitId = 0;
-            BarberUnit = new BarberUnitEntity();
+            BarberUnit = null;
+        }
+
+        public BarberUnitAvailabilityEntity(int workingDay, TimeSpan startWorkingHour, TimeSpan endWorkingHour, int barberUnitId)
+        {
+            WorkingDay = workingDay;
+            StartWorkingHour = startWorkingHour;
+            EndWorkingHour = endWorkingHour;
+            BarberUnitId = barberUnitId;
+            BarberUnit = null;
         }
 
         [Key]
@@ -33,6 +42,6 @@ namespace LaBarber.Domain.Entities.Barber
         [Column("BarberUnitId")]
         public int BarberUnitId { get; set; }
 
-        public virtual BarberUnitEntity BarberUnit { get; set; }
+        public virtual BarberUnitEntity? BarberUnit { get; set; }
     }
 }

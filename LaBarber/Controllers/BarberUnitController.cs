@@ -43,6 +43,48 @@ namespace LaBarber.API.Controllers
             }
         }
 
+        [HttpPut("UpdateBarberUnit")]
+        [Authorize(Roles = "Admin")]
+        [SwaggerResponse(200, "Barbearia atualizado com sucesso")]
+        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
+        public async Task<IActionResult> UpdateBarberUnit(UpdateBarberUnitInput barberUnit)
+        {
+            barberUnit.SetUserId(GetUserId());
+            barberUnit.SetUserRole(GetUserRole());
+            var command = new UpdateBarberUnitCommand(barberUnit);
+
+            await _handler.SendCommand<UpdateBarberUnitCommand, bool>(command);
+
+            if (IsValidOperation())
+            {
+                return StatusCode(StatusCodes.Status200OK);
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
+        }
+
+        [HttpGet("BarberUnit/{id}")]
+        [Authorize(Roles = "Master,Admin")]
+        [SwaggerResponse(200, "Informações da barberia retornadas com sucesso")]
+        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
+        public async Task<IActionResult> GetBarberUnitById(int id)
+        {
+            var command = new GetBarberUnitCommand(GetUserId(), GetUserRole(), id);
+
+            var barberUnits = await _handler.SendCommand<GetBarberUnitCommand, GetBarberUnitDto>(command);
+
+            if (IsValidOperation())
+            {
+                return Ok(barberUnits);
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
+        }
+
         [HttpGet("GetBarberUnitsByCompany/{id}")]
         [Authorize(Roles = "Master,Admin")]
         [SwaggerResponse(200, "Barbearias listadas com sucesso")]

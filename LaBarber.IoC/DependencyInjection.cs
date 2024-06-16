@@ -81,6 +81,8 @@ namespace LaBarber.IoC
             services.AddTransient<IRequestHandler<CreateBarberUnitCommand, bool>, CreateBarberUnitHandler>();
             services.AddTransient<IRequestHandler<CreateBarberUnitManagerCommand, bool>, CreateBarberUnitManagerHandler>();
             services.AddTransient<IRequestHandler<GetBarberUnitsByCompanyCommand, IEnumerable<BarberUnitDto>>, GetBarberUnitsByCompanyHandler>();
+            services.AddTransient<IRequestHandler<GetBarberUnitCommand, GetBarberUnitDto>, GetBarberUnitByIdHandler>();
+            services.AddTransient<IRequestHandler<UpdateBarberUnitCommand, bool>, UpdateBarberUnitHandler>();
 
             //Email
             services.AddScoped<IEmailSender, EmailSender>();

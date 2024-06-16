@@ -1,5 +1,4 @@
 ﻿using LaBarber.Application.AppUser.UseCase;
-using LaBarber.Application.BarberUnit.Boundaries;
 using LaBarber.Application.BarberUnit.Commands;
 using LaBarber.Application.BarberUnit.UseCase;
 using LaBarber.Application.Extensions;
@@ -10,18 +9,20 @@ using MediatR;
 
 namespace LaBarber.Application.BarberUnit.Handlers
 {
-    public class CreateBarberUnitHandler : IRequestHandler<CreateBarberUnitCommand, bool>
+    public class UpdateBarberUnitHandler : IRequestHandler<UpdateBarberUnitCommand, bool>
     {
         private readonly IMediatorHandler _handler;
         private readonly IAppUserUseCase _appUserUseCase;
         private readonly IBarberUnitUseCase _barberUnitUseCase;
-        public CreateBarberUnitHandler(IMediatorHandler handler, IAppUserUseCase appUserUseCase, IBarberUnitUseCase barberUnitUseCase)
+
+        public UpdateBarberUnitHandler(IMediatorHandler handler, IAppUserUseCase appUserUseCase, IBarberUnitUseCase barberUnitUseCase)
         {
             _handler = handler;
             _appUserUseCase = appUserUseCase;
             _barberUnitUseCase = barberUnitUseCase;
         }
-        public async Task<bool> Handle(CreateBarberUnitCommand request, CancellationToken cancellationToken)
+
+        public async Task<bool> Handle(UpdateBarberUnitCommand request, CancellationToken cancellationToken)
         {
             if (request.IsValid())
             {
@@ -29,19 +30,25 @@ namespace LaBarber.Application.BarberUnit.Handlers
                 var user = await _appUserUseCase.GetAppUserById(input.UserId);
                 if (!user.CompanyId.IsStrictlyPositive())
                 {
-                    await _handler.PublishNotification(new DomainNotification(request.MessageType, "Usuário precisa pertencer a uma empresa para criar barbearias."));
+                    await _handler.PublishNotification(new DomainNotification(request.MessageType, "Usuário precisa pertencer a uma empresa para alterar barbearias."));
                     return false;
                 }
-                var dto = new CreateBarberUnitDto(input.Name, input.City, input.State, input.Street, input.Number, input.Complement, input.ZipCode, user.CompanyId!.Value);
-                int barberUnitId = await _barberUnitUseCase.CreateBarberUnit(dto);
-                if (barberUnitId > 0 && request.Input.WorkingHours != null)
+                var barberUnit = await _barberUnitUseCase.GetBarberUnitById(input.Id);
+                if (barberUnit == null || barberUnit?.Id == 0)
+                {
+                    await _handler.PublishNotification(new DomainNotification(request.MessageType, "Barbearia não encontrada."));
+                    return false;
+                }
+                var dto = new UpdateBarberUnitDto(input.Id, input.Name, input.City, input.State, input.Street, input.Number, input.Complement, input.ZipCode, barberUnit!.CompanyId);
+                bool updated = await _barberUnitUseCase.UpdateBarberUnit(dto);
+                if (updated && request.Input.WorkingHours != null)
                 {
                     var availabilitiesDto = new List<SetBarberUnitAvailabilityDto>();
                     foreach (var availability in request.Input.WorkingHours)
                     {
                         availabilitiesDto.Add(new SetBarberUnitAvailabilityDto(availability.WorkingDays, availability.StartingHour, availability.EndingHour));
                     }
-                    return await _barberUnitUseCase.SetBarberUnitAvailability(availabilitiesDto, barberUnitId);
+                    return await _barberUnitUseCase.SetBarberUnitAvailability(availabilitiesDto, input.Id);
                 }
             }
             foreach (var error in request.ValidationResult.Errors)

@@ -1,7 +1,8 @@
 ﻿namespace LaBarber.Application.BarberUnit.Boundaries
 {
-    public class CreateBarberUnitInput
+    public class UpdateBarberUnitInput
     {
+        public int Id { get; set; }
         public string Name { get; set; }
         public string City { get; set; }
         public string State { get; set; }
@@ -11,9 +12,9 @@
         public string ZipCode { get; set; }
         public int UserId { get; private set; }
         public string UserRole { get; private set; }
-        public IEnumerable<CreateBarberUnitAvailabilityInput>? WorkingHours { get; set; }
+        public IEnumerable<UpdateBarberUnitAvailabilityInput> WorkingHours { get; set; }
 
-        public CreateBarberUnitInput()
+        public UpdateBarberUnitInput()
         {
             Name = string.Empty;
             City = string.Empty;
@@ -24,7 +25,7 @@
             ZipCode = string.Empty;
             UserId = 0;
             UserRole = string.Empty;
-            WorkingHours = new List<CreateBarberUnitAvailabilityInput>();
+            WorkingHours = new List<UpdateBarberUnitAvailabilityInput>();
         }
 
         public void SetUserId(int userId)
