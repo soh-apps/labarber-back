@@ -1,12 +1,12 @@
 ﻿using FluentValidation;
-using LaBarber.Application.BarberUnit.Boundaries;
+using LaBarber.Application.Barber.Boundaries;
 using LaBarber.Application.Extensions;
 
-namespace LaBarber.Application.BarberUnit.Commands.Validation
+namespace LaBarber.Application.Barber.Commands.Validation
 {
-    public class CreateBarberUnitManagerValidation : AbstractValidator<CreateBarberUnitManagerInput>
+    public class CreateBarberValidation : AbstractValidator<CreateBarberInput>
     {
-        public CreateBarberUnitManagerValidation()
+        public CreateBarberValidation()
         {
 
             RuleFor(x => x.Username)
@@ -47,17 +47,11 @@ namespace LaBarber.Application.BarberUnit.Commands.Validation
             RuleFor(x => x.Number)
                 .NotEmpty()
                 .WithMessage("Número do endereço é obrigatório.");
-
-            RuleFor(x => x.BarberUnitId)
-                .NotNull()
-                .WithMessage("Informe a barbearia que o gerente irá atuar.")
-                .GreaterThan(0)
-                .WithMessage("Barbearia inválida.");
-
-            RuleFor(x => x.AdminId)
+            
+            RuleFor(x => x.UserId)
                 .NotNull()
                 .GreaterThan(0)
-                .WithMessage("Id do administrador é obrigatório.");
+                .WithMessage("Usuário de cadastro é obrigatório");
         }
     }
 }

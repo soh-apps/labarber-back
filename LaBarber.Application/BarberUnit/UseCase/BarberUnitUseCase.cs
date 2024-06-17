@@ -1,6 +1,5 @@
 ﻿using LaBarber.Domain.Dtos.BarberUnit;
-using LaBarber.Domain.Entities.Barber;
-using System.ComponentModel.Design;
+using LaBarber.Domain.Entities.BarberUnit;
 
 namespace LaBarber.Application.BarberUnit.UseCase
 {
@@ -23,17 +22,9 @@ namespace LaBarber.Application.BarberUnit.UseCase
             return await _repository.UpdateBarberUnit(input);
         }
 
-        public async Task<bool> CreateBarberUnitManager(CreateBarberUnitManagerDto input)
+        public async Task<BarberUnitDto> GetBarberUnitById(int barberUnitId)
         {
-            return await _repository.CreateBarberUnitManager(input);
-        }
-
-        public async Task<GetBarberUnitDto> GetBarberUnitById(int barberUnitId)
-        {
-            var barberUnitDto = await _repository.GetBarberUnitById(barberUnitId);
-            if (barberUnitDto.Id < 1) return new GetBarberUnitDto();
-            var barberUnitAvailabilityDto = await _repository.GetBarberUnitAvailability(barberUnitId);
-            return new GetBarberUnitDto(barberUnitDto.Id, barberUnitDto.Name, barberUnitDto.City, barberUnitDto.State, barberUnitDto.Street, barberUnitDto.Number, barberUnitDto.Complement, barberUnitDto.ZipCode, barberUnitDto.CompanyId, barberUnitDto.Status, barberUnitAvailabilityDto);
+            return await _repository.GetBarberUnitById(barberUnitId);
         }
 
         public async Task<IEnumerable<BarberUnitDto>> GetBarberUnitsByCompany(int companyId)
@@ -51,12 +42,12 @@ namespace LaBarber.Application.BarberUnit.UseCase
             bool deleted = await _repository.DeleteAllBarberUnitAvailabilities(barberUnitId);
             if (deleted)
             {
-                var availabilitiesDto = new List<CreateBarberUnitAvailabilityDto>();
+                var availabilitiesDto = new List<BarberUnitAvailabilityDto>();
                 foreach (var availability in availabilities)
                 {
                     foreach (var availabilityWorkingDay in availability.WorkingDays)
                     {
-                        availabilitiesDto.Add(new CreateBarberUnitAvailabilityDto(availabilityWorkingDay, availability.StartingHour, availability.EndingHour, barberUnitId));
+                        availabilitiesDto.Add(new BarberUnitAvailabilityDto(availabilityWorkingDay, availability.StartingHour, availability.EndingHour, barberUnitId));
                     }
                 }
                 var availabilitiesFiltered = GetAvailabilitiesFiltered(availabilitiesDto);
@@ -65,14 +56,14 @@ namespace LaBarber.Application.BarberUnit.UseCase
             return false;
         }
 
-        private IEnumerable<CreateBarberUnitAvailabilityDto> GetAvailabilitiesFiltered(IEnumerable<CreateBarberUnitAvailabilityDto> availabilities)
+        private IEnumerable<BarberUnitAvailabilityDto> GetAvailabilitiesFiltered(IEnumerable<BarberUnitAvailabilityDto> availabilities)
         {
             var filtered = availabilities
                 .OrderBy(x => x.StartingHour)
                 .GroupBy(x => x.WorkingDay)
                 .ToList();
-            var result = new List<CreateBarberUnitAvailabilityDto>();
-            foreach(var availabilityByWorkingDay in filtered)
+            var result = new List<BarberUnitAvailabilityDto>();
+            foreach (var availabilityByWorkingDay in filtered)
             {
 
                 var current = availabilityByWorkingDay.ElementAt(0);

@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using LaBarber.Domain.Entities.BarberUnit;
 
 namespace LaBarber.Domain.Entities.Barber
 {
@@ -12,9 +13,9 @@ namespace LaBarber.Domain.Entities.Barber
             PaymentDate = DateTime.UtcNow;
             PaymentValue = 0;
             BarberId = 0;
-            Barber = new BarberEntity();
+            Barber = null;
             BarberUnitId = 0;
-            BarberUnit = new BarberUnitEntity();
+            BarberUnit = null;
         }
 
         [Key]
@@ -30,12 +31,12 @@ namespace LaBarber.Domain.Entities.Barber
         [Column("BarberId")]
         public int BarberId { get; set; }
 
-        public virtual BarberEntity Barber { get; set; }
+        public virtual BarberEntity? Barber { get; set; }
 
         [ForeignKey("BarberUnit")]
         [Column("BarberUnitId")]
         public int BarberUnitId { get; set; }
 
-        public virtual BarberUnitEntity BarberUnit { get; set; }
+        public virtual BarberUnitEntity? BarberUnit { get; set; }
     }
 }

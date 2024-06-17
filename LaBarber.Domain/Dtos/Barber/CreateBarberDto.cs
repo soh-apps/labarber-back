@@ -1,6 +1,6 @@
-﻿namespace LaBarber.Domain.Dtos.BarberUnit
+﻿namespace LaBarber.Domain.Dtos.Barber
 {
-    public class CreateBarberUnitManagerDto
+    public class CreateBarberDto
     {
         public string Name { get; set; }
         public string City { get; set; }
@@ -13,7 +13,7 @@
         public int BarberUnitId { get; set; }
         public int CredentialId { get; set; }
 
-        public CreateBarberUnitManagerDto(string name, string city, string state, string street, string number, string complement, string zipCode, bool commissioned, int barberUnitId, int credentialId)
+        public CreateBarberDto(string name, string city, string state, string street, string number, string complement, string zipCode, bool commissioned, int barberUnitId, int credentialId)
         {
             Name = name;
             City = city;

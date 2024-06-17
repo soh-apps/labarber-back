@@ -1,5 +1,6 @@
 ﻿using LaBarber.Domain.Entities.Appointment;
 using LaBarber.Domain.Entities.Barber;
+using LaBarber.Domain.Entities.BarberUnit;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -16,7 +17,7 @@ namespace LaBarber.Domain.Entities.Service
             Value = 0;
             CommissionPercent = 0;
             BarberUnitId = 0;
-            BarberUnit = new BarberUnitEntity();
+            BarberUnit = null;
         }
 
         [Key]
@@ -39,6 +40,6 @@ namespace LaBarber.Domain.Entities.Service
         [Column("BarberUnitId")]
         public int BarberUnitId { get; set; }
 
-        public virtual BarberUnitEntity BarberUnit { get; set; }
+        public virtual BarberUnitEntity? BarberUnit { get; set; }
     }
 }

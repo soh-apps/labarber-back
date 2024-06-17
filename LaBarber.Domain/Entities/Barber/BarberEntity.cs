@@ -1,7 +1,6 @@
-﻿using LaBarber.Domain.Dtos.BarberUnit;
-using LaBarber.Domain.Entities.Appointment;
+﻿using LaBarber.Domain.Dtos.Barber;
+using LaBarber.Domain.Entities.BarberUnit;
 using LaBarber.Domain.Entities.Credential;
-using LaBarber.Domain.Entities.Profile;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -21,15 +20,17 @@ namespace LaBarber.Domain.Entities.Barber
             Status = 0;
             RegisterDate = DateTime.UtcNow;
             BarberUnitId = 0;
-            BarberUnit = new BarberUnitEntity();
+            BarberUnit = null;
             Commissioned = false;
             LastPayment = DateTime.UtcNow;
             NextPayment = DateTime.UtcNow;
             CredentialId = 0;
-            Credential = new CredentialEntity();
+            Credential = null;
+            Number = string.Empty;
+            Complement = string.Empty;
         }
 
-        public BarberEntity(CreateBarberUnitManagerDto managerDto)
+        public BarberEntity(CreateBarberDto managerDto)
         {
             Name = managerDto.Name;
             City = managerDto.City;

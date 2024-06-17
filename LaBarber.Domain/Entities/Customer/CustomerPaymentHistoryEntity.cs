@@ -1,4 +1,5 @@
 ﻿using LaBarber.Domain.Entities.Barber;
+using LaBarber.Domain.Entities.BarberUnit;
 using LaBarber.Domain.Entities.Service;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -14,11 +15,11 @@ namespace LaBarber.Domain.Entities.Customer
             PaymentDate = DateTime.UtcNow;
             PaymentValue = 0;
             BarberId = 0;
-            Barber = new BarberEntity();
+            Barber = null;
             BarberUnitId = 0;
-            BarberUnit = new BarberUnitEntity();
+            BarberUnit = null;
             CustomerId = 0;
-            Customer = new CustomerEntity();
+            Customer = null;
             ServiceId = null;
             Service = null;
         }
@@ -37,19 +38,19 @@ namespace LaBarber.Domain.Entities.Customer
         [Column("CustomerId")]
         public int CustomerId { get; set; }
 
-        public virtual CustomerEntity Customer { get; set; }
+        public virtual CustomerEntity? Customer { get; set; }
 
         [ForeignKey("Barber")]
         [Column("BarberId")]
         public int BarberId { get; set; }
 
-        public virtual BarberEntity Barber { get; set; }
+        public virtual BarberEntity? Barber { get; set; }
 
         [ForeignKey("BarberUnit")]
         [Column("BarberUnitId")]
         public int BarberUnitId { get; set; }
 
-        public virtual BarberUnitEntity BarberUnit { get; set; }
+        public virtual BarberUnitEntity? BarberUnit { get; set; }
 
         [ForeignKey("Service")]
         [Column("ServiceId")]

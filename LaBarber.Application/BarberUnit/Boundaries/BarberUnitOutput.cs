@@ -1,8 +1,9 @@
-﻿using LaBarber.Domain.Entities.Barber;
+﻿using LaBarber.Domain.Dtos.BarberUnit;
+using LaBarber.Domain.Entities.BarberUnit;
 
-namespace LaBarber.Domain.Dtos.BarberUnit
+namespace LaBarber.Application.BarberUnit.Boundaries
 {
-    public class GetBarberUnitDto
+    public class BarberUnitOutput
     {
         public int Id { get; set; }
         public string Name { get; set; }
@@ -16,7 +17,7 @@ namespace LaBarber.Domain.Dtos.BarberUnit
         public BarberUnitStatus Status { get; set; }
         public IEnumerable<GetBarberUnitAvailabilityDto> Availabilities { get; set; }
 
-        public GetBarberUnitDto()
+        public BarberUnitOutput()
         {
             Id = 0;
             Name = string.Empty;
@@ -28,25 +29,40 @@ namespace LaBarber.Domain.Dtos.BarberUnit
             ZipCode = string.Empty;
             CompanyId = 0;
             Status = BarberUnitStatus.Inactive;
-            Availabilities = new List<GetBarberUnitAvailabilityDto>();
+            Availabilities = [];
         }
 
-        public GetBarberUnitDto(int id, string name, string city, string state, string street, string number, string complement, string zipCode, int companyId, BarberUnitStatus status, IEnumerable<BarberUnitAvailabilityDto> availabilities)
+        public BarberUnitOutput(BarberUnitDto dto, IEnumerable<BarberUnitAvailabilityDto> availabilities)
         {
-            Id = id;
-            Name = name;
-            City = city;
-            State = state;
-            Street = street;
-            Number = number;
-            Complement = complement;
-            ZipCode = zipCode;
-            CompanyId = companyId;
-            Status = status;
+            Id = dto.Id;
+            Name = dto.Name;
+            City = dto.City;
+            State = dto.State;
+            Street = dto.Street;
+            Number = dto.Number;
+            Complement = dto.Complement;
+            ZipCode = dto.ZipCode;
+            CompanyId = dto.CompanyId;
+            Status = dto.Status;
             Availabilities = FormatBarberUnitAvailabilitiesList(availabilities);
         }
 
-        private IEnumerable<GetBarberUnitAvailabilityDto> FormatBarberUnitAvailabilitiesList(IEnumerable<BarberUnitAvailabilityDto> availabilitiesDto)
+        public BarberUnitOutput(BarberUnitDto dto)
+        {
+            Id = dto.Id;
+            Name = dto.Name;
+            City = dto.City;
+            State = dto.State;
+            Street = dto.Street;
+            Number = dto.Number;
+            Complement = dto.Complement;
+            ZipCode = dto.ZipCode;
+            CompanyId = dto.CompanyId;
+            Status = dto.Status;
+            Availabilities = [];
+        }
+
+        private static IEnumerable<GetBarberUnitAvailabilityDto> FormatBarberUnitAvailabilitiesList(IEnumerable<BarberUnitAvailabilityDto> availabilitiesDto)
         {
             var result = new List<GetBarberUnitAvailabilityDto>();
             foreach (var availabilityDto in availabilitiesDto)

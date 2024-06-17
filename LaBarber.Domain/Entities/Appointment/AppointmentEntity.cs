@@ -1,4 +1,5 @@
 ﻿using LaBarber.Domain.Entities.Barber;
+using LaBarber.Domain.Entities.BarberUnit;
 using LaBarber.Domain.Entities.Company;
 using LaBarber.Domain.Entities.Customer;
 using LaBarber.Domain.Entities.Service;
@@ -25,13 +26,13 @@ namespace LaBarber.Domain.Entities.Appointment
             CustomerId = null;
             Customer = null;
             CompanyId = 0;
-            Company = new CompanyEntity();
+            Company = null;
             BarberId = 0;
-            Barber = new BarberEntity();
+            Barber = null;
             BarberUnitId = 0;
-            BarberUnit = new BarberUnitEntity();
+            BarberUnit = null;
             ServiceId = 0;
-            Service = new ServiceEntity();
+            Service = null;
         }
 
         [Key]
@@ -75,24 +76,24 @@ namespace LaBarber.Domain.Entities.Appointment
         [Column("CompanyId")]
         public int CompanyId { get; set; }
 
-        public virtual CompanyEntity Company { get; set; }
+        public virtual CompanyEntity? Company { get; set; }
 
         [ForeignKey("BarberUnit")]
         [Column("BarberUnitId")]
         public int BarberUnitId { get; set; }
 
-        public virtual BarberUnitEntity BarberUnit { get; set; }
+        public virtual BarberUnitEntity? BarberUnit { get; set; }
 
         [ForeignKey("Service")]
         [Column("ServiceId")]
         public int ServiceId { get; set; }
 
-        public virtual ServiceEntity Service { get; set; }
+        public virtual ServiceEntity? Service { get; set; }
 
         [ForeignKey("Barber")]
         [Column("BarberId")]
         public int BarberId { get; set; }
 
-        public virtual BarberEntity Barber { get; set; }
+        public virtual BarberEntity? Barber { get; set; }
     }
 }

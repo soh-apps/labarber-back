@@ -2,6 +2,7 @@
 using LaBarber.Domain.Entities.Appointment;
 using LaBarber.Domain.Entities.AppUser;
 using LaBarber.Domain.Entities.Barber;
+using LaBarber.Domain.Entities.BarberUnit;
 using LaBarber.Domain.Entities.Company;
 using LaBarber.Domain.Entities.Credential;
 using LaBarber.Domain.Entities.Customer;

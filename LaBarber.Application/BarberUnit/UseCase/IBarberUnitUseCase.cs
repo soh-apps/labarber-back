@@ -7,8 +7,7 @@ namespace LaBarber.Application.BarberUnit.UseCase
         Task<int> CreateBarberUnit(CreateBarberUnitDto input);
         Task<bool> UpdateBarberUnit(UpdateBarberUnitDto input);
         Task<IEnumerable<BarberUnitDto>> GetBarberUnitsByCompany(int companyId);
-        Task<GetBarberUnitDto> GetBarberUnitById(int barberUnitId);
-        Task<bool> CreateBarberUnitManager(CreateBarberUnitManagerDto input);
+        Task<BarberUnitDto> GetBarberUnitById(int barberUnitId);
         Task<bool> SetBarberUnitAvailability(IEnumerable<SetBarberUnitAvailabilityDto> availabilities, int barberUnitId);
         Task<IEnumerable<BarberUnitAvailabilityDto>> GetBarberUnitAvailability(int barberUnitId);
     }

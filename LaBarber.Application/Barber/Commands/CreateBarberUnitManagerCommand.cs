@@ -1,8 +1,8 @@
-﻿using LaBarber.Application.BarberUnit.Boundaries;
-using LaBarber.Application.BarberUnit.Commands.Validation;
+﻿using LaBarber.Application.Barber.Boundaries;
+using LaBarber.Application.Barber.Commands.Validation;
 using LaBarber.Domain.Base.Messages;
 
-namespace LaBarber.Application.BarberUnit.Commands
+namespace LaBarber.Application.Barber.Commands
 {
     public class CreateBarberUnitManagerCommand : Command<bool>
     {

@@ -1,4 +1,4 @@
-﻿namespace LaBarber.Application.BarberUnit.Boundaries
+﻿namespace LaBarber.Application.Barber.Boundaries
 {
     public class CreateBarberUnitManagerInput
     {

@@ -30,14 +30,19 @@ using LaBarber.Application.Login.Commands.RecoverPassword;
 using LaBarber.Application.BarberUnit.Commands;
 using LaBarber.Application.BarberUnit.Handlers;
 using LaBarber.Application.BarberUnit.UseCase;
-using LaBarber.Domain.Entities.Barber;
 using LaBarber.Infra.Repository.Barber;
 using LaBarber.Application.Login.Commands.RefreshToken;
 using LaBarber.Application.Company.Commands.GetAllCompanies;
 using LaBarber.Application.Company.Boundaries;
 using LaBarber.Application.Company.Commands.GetCompanyById;
 using LaBarber.Application.Company.Commands.UpdateCompany;
-using LaBarber.Domain.Dtos.BarberUnit;
+using LaBarber.Application.BarberUnit.Boundaries;
+using LaBarber.Domain.Entities.BarberUnit;
+using LaBarber.Application.Barber.UseCase;
+using LaBarber.Application.Barber;
+using LaBarber.Application.Barber.Commands;
+using LaBarber.Application.Barber.Handlers;
+using LaBarber.Domain.Entities.Barber;
 
 namespace LaBarber.IoC
 {
@@ -79,10 +84,15 @@ namespace LaBarber.IoC
             services.AddScoped<IBarberUnitUseCase, BarberUnitUseCase>();
             services.AddScoped<IBarberUnitRepository, BarberUnitRepository>();
             services.AddTransient<IRequestHandler<CreateBarberUnitCommand, bool>, CreateBarberUnitHandler>();
-            services.AddTransient<IRequestHandler<CreateBarberUnitManagerCommand, bool>, CreateBarberUnitManagerHandler>();
-            services.AddTransient<IRequestHandler<GetBarberUnitsByCompanyCommand, IEnumerable<BarberUnitDto>>, GetBarberUnitsByCompanyHandler>();
-            services.AddTransient<IRequestHandler<GetBarberUnitCommand, GetBarberUnitDto>, GetBarberUnitByIdHandler>();
+            services.AddTransient<IRequestHandler<GetBarberUnitsByCompanyCommand, IEnumerable<BarberUnitOutput>>, GetBarberUnitsByCompanyHandler>();
+            services.AddTransient<IRequestHandler<GetBarberUnitCommand, BarberUnitOutput>, GetBarberUnitByIdHandler>();
             services.AddTransient<IRequestHandler<UpdateBarberUnitCommand, bool>, UpdateBarberUnitHandler>();
+
+            //Barber
+            services.AddScoped<IBarberUseCase, BarberUseCase>();
+            services.AddScoped<IBarberRepository, BarberRepository>();
+            services.AddTransient<IRequestHandler<CreateBarberUnitManagerCommand, bool>, CreateBarberUnitManagerHandler>();
+            services.AddTransient<IRequestHandler<CreateBarberCommand, bool>, CreateBarberHandler>();
 
             //Email
             services.AddScoped<IEmailSender, EmailSender>();

@@ -1,11 +1,9 @@
 using LaBarber.Application.AppUser.UseCase;
 using LaBarber.Application.Company.Boundaries;
-using LaBarber.Application.Company.Commands.GetAllCompanies;
 using LaBarber.Application.Company.Commands.GetCompanyById;
 using LaBarber.Application.Company.UseCase;
 using LaBarber.Domain.Base.Communication;
 using LaBarber.Domain.Base.Messages.Notification;
-using LaBarber.Domain.Dtos.Company;
 using MediatR;
 
 namespace LaBarber.Application.Company.Handlers

@@ -3,7 +3,7 @@ using LaBarber.Domain.Entities.Company;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
-namespace LaBarber.Domain.Entities.Barber
+namespace LaBarber.Domain.Entities.BarberUnit
 {
     [Table("BarberUnit")]
     public class BarberUnitEntity

@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
 
-namespace LaBarber.Domain.Entities.Barber
+namespace LaBarber.Domain.Entities.BarberUnit
 {
     [Table("BarberUnitAvailability")]
     public class BarberUnitAvailabilityEntity

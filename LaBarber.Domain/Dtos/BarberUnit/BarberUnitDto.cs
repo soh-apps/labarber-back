@@ -1,4 +1,4 @@
-﻿using LaBarber.Domain.Entities.Barber;
+﻿using LaBarber.Domain.Entities.BarberUnit;
 
 namespace LaBarber.Domain.Dtos.BarberUnit
 {

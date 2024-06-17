@@ -1,6 +1,7 @@
 ﻿using LaBarber.Domain.Configuration;
 using LaBarber.Domain.Dtos.BarberUnit;
 using LaBarber.Domain.Entities.Barber;
+using LaBarber.Domain.Entities.BarberUnit;
 using LaBarber.Infra.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -34,16 +35,7 @@ namespace LaBarber.Infra.Repository.Barber
             return true;
         }
 
-        public async Task<bool> CreateBarberUnitManager(CreateBarberUnitManagerDto input)
-        {
-            using var context = new ContextBase(_optionsBuilder, _secrets);
-            var barberUnit = new BarberEntity(input);
-            var created = await context.Barber.AddAsync(barberUnit);
-            await context.SaveChangesAsync();
-            return true;
-        }
-
-        public async Task<bool> CreateBarberUnitAvailabilities(IEnumerable<CreateBarberUnitAvailabilityDto> availabilitiesDto)
+        public async Task<bool> CreateBarberUnitAvailabilities(IEnumerable<BarberUnitAvailabilityDto> availabilitiesDto)
         {
             using var context = new ContextBase(_optionsBuilder, _secrets);
             var availabilities = new List<BarberUnitAvailabilityEntity>();

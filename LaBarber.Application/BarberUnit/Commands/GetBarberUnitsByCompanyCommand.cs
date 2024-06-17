@@ -1,11 +1,10 @@
-﻿using Amazon.DynamoDBv2.Model;
+﻿using LaBarber.Application.BarberUnit.Boundaries;
 using LaBarber.Application.BarberUnit.Commands.Validation;
 using LaBarber.Domain.Base.Messages;
-using LaBarber.Domain.Dtos.BarberUnit;
 
 namespace LaBarber.Application.BarberUnit.Commands
 {
-    public class GetBarberUnitsByCompanyCommand : Command<IEnumerable<BarberUnitDto>>
+    public class GetBarberUnitsByCompanyCommand : Command<IEnumerable<BarberUnitOutput>>
     {
         public int UserId { get; set; }
         public string UserRole { get; set; }

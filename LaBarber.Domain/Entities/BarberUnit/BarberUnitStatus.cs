@@ -1,4 +1,4 @@
-﻿namespace LaBarber.Domain.Entities.Barber
+﻿namespace LaBarber.Domain.Entities.BarberUnit
 {
     public enum BarberUnitStatus
     {
