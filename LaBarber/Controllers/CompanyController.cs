@@ -25,7 +25,7 @@ namespace LaBarber.API.Controllers
             _handler = handler;
         }
 
-        [HttpPost("CreateCompany")]
+        [HttpPost("Create")]
         [Authorize(Roles = "Master")]
         [SwaggerOperation(
             Summary = "Criar Empresa",
@@ -48,7 +48,7 @@ namespace LaBarber.API.Controllers
             }
         }
 
-        [HttpPost("CreateCompanyUser")]
+        [HttpPost("CreateAdmin")]
         [Authorize(Roles = "Master")]
         [SwaggerOperation(
             Summary = "Criar usuario da empresa",
@@ -122,7 +122,7 @@ namespace LaBarber.API.Controllers
             }
         }
 
-        [HttpPut("UpdateCompany")]
+        [HttpPut("Update")]
         [Authorize(Roles = "Master,Admin")]
         [SwaggerOperation(
             Summary = "Atualizar Empresa",
