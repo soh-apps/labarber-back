@@ -22,7 +22,7 @@ namespace LaBarber.API.Controllers
             _handler = handler;
         }
 
-        [HttpPost("CreateBarberUnitManager")]
+        [HttpPost("CreateManager")]
         [Authorize(Roles = "Admin")]
         [SwaggerResponse(201, "Gerente da barbearia criada com sucesso")]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]

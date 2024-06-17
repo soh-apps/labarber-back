@@ -20,7 +20,7 @@ namespace LaBarber.API.Controllers
             _handler = handler;
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         [Authorize(Roles = "Admin")]
         [SwaggerResponse(201, "Barbearia criada com sucesso")]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
@@ -42,7 +42,7 @@ namespace LaBarber.API.Controllers
             }
         }
 
-        [HttpPut("UpdateBarberUnit")]
+        [HttpPut("Update")]
         [Authorize(Roles = "Admin")]
         [SwaggerResponse(200, "Barbearia atualizado com sucesso")]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
