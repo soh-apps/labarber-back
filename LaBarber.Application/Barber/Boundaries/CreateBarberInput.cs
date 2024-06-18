@@ -13,7 +13,10 @@
         public string Complement { get; set; }
         public string ZipCode { get; set; }
         public bool Commissioned { get; set; }
+        public int BarberUnitId { get; set; }
         public int UserId { get; private set; }
+        public bool IsManager { get; set; }
+        public string UserRole { get; private set; }
 
         public CreateBarberInput()
         {
@@ -28,25 +31,18 @@
             Complement = string.Empty;
             ZipCode = string.Empty;
             Commissioned = false;
+            BarberUnitId = 0;
+            UserId = 0;
+            IsManager = false;
+            UserRole = string.Empty;
         }
 
-        public CreateBarberInput(string username, string email, string password, string name, string city, string state,
-         string street, string number, string complement, string zipCode, bool commissioned)
+        public void SetUserRole(string userRole)
         {
-            Username = username;
-            Email = email;
-            Password = password;
-            Name = name;
-            City = city;
-            State = state;
-            Street = street;
-            Number = number;
-            Complement = complement;
-            Commissioned = commissioned;
-            ZipCode = zipCode;
+            UserRole = userRole;
         }
 
-        public void SetUserId (int userId)
+        public void SetUserId(int userId)
         {
             UserId = userId;
         }

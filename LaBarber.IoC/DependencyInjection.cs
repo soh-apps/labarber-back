@@ -91,7 +91,6 @@ namespace LaBarber.IoC
             //Barber
             services.AddScoped<IBarberUseCase, BarberUseCase>();
             services.AddScoped<IBarberRepository, BarberRepository>();
-            services.AddTransient<IRequestHandler<CreateBarberUnitManagerCommand, bool>, CreateBarberUnitManagerHandler>();
             services.AddTransient<IRequestHandler<CreateBarberCommand, bool>, CreateBarberHandler>();
 
             //Email

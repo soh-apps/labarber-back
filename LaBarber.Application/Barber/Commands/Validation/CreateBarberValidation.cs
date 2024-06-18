@@ -47,11 +47,25 @@ namespace LaBarber.Application.Barber.Commands.Validation
             RuleFor(x => x.Number)
                 .NotEmpty()
                 .WithMessage("Número do endereço é obrigatório.");
-            
+
+            RuleFor(x => x.BarberUnitId)
+                .NotNull()
+                .WithMessage("Informe a barbearia que o gerente irá atuar.")
+                .GreaterThan(0)
+                .WithMessage("Barbearia inválida.");
+
             RuleFor(x => x.UserId)
                 .NotNull()
                 .GreaterThan(0)
-                .WithMessage("Usuário de cadastro é obrigatório");
+                .WithMessage("É preciso estar logado.");
+                        
+            RuleFor(x => x.UserRole)
+                .NotEmpty()
+                .WithMessage("É preciso estar logado.");
+            
+            RuleFor(x => x.IsManager)
+                .NotNull()
+                .WithMessage("Informe se o usuário é manager ou não");
         }
     }
 }

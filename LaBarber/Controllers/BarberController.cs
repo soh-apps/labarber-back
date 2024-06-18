@@ -22,34 +22,15 @@ namespace LaBarber.API.Controllers
             _handler = handler;
         }
 
-        [HttpPost("CreateManager")]
-        [Authorize(Roles = "Admin")]
-        [SwaggerResponse(201, "Gerente da barbearia criada com sucesso")]
+        [HttpPost("Create")]
+        [Authorize(Roles = "Admin, Manager")]
+        [SwaggerResponse(201, "Usuário da barbearia criada com sucesso")]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
-        public async Task<IActionResult> CreateBarberUnitManager([FromBody] CreateBarberUnitManagerInput input)
-        {
-            input.SetAdminId(GetUserId());
-            var command = new CreateBarberUnitManagerCommand(input);
-
-            await _handler.SendCommand<CreateBarberUnitManagerCommand, bool>(command);
-
-            if (IsValidOperation())
-            {
-                return StatusCode(StatusCodes.Status201Created);
-            }
-            else
-            {
-                return BadRequest(GetMessages());
-            }
-        }
-
-        [HttpPost("CreateBarber")]
-        [Authorize(Roles = "Manager")]
-        [SwaggerResponse(201, "Gerente da barbearia criada com sucesso")]
-        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
-        public async Task<IActionResult> CreateBarber([FromBody] CreateBarberInput input)
+        public async Task<IActionResult> CreateBarberUnitManager([FromBody] CreateBarberInput input)
         {
             input.SetUserId(GetUserId());
+            input.SetUserRole(GetUserRole());
+
             var command = new CreateBarberCommand(input);
 
             await _handler.SendCommand<CreateBarberCommand, bool>(command);
