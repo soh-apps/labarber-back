@@ -8,16 +8,16 @@ namespace LaBarber.Application.BarberUnit.Commands
     {
         public int UserId { get; set; }
         public string UserRole { get; set; }
-        public int CompanyId { get; set; }
+        public int? CompanyId { get; set; }
 
         public GetBarberUnitsByCompanyCommand()
         {
             UserId = 0;
             UserRole = string.Empty;
-            CompanyId = 0;
+            CompanyId = null;
         }
 
-        public GetBarberUnitsByCompanyCommand(int userId, string userRole, int companyId)
+        public GetBarberUnitsByCompanyCommand(int userId, string userRole, int? companyId)
         {
             UserId = userId;
             UserRole = userRole;

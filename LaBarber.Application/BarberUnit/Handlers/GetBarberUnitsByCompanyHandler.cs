@@ -24,10 +24,11 @@ namespace LaBarber.Application.BarberUnit.Handlers
             if (request.IsValid())
             {
                 var user = await _appUserUseCase.GetAppUserById(request.UserId);
+                int? companyIdToSearch = request.CompanyId ?? user.CompanyId;
 
-                if ((user.CompanyId != null && user.CompanyId == request.CompanyId) || request.UserRole == "Master")
+                if (companyIdToSearch != null && (user.CompanyId == companyIdToSearch || request.UserRole == "Master"))
                 {
-                    var dto = await _barberUnitUseCase.GetBarberUnitsByCompany(request.CompanyId);
+                    var dto = await _barberUnitUseCase.GetBarberUnitsByCompany(companyIdToSearch.Value);
 
                     return dto.Select(x => new BarberUnitOutput(x)).AsEnumerable();
                 }

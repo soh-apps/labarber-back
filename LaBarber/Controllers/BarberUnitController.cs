@@ -84,11 +84,11 @@ namespace LaBarber.API.Controllers
             }
         }
 
-        [HttpGet("GetBarberUnitsByCompany/{id}")]
+        [HttpGet("GetBarberUnitsByCompany")]
         [Authorize(Roles = "Master,Admin")]
         [SwaggerResponse(200, "Barbearias listadas com sucesso")]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
-        public async Task<IActionResult> GetBarberUnitsByCompany(int id)
+        public async Task<IActionResult> GetBarberUnitsByCompany([FromQuery]int? id)
         {
             var command = new GetBarberUnitsByCompanyCommand(GetUserId(), GetUserRole(), id);
 
