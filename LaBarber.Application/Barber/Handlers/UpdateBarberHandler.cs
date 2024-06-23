@@ -14,32 +14,26 @@ using MediatR;
 
 namespace LaBarber.Application.Barber.Handlers
 {
-    public class CreateBarberHandler : IRequestHandler<CreateBarberCommand, bool>
+    public class UpdateBarberHandler : IRequestHandler<UpdateBarberCommand, bool>
     {
         private readonly IMediatorHandler _handler;
-        private readonly IAppUserUseCase _appUserUseCase;
         private readonly IBarberUnitUseCase _barberUnitUseCase;
         private readonly IBarberUseCase _barberUseCase;
-        private readonly ITokenUseCase _tokenUseCase;
-        private readonly ILoginUseCase _loginUseCase;
+        private readonly IAppUserUseCase _appUserUseCase;
 
-        public CreateBarberHandler(
+        public UpdateBarberHandler(
             IMediatorHandler handler,
-            IAppUserUseCase appUserUseCase,
             IBarberUnitUseCase barberUnitUseCase,
-            ITokenUseCase tokenUseCase,
-            ILoginUseCase loginUseCase,
-            IBarberUseCase barberUSerCase)
+            IBarberUseCase barberUSerCase,
+            IAppUserUseCase appUserUseCase)
         {
             _handler = handler;
-            _appUserUseCase = appUserUseCase;
             _barberUnitUseCase = barberUnitUseCase;
-            _tokenUseCase = tokenUseCase;
-            _loginUseCase = loginUseCase;
             _barberUseCase = barberUSerCase;
+            _appUserUseCase = appUserUseCase;
         }
 
-        public async Task<bool> Handle(CreateBarberCommand request, CancellationToken cancellationToken)
+        public async Task<bool> Handle(UpdateBarberCommand request, CancellationToken cancellationToken)
         {
             if (request.IsValid())
             {
@@ -70,14 +64,18 @@ namespace LaBarber.Application.Barber.Handlers
                     input.BarberUnitId = manager.BarberUnitId;
                 }
 
-                var encryptedPassword = _tokenUseCase.EncryptPassword(input.Password);
-                var userType = input.IsManager ? UserType.Manager : UserType.Barber;
-                var createCredentialDto = new CreateCredentialDto(input.Username, encryptedPassword, input.Email, userType);
-                var credentialId = await _loginUseCase.CreateLogin(createCredentialDto);
-                if (credentialId > 0)
-                    await _barberUseCase.CreateBarber(new BarberDto(0, input.Name, input.City, input.State, input.Street,
-                     input.Number, input.Complement, input.ZipCode, input.Commissioned,
-                    input.BarberUnitId, credentialId, BarberStatus.Active));
+                //TODO atualizar role do usuario caso ele deixe de ser manager
+
+                var success = await _barberUseCase.UpdateBarber(new BarberDto(input.BarberId, input.Name, input.City, input.State, input.Street,
+                 input.Number, input.Complement, input.ZipCode, input.Commissioned,
+                input.BarberUnitId, 0, input.Status));
+
+                if (!success)
+                {
+                    await _handler.PublishNotification(new DomainNotification(request.MessageType, "Barbeiro não foi atualizado"));
+                }
+
+                return true;
             }
             foreach (var error in request.ValidationResult.Errors)
             {

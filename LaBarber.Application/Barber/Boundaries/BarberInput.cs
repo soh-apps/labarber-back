@@ -1,18 +1,9 @@
-using LaBarber.Domain.Dtos.Barber;
-using LaBarber.Domain.Entities.Barber;
-using LaBarber.Domain.Enums;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace LaBarber.Application.Barber.Boundaries
 {
-    public class BarberOutput
+    public class BarberInput
     {
-        [SwaggerSchema(
-            Title = "Id",
-            Description = "Id do barbeiro",
-            Format = "int")]
-        public int Id { get; set; }
-
         [SwaggerSchema(
             Title = "Name",
             Description = "nome do barbeiro",
@@ -63,26 +54,31 @@ namespace LaBarber.Application.Barber.Boundaries
 
         [SwaggerSchema(
             Title = "BarberUnitId",
-            Description = "Id da unidade",
+            Description = "Id da barbeiaria",
             Format = "int")]
         public int BarberUnitId { get; set; }
 
-
         [SwaggerSchema(
-            Title = "Role",
-            Description = "Perfil do barbeiro",
-            Format = "UserType")]
-        public UserType Role { get; set; }
+            Title = "Commissioned",
+            Description = "Se o Barbeiro é gerente ou não",
+            Format = "bool")]
+        public bool IsManager { get; set; }
 
-        [SwaggerSchema(
-            Title = "Status",
-            Description = "Status do barbeiro",
-            Format = "BarberStatus")]
-        public BarberStatus Status { get; set; }
+        public int UserId { get; private set; }
+        public string UserRole { get; private set; }
 
-        public BarberOutput()
+        public void SetUserRole(string userRole)
         {
-            Id = 0;
+            UserRole = userRole;
+        }
+
+        public void SetUserId(int userId)
+        {
+            UserId = userId;
+        }
+
+        public BarberInput()
+        {
             Name = string.Empty;
             City = string.Empty;
             State = string.Empty;
@@ -92,23 +88,9 @@ namespace LaBarber.Application.Barber.Boundaries
             ZipCode = string.Empty;
             Commissioned = false;
             BarberUnitId = 0;
-            Status = BarberStatus.Inactive;
-        }
-
-        public BarberOutput(BarberDto dto)
-        {
-            Id = dto.Id;
-            Name = dto.Name;
-            City = dto.City;
-            State = dto.State;
-            Street = dto.Street;
-            Number = dto.Number;
-            Complement = dto.Complement;
-            ZipCode = dto.ZipCode;
-            Commissioned = dto.Commissioned;
-            BarberUnitId = dto.BarberUnitId;
-            Role = dto.Role;
-            Status = dto.Status;
+            UserId = 0;
+            IsManager = false;
+            UserRole = string.Empty;
         }
     }
 }

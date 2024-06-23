@@ -66,5 +66,55 @@ namespace LaBarber.API.Controllers
                 return BadRequest(GetMessages());
             }
         }
+
+        [HttpGet("GetBarber/{id}")]
+        [Authorize(Roles = "Admin, Manager")]
+        [SwaggerOperation(
+            Summary = "Get Barbeiro",
+            Description = "Pega as informações do barbeiro")]
+        [SwaggerResponse(200, "Lista os barbeiros", typeof(BarberOutput))]
+        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
+        public async Task<IActionResult> GetBarber([SwaggerParameter("Id do barbeiro")][FromRoute] int id)
+        {
+
+            var command = new GetBarberByIdCommand(id);
+
+            var barbers = await _handler.SendCommand<GetBarberByIdCommand, BarberOutput>(command);
+
+            if (IsValidOperation())
+            {
+                return Ok(barbers);
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
+        }
+
+        [HttpPut("Update")]
+        [Authorize(Roles = "Admin, Manager")]
+        [SwaggerOperation(
+            Summary = "Atualiza Barbeiro",
+            Description = "Atualiza as informações do barbeiro")]
+        [SwaggerResponse(204, "Usuário da barbearia atualizado com sucesso")]
+        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
+        public async Task<IActionResult> UpdateBarber([FromBody] UpdateBarberInput input)
+        {
+            input.SetUserId(GetUserId());
+            input.SetUserRole(GetUserRole());
+
+            var command = new UpdateBarberCommand(input);
+
+            await _handler.SendCommand<UpdateBarberCommand, bool>(command);
+
+            if (IsValidOperation())
+            {
+                return NoContent();
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
+        }
     }
 }

@@ -18,7 +18,7 @@ namespace LaBarber.Infra.Repository.Barber
             _secrets = secrets;
         }
 
-        public async Task<bool> CreateBarber(CreateBarberDto input)
+        public async Task<bool> CreateBarber(BarberDto input)
         {
             using var context = new ContextBase(_optionsBuilder, _secrets);
             var barberUnit = new BarberEntity(input);
@@ -52,6 +52,30 @@ namespace LaBarber.Infra.Repository.Barber
             }
 
             return new BarberDto();
+        }
+
+        public async Task<bool> UpdateBarber(BarberDto dto)
+        {
+            using var context = new ContextBase(_optionsBuilder, _secrets);
+
+            var entity = await context.Barber.FindAsync(dto.Id);
+            if (entity != null)
+            {
+                entity.Name = dto.Name;
+                entity.City = dto.City;
+                entity.State = dto.State;
+                entity.Street = dto.Street;
+                entity.Number = dto.Number;
+                entity.ZipCode = dto.ZipCode;
+                entity.Complement = dto.Complement;
+                entity.Status = dto.Status;
+                entity.Commissioned = dto.Commissioned;
+
+                context.Barber.Update(entity);
+                await context.SaveChangesAsync();
+                return true;
+            }
+            return false;
         }
     }
 }

@@ -30,24 +30,20 @@ namespace LaBarber.Domain.Entities.Barber
             Complement = string.Empty;
         }
 
-        public BarberEntity(CreateBarberDto managerDto)
+        public BarberEntity(BarberDto dto)
         {
-            Name = managerDto.Name;
-            City = managerDto.City;
-            State = managerDto.State;
-            Street = managerDto.Street;
-            Number = managerDto.Number;
-            ZipCode = managerDto.ZipCode;
-            Complement = managerDto.Complement;
+            Name = dto.Name;
+            City = dto.City;
+            State = dto.State;
+            Street = dto.Street;
+            Number = dto.Number;
+            ZipCode = dto.ZipCode;
+            Complement = dto.Complement;
             Status = BarberStatus.Active;
             RegisterDate = DateTime.UtcNow;
-            LastPayment = null;
-            NextPayment = null;
-            Commissioned = managerDto.Commissioned;
-            BarberUnitId = managerDto.BarberUnitId;
-            BarberUnit = null;
-            CredentialId = managerDto.CredentialId;
-            Credential = null;
+            Commissioned = dto.Commissioned;
+            BarberUnitId = dto.BarberUnitId;
+            CredentialId = dto.CredentialId;
         }
 
         [Key]

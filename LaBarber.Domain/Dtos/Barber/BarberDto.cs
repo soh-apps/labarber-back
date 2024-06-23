@@ -16,6 +16,7 @@ namespace LaBarber.Domain.Dtos.Barber
         public bool Commissioned { get; set; }
         public int BarberUnitId { get; set; }
         public int CredentialId { get; set; }
+        public BarberStatus Status { get; set; }
         public UserType Role { get; set; }
 
         public BarberDto()
@@ -31,6 +32,26 @@ namespace LaBarber.Domain.Dtos.Barber
             Commissioned = false;
             BarberUnitId = 0;
             CredentialId = 0;
+            Status = BarberStatus.Inactive;
+
+        }
+
+        public BarberDto(int id, string name, string city, string state,
+         string street, string number, string complement, string zipCode,
+          bool commissioned, int barberUnitId, int credentialId, BarberStatus status)
+        {
+            Id = id;
+            Name = name;
+            City = city;
+            State = state;
+            Street = street;
+            Number = number;
+            Complement = complement;
+            ZipCode = zipCode;
+            Commissioned = commissioned;
+            BarberUnitId = barberUnitId;
+            CredentialId = credentialId;
+            Status = status;
         }
 
         public BarberDto(BarberEntity entity, UserType role)
@@ -47,6 +68,7 @@ namespace LaBarber.Domain.Dtos.Barber
             BarberUnitId = entity.BarberUnitId;
             CredentialId = entity.CredentialId;
             Role = role;
+            Status = entity.Status;
         }
     }
 }
