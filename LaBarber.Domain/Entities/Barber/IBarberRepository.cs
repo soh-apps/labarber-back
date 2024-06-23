@@ -6,5 +6,6 @@ namespace LaBarber.Domain.Entities.Barber
     {
         Task<bool> CreateBarber(CreateBarberDto input);
         Task<BarberDto> GetBarberByUserId(int userId);
+        Task<List<BarberDto>> GetAllBarbers(int barberUnitId);
     }
 }

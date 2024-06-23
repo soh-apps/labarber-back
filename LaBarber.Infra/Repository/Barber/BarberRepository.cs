@@ -1,8 +1,7 @@
 using LaBarber.Domain.Configuration;
 using LaBarber.Domain.Dtos.Barber;
-using LaBarber.Domain.Dtos.BarberUnit;
 using LaBarber.Domain.Entities.Barber;
-using LaBarber.Domain.Entities.BarberUnit;
+using LaBarber.Domain.Enums;
 using LaBarber.Infra.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -28,14 +27,28 @@ namespace LaBarber.Infra.Repository.Barber
             return true;
         }
 
+        public async Task<List<BarberDto>> GetAllBarbers(int barberUnitId)
+        {
+            using var context = new ContextBase(_optionsBuilder, _secrets);
+            return await (from barber in context.Barber
+                          join credential in context.Credential on barber.CredentialId equals credential.Id
+                          join profile in context.Profile on credential.ProfileId equals profile.Id
+                          where barber.BarberUnitId == barberUnitId
+                          select new BarberDto(barber, (UserType)profile.Id)).AsNoTracking().ToListAsync();
+        }
+
         public async Task<BarberDto> GetBarberByUserId(int userId)
         {
             using var context = new ContextBase(_optionsBuilder, _secrets);
-            var entity = await context.Barber.Where(x => x.Id == userId).AsNoTracking().FirstOrDefaultAsync();
+            var dto = await (from barber in context.Barber
+                             join credential in context.Credential on barber.CredentialId equals credential.Id
+                             join profile in context.Profile on credential.ProfileId equals profile.Id
+                             where barber.Id == userId
+                             select new BarberDto(barber, (UserType)profile.Id)).AsNoTracking().FirstOrDefaultAsync();
 
-            if (entity != null)
+            if (dto != null)
             {
-                return new BarberDto(entity);
+                return dto;
             }
 
             return new BarberDto();

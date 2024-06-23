@@ -11,7 +11,7 @@
         public string ZipCode { get; set; }
         public int UserId { get; private set; }
         public string UserRole { get; private set; }
-        public IEnumerable<CreateBarberUnitAvailabilityInput>? WorkingHours { get; set; }
+        public IEnumerable<AvailabilityInput>? WorkingHours { get; set; }
 
         public CreateBarberUnitInput()
         {
@@ -24,7 +24,7 @@
             ZipCode = string.Empty;
             UserId = 0;
             UserRole = string.Empty;
-            WorkingHours = new List<CreateBarberUnitAvailabilityInput>();
+            WorkingHours = new List<AvailabilityInput>();
         }
 
         public void SetUserId(int userId)

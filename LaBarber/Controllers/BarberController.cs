@@ -1,7 +1,5 @@
 using LaBarber.Application.Barber.Boundaries;
 using LaBarber.Application.Barber.Commands;
-using LaBarber.Application.BarberUnit.Boundaries;
-using LaBarber.Application.BarberUnit.Commands;
 using LaBarber.Domain.Base.Communication;
 using LaBarber.Domain.Base.Messages.Notification;
 using MediatR;
@@ -26,7 +24,7 @@ namespace LaBarber.API.Controllers
         [Authorize(Roles = "Admin, Manager")]
         [SwaggerResponse(201, "Usuário da barbearia criada com sucesso")]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
-        public async Task<IActionResult> CreateBarberUnitManager([FromBody] CreateBarberInput input)
+        public async Task<IActionResult> CreateBarber([FromBody] CreateBarberInput input)
         {
             input.SetUserId(GetUserId());
             input.SetUserRole(GetUserRole());
@@ -38,6 +36,30 @@ namespace LaBarber.API.Controllers
             if (IsValidOperation())
             {
                 return StatusCode(StatusCodes.Status201Created);
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
+        }
+
+        [HttpGet("GetAllBarbers")]
+        [Authorize(Roles = "Admin, Manager")]
+        [SwaggerOperation(
+            Summary = "Listar Barbeiros",
+            Description = "Lista os barbeiros de acordo com unidade da barbearia selecionada ou pertencente ao usuário")]
+        [SwaggerResponse(200, "Lista os barbeiros", typeof(List<BarberOutput>))]
+        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
+        public async Task<IActionResult> GetAllBarbers([SwaggerParameter("Id da barbearia")][FromQuery] int? barberUnitId)
+        {
+
+            var command = new GetAllBarbersCommand(GetUserId(), barberUnitId, GetUserRole());
+
+            var barbers = await _handler.SendCommand<GetAllBarbersCommand, List<BarberOutput>>(command);
+
+            if (IsValidOperation())
+            {
+                return Ok(barbers);
             }
             else
             {

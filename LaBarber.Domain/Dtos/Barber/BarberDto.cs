@@ -1,4 +1,5 @@
 ﻿using LaBarber.Domain.Entities.Barber;
+using LaBarber.Domain.Enums;
 
 namespace LaBarber.Domain.Dtos.Barber
 {
@@ -15,6 +16,7 @@ namespace LaBarber.Domain.Dtos.Barber
         public bool Commissioned { get; set; }
         public int BarberUnitId { get; set; }
         public int CredentialId { get; set; }
+        public UserType Role { get; set; }
 
         public BarberDto()
         {
@@ -31,7 +33,7 @@ namespace LaBarber.Domain.Dtos.Barber
             CredentialId = 0;
         }
 
-        public BarberDto(BarberEntity entity)
+        public BarberDto(BarberEntity entity, UserType role)
         {
             Id = entity.Id;
             Name = entity.Name;
@@ -44,6 +46,7 @@ namespace LaBarber.Domain.Dtos.Barber
             Commissioned = entity.Commissioned;
             BarberUnitId = entity.BarberUnitId;
             CredentialId = entity.CredentialId;
+            Role = role;
         }
     }
 }

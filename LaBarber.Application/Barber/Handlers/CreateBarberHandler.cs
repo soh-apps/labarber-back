@@ -70,7 +70,8 @@ namespace LaBarber.Application.Barber.Handlers
                 }
 
                 var encryptedPassword = _tokenUseCase.EncryptPassword(input.Password);
-                var createCredentialDto = new CreateCredentialDto(input.Username, encryptedPassword, input.Email, UserType.Manager);
+                var userType = input.IsManager ? UserType.Manager : UserType.Barber;
+                var createCredentialDto = new CreateCredentialDto(input.Username, encryptedPassword, input.Email, userType);
                 var credentialId = await _loginUseCase.CreateLogin(createCredentialDto);
                 if (credentialId > 0)
                     await _barberUseCase.CreateBarber(new CreateBarberDto(input.Name, input.City, input.State, input.Street, input.Number, input.Complement, input.ZipCode, input.Commissioned, input.BarberUnitId, credentialId));

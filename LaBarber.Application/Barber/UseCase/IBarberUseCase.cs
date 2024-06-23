@@ -6,5 +6,6 @@ namespace LaBarber.Application.Barber.UseCase
     {
         Task<bool> CreateBarber(CreateBarberDto input);
         Task<BarberDto> GetBarberByUserId(int userId);
+        Task<List<BarberDto>> GetAllBarbers(int barberUnitId);
     }
 }

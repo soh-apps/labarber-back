@@ -1,0 +1,105 @@
+using LaBarber.Domain.Dtos.Barber;
+using LaBarber.Domain.Enums;
+using Swashbuckle.AspNetCore.Annotations;
+
+namespace LaBarber.Application.Barber.Boundaries
+{
+    public class BarberOutput
+    {
+        [SwaggerSchema(
+            Title = "Id",
+            Description = "Id do barbeiro",
+            Format = "int")]
+        public int Id { get; set; }
+
+        [SwaggerSchema(
+            Title = "Name",
+            Description = "nome do barbeiro",
+            Format = "string")]
+        public string Name { get; set; }
+
+        [SwaggerSchema(
+            Title = "City",
+            Description = "Cidade do barbeiro",
+            Format = "string")]
+        public string City { get; set; }
+    
+        [SwaggerSchema(
+            Title = "State",
+            Description = "Estado do barbeiro",
+            Format = "string")]
+        public string State { get; set; }
+
+        [SwaggerSchema(
+            Title = "Street",
+            Description = "Rua do barbeiro",
+            Format = "string")]
+        public string Street { get; set; }
+
+        [SwaggerSchema(
+            Title = "Number",
+            Description = "Numero da casa do barbeiro",
+            Format = "string")]
+        public string Number { get; set; }
+
+        [SwaggerSchema(
+            Title = "Complement",
+            Description = "Complemento do endereço do barbeiro",
+            Format = "string")]
+        public string Complement { get; set; }
+
+        [SwaggerSchema(
+            Title = "ZipCode",
+            Description = "Cep do barbeiro",
+            Format = "string")]
+        public string ZipCode { get; set; }
+
+        [SwaggerSchema(
+            Title = "Commissioned",
+            Description = "Se o Barbeiro é comissionado ou não",
+            Format = "string")]
+        public bool Commissioned { get; set; }
+
+        [SwaggerSchema(
+            Title = "BarberUnitId",
+            Description = "Id da unidade",
+            Format = "int")]
+        public int BarberUnitId { get; set; }
+
+
+        [SwaggerSchema(
+            Title = "Role",
+            Description = "Perfil do barbeiro",
+            Format = "UserType")]
+        public UserType Role { get; set; }
+
+        public BarberOutput()
+        {
+            Id = 0;
+            Name = string.Empty;
+            City = string.Empty;
+            State = string.Empty;
+            Street = string.Empty;
+            Number = string.Empty;
+            Complement = string.Empty;
+            ZipCode = string.Empty;
+            Commissioned = false;
+            BarberUnitId = 0;
+        }
+
+        public BarberOutput(BarberDto dto)
+        {
+            Id = dto.Id;
+            Name = dto.Name;
+            City = dto.City;
+            State = dto.State;
+            Street = dto.Street;
+            Number = dto.Number;
+            Complement = dto.Complement;
+            ZipCode = dto.ZipCode;
+            Commissioned = dto.Commissioned;
+            BarberUnitId = dto.BarberUnitId;
+            Role = dto.Role;
+        }
+    }
+}

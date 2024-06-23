@@ -16,6 +16,11 @@ namespace LaBarber.Application.Barber.UseCase
             return await _repository.CreateBarber(input);
         }
 
+        public async Task<List<BarberDto>> GetAllBarbers(int barberUnitId)
+        {
+            return await _repository.GetAllBarbers(barberUnitId);
+        }
+
         public async Task<BarberDto> GetBarberByUserId(int userId)
         {
             return await _repository.GetBarberByUserId(userId);
