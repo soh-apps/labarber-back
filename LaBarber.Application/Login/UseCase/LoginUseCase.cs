@@ -23,6 +23,11 @@ namespace LaBarber.Application.Login.UseCase
             await _repository.AddPasswordRecoveryCode(credentialId, recoveryCode);
         }
 
+        public async Task<bool> ChangeBarberProfile(int profileId, int userId)
+        {
+            return await _repository.ChangeBarberProfile(profileId, userId);
+        }
+
         public async Task<bool> ChangePassword(string code, string password)
         {
             var credential = await _repository.GetCredentialBycode(code);

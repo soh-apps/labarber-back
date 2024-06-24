@@ -13,5 +13,6 @@ namespace LaBarber.Domain.Entities.Credential
         Task<CredentialDto> GetCredentialBycode(string code);
         Task<bool> AddPasswordRecoveryCode(int id, string code);
         Task<bool> ChangePassword(int Id, string password);
+        Task<bool> ChangeBarberProfile(int profileId, int userId);
     }
 }

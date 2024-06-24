@@ -20,17 +20,20 @@ namespace LaBarber.Application.Barber.Handlers
         private readonly IBarberUnitUseCase _barberUnitUseCase;
         private readonly IBarberUseCase _barberUseCase;
         private readonly IAppUserUseCase _appUserUseCase;
+        private readonly ILoginUseCase _loginUseCase;
 
         public UpdateBarberHandler(
             IMediatorHandler handler,
             IBarberUnitUseCase barberUnitUseCase,
             IBarberUseCase barberUSerCase,
-            IAppUserUseCase appUserUseCase)
+            IAppUserUseCase appUserUseCase,
+            ILoginUseCase loginUseCase)
         {
             _handler = handler;
             _barberUnitUseCase = barberUnitUseCase;
             _barberUseCase = barberUSerCase;
             _appUserUseCase = appUserUseCase;
+            _loginUseCase = loginUseCase;
         }
 
         public async Task<bool> Handle(UpdateBarberCommand request, CancellationToken cancellationToken)
@@ -64,7 +67,9 @@ namespace LaBarber.Application.Barber.Handlers
                     input.BarberUnitId = manager.BarberUnitId;
                 }
 
-                //TODO atualizar role do usuario caso ele deixe de ser manager
+                var profileId = input.IsManager ? (int)UserType.Manager : (int)UserType.Barber;
+
+                await _loginUseCase.ChangeBarberProfile(profileId, input.BarberId);
 
                 var success = await _barberUseCase.UpdateBarber(new BarberDto(input.BarberId, input.Name, input.City, input.State, input.Street,
                  input.Number, input.Complement, input.ZipCode, input.Commissioned,

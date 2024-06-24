@@ -150,41 +150,46 @@ namespace LaBarber.Infra.Repository.Credential
             }
         }
 
-        private async Task<int> GetUserId(int profileId, int credentialId, ContextBase context)
+        public async Task<bool> ChangeBarberProfile(int profileId, int userId)
+        {
+            using var context = new ContextBase(_optionsBuilder, _secrets);
+            var credentialId = await context.Barber.Where(x => x.Id == userId).AsNoTracking()
+            .Select(x => x.CredentialId).FirstOrDefaultAsync();
+
+            var credential = await context.Credential.Where(x => x.Id == credentialId).FirstOrDefaultAsync();
+
+            if (credential != null)
+            {
+                credential.ProfileId = profileId;
+                context.Credential.Update(credential);
+                await context.SaveChangesAsync();
+                return true;
+            }
+            return false;
+        }
+
+        private static async Task<int> GetUserId(int profileId, int credentialId, ContextBase context)
         {
             int userId = 0;
-            switch (profileId)
+            userId = profileId switch
             {
-                case 1:
-                case 2:
-                    userId = await context.AppUser
-                        .Where(u => u.CredentialId == credentialId)
-                        .AsNoTracking()
-                        .Select(u => u.Id)
-                        .FirstOrDefaultAsync();
-                    break;
-
-                case 3:
-                case 4:
-                    userId = await context.Barber
-                        .Where(u => u.CredentialId == credentialId)
-                        .AsNoTracking()
-                        .Select(u => u.Id)
-                        .FirstOrDefaultAsync();
-                    break;
-
-                case 5:
-                    userId = await context.Customer
-                        .Where(u => u.CredentialId == credentialId)
-                        .AsNoTracking()
-                        .Select(u => u.Id)
-                        .FirstOrDefaultAsync();
-                    break;
-
-                default:
-                    userId = 0;
-                    break;
-            }
+                1 or 2 => await context.AppUser
+                                        .Where(u => u.CredentialId == credentialId)
+                                        .AsNoTracking()
+                                        .Select(u => u.Id)
+                                        .FirstOrDefaultAsync(),
+                3 or 4 => await context.Barber
+                                        .Where(u => u.CredentialId == credentialId)
+                                        .AsNoTracking()
+                                        .Select(u => u.Id)
+                                        .FirstOrDefaultAsync(),
+                5 => await context.Customer
+                                        .Where(u => u.CredentialId == credentialId)
+                                        .AsNoTracking()
+                                        .Select(u => u.Id)
+                                        .FirstOrDefaultAsync(),
+                _ => 0,
+            };
             return userId;
         }
     }

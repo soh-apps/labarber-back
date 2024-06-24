@@ -12,5 +12,6 @@ namespace LaBarber.Application.Login.UseCase
         Task<bool> ChangePassword(string code, string password);
         Task SaveRefreshToken(int credentialId, string refreshToken);
         Task<LoginDto> LoginById(int credentialId, string refreshToken);
+        Task<bool> ChangeBarberProfile(int profileId, int userId);
     }
 }
