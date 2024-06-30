@@ -6,7 +6,7 @@ using Swashbuckle.AspNetCore.Filters;
 
 namespace LaBarber.API.SwaggerExamples.BarberUnit
 {
-    public class BarberUnitOutputExample : IExamplesProvider<BarberUnitOutput>
+    public class BarberUnitOutputExample : IExamplesProvider<BarberUnitOutput>, IExamplesProvider<IEnumerable<BarberUnitOutput>>
     {
         public BarberUnitOutput GetExamples()
         {
@@ -30,11 +30,8 @@ namespace LaBarber.API.SwaggerExamples.BarberUnit
                 ZipCode = "68903-860"
             };
         }
-    }
 
-    public class ListBarberUnitOutputExample : IExamplesProvider<IEnumerable<BarberUnitOutput>>
-    {
-        public IEnumerable<BarberUnitOutput> GetExamples()
+        IEnumerable<BarberUnitOutput> IExamplesProvider<IEnumerable<BarberUnitOutput>>.GetExamples()
         {
             var workingHours = new List<GetBarberUnitAvailabilityDto>()
             {
