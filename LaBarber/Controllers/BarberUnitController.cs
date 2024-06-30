@@ -12,6 +12,7 @@ namespace LaBarber.API.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [Authorize]
+    [SwaggerTag("Endpoints relacionados a unidades de barbearia, sendo necessário se autenticar")]
     public class BarberUnitController : BaseController
     {
         private readonly IMediatorHandler _handler;
@@ -22,6 +23,9 @@ namespace LaBarber.API.Controllers
 
         [HttpPost("Create")]
         [Authorize(Roles = "Admin")]
+        [SwaggerOperation(
+            Summary = "Criar Barbearia",
+            Description = "Cria uma barbearia vinculada a empresa do usuário administrador")]
         [SwaggerResponse(201, "Barbearia criada com sucesso")]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
         public async Task<IActionResult> CreateBarberUnit(CreateBarberUnitInput barberUnit)
@@ -44,6 +48,9 @@ namespace LaBarber.API.Controllers
 
         [HttpPut("Update")]
         [Authorize(Roles = "Admin")]
+        [SwaggerOperation(
+            Summary = "Atualizar dados da barbearia",
+            Description = "Atualiza dos dados de uma barbearia vinculada a empresa do usuário administrador")]
         [SwaggerResponse(200, "Barbearia atualizado com sucesso")]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
         public async Task<IActionResult> UpdateBarberUnit(UpdateBarberUnitInput barberUnit)
@@ -66,17 +73,20 @@ namespace LaBarber.API.Controllers
 
         [HttpGet("{id}")]
         [Authorize(Roles = "Master,Admin")]
+        [SwaggerOperation(
+            Summary = "Obter dados de uma barbearia",
+            Description = "Lista os dados da barbearia informada.")]
         [SwaggerResponse(200, "Informações da barberia retornadas com sucesso", typeof(BarberUnitOutput))]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
         public async Task<IActionResult> GetBarberUnitById(int id)
         {
             var command = new GetBarberUnitCommand(GetUserId(), GetUserRole(), id);
 
-            var barberUnits = await _handler.SendCommand<GetBarberUnitCommand, BarberUnitOutput>(command);
+            var barberUnit = await _handler.SendCommand<GetBarberUnitCommand, BarberUnitOutput>(command);
 
             if (IsValidOperation())
             {
-                return Ok(barberUnits);
+                return Ok(barberUnit);
             }
             else
             {
@@ -86,7 +96,10 @@ namespace LaBarber.API.Controllers
 
         [HttpGet("GetBarberUnitsByCompany")]
         [Authorize(Roles = "Master,Admin")]
-        [SwaggerResponse(200, "Barbearias listadas com sucesso")]
+        [SwaggerOperation(
+            Summary = "Listar barbearias da empresa",
+            Description = "Lista as barbearias de uma empresa informada, ou da empresa do usuário administrador logado.")]
+        [SwaggerResponse(200, "Barbearias listadas com sucesso", typeof(IEnumerable<BarberUnitOutput>))]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
         public async Task<IActionResult> GetBarberUnitsByCompany([FromQuery]int? id)
         {

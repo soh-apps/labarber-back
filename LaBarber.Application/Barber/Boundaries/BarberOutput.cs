@@ -15,7 +15,7 @@ namespace LaBarber.Application.Barber.Boundaries
 
         [SwaggerSchema(
             Title = "Name",
-            Description = "nome do barbeiro",
+            Description = "Nome do barbeiro",
             Format = "string")]
         public string Name { get; set; }
 

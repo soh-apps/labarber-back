@@ -1,31 +1,33 @@
-﻿namespace LaBarber.Application.BarberUnit.Boundaries
-{
-    public class UpdateBarberUnitInput
-    {
-        public int Id { get; set; }
-        public string Name { get; set; }
-        public string City { get; set; }
-        public string State { get; set; }
-        public string Street { get; set; }
-        public string Number { get; set; }
-        public string Complement { get; set; }
-        public string ZipCode { get; set; }
-        public int UserId { get; private set; }
-        public string UserRole { get; private set; }
-        public IEnumerable<AvailabilityInput> WorkingHours { get; set; }
+﻿using Swashbuckle.AspNetCore.Annotations;
+using System.Text.Json.Serialization;
 
-        public UpdateBarberUnitInput()
+namespace LaBarber.Application.BarberUnit.Boundaries
+{
+    public class UpdateBarberUnitInput : BarberUnitInput
+    {
+
+        [SwaggerSchema(
+            Title = "Id",
+            Description = "Preencha com o id da barbearia",
+            Format = "int")]
+        public int Id { get; set; }
+
+        [JsonIgnore]
+        public int UserId { get; private set; }
+
+        [JsonIgnore]
+        public string UserRole { get; private set; }
+
+        public UpdateBarberUnitInput() : base()
         {
-            Name = string.Empty;
-            City = string.Empty;
-            State = string.Empty;
-            Street = string.Empty;
-            Number = string.Empty;
-            Complement = string.Empty;
-            ZipCode = string.Empty;
             UserId = 0;
             UserRole = string.Empty;
-            WorkingHours = new List<AvailabilityInput>();
+        }
+        public UpdateBarberUnitInput(int id, string name, string city, string state, string street, string number, string complement, string zipCode, IEnumerable<AvailabilityInput>? workingHours) : base(name, city, state, street, number, complement, zipCode, workingHours)
+        {
+            Id = id;
+            UserId = 0;
+            UserRole = string.Empty;
         }
 
         public void SetUserId(int userId)

@@ -22,6 +22,9 @@ namespace LaBarber.API.Controllers
 
         [HttpPost("Create")]
         [Authorize(Roles = "Admin, Manager")]
+        [SwaggerOperation(
+            Summary = "Criar usuário barbeiro",
+            Description = "Criar usuário barbeiro associado à unidade da barbearia selecionada")]
         [SwaggerResponse(201, "Usuário da barbearia criada com sucesso")]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
         public async Task<IActionResult> CreateBarber([FromBody] CreateBarberInput input)
@@ -71,7 +74,7 @@ namespace LaBarber.API.Controllers
         [Authorize(Roles = "Admin, Manager")]
         [SwaggerOperation(
             Summary = "Get Barbeiro",
-            Description = "Pega as informações do barbeiro")]
+            Description = "Obtém as informações do barbeiro")]
         [SwaggerResponse(200, "Lista os barbeiros", typeof(BarberOutput))]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
         public async Task<IActionResult> GetBarber([SwaggerParameter("Id do barbeiro")][FromRoute] int id)
