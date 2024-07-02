@@ -3,7 +3,7 @@ using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.Filters;
 using Swashbuckle.AspNetCore.SwaggerGen;
 
-namespace LaBarber.API
+namespace LaBarber.API.Setup
 {
     public static class AddSwaggerConfig
     {

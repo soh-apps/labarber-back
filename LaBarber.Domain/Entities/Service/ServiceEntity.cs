@@ -1,5 +1,4 @@
-﻿using LaBarber.Domain.Entities.Appointment;
-using LaBarber.Domain.Entities.Barber;
+﻿using LaBarber.Domain.Dtos.Service;
 using LaBarber.Domain.Entities.BarberUnit;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -18,6 +17,15 @@ namespace LaBarber.Domain.Entities.Service
             CommissionPercent = 0;
             BarberUnitId = 0;
             BarberUnit = null;
+        }
+
+        public ServiceEntity(ServiceDto dto)
+        {
+            Id = dto.Id;
+            Name = dto.Name;
+            TimeToComplete = dto.TimeToComplete;
+            CommissionPercent = dto.CommissionPercent;
+            BarberUnitId = dto.BarberUnitId;
         }
 
         [Key]

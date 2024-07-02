@@ -44,6 +44,11 @@ using LaBarber.Application.Barber.Commands;
 using LaBarber.Application.Barber.Handlers;
 using LaBarber.Domain.Entities.Barber;
 using LaBarber.Application.Barber.Boundaries;
+using LaBarber.Application.Service.UseCase;
+using LaBarber.Domain.Entities.Service;
+using LaBarber.Infra.Repository.Service;
+using LaBarber.Application.Service.Commands.CreateService;
+using LaBarber.Application.Service.Handlers;
 
 namespace LaBarber.IoC
 {
@@ -96,6 +101,11 @@ namespace LaBarber.IoC
             services.AddTransient<IRequestHandler<GetAllBarbersCommand, List<BarberOutput>>, GetAllBarbersHandler>();
             services.AddTransient<IRequestHandler<GetBarberByIdCommand, BarberOutput>, GetBarberByIdHandler>();
             services.AddTransient<IRequestHandler<UpdateBarberCommand, bool>, UpdateBarberHandler>();
+
+            //Service
+            services.AddScoped<IServiceUseCase, ServiceUseCase>();
+            services.AddScoped<IServiceRepository, ServiceRepository>();
+            services.AddTransient<IRequestHandler<CreateServiceCommand, bool>, CreateServiceHandler>();
 
             //Email
             services.AddScoped<IEmailSender, EmailSender>();

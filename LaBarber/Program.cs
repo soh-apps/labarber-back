@@ -2,6 +2,7 @@ using System.Reflection;
 using Amazon.DynamoDBv2;
 using Amazon.DynamoDBv2.DataModel;
 using LaBarber.API;
+using LaBarber.API.Setup;
 using LaBarber.Domain.Configuration;
 using LaBarber.Infra.Configuration;
 using LaBarber.IoC;
