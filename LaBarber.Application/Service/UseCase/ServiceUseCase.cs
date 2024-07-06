@@ -26,6 +26,11 @@ namespace LaBarber.Application.Service.UseCase
             return await _repository.GetServiceById(id);
         }
 
+        public async Task<List<ServiceDto>> GetServicesByBarberUnit(int barberUnitId)
+        {
+            return await _repository.ListServicesByBarberUnit(barberUnitId);
+        }
+
         public async Task UpdateService(ServiceDto dto)
         {
             var exists = await _repository.ServiceExists(dto.Id);

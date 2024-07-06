@@ -1,11 +1,11 @@
-
+using LaBarber.Domain.Dtos.Service;
 using Swashbuckle.AspNetCore.Annotations;
 
 namespace LaBarber.Application.Service.Boundaries
 {
-    public class ServiceInput
+    public class ServiceOutput
     {
-        public ServiceInput()
+        public ServiceOutput()
         {
             Id = 0;
             Name = string.Empty;
@@ -13,14 +13,23 @@ namespace LaBarber.Application.Service.Boundaries
             Value = 0;
             CommissionPercent = 0;
             BarberUnitId = 0;
-            UserId = 0;
-            UserRole = string.Empty;
             Description = string.Empty;
+        }
+
+        public ServiceOutput(ServiceDto dto)
+        {
+            Id = dto.Id;
+            Name = dto.Name;
+            TimeToComplete = dto.TimeToComplete;
+            CommissionPercent = dto.CommissionPercent;
+            BarberUnitId = dto.BarberUnitId;
+            Description = dto.Description;
+            Value = dto.Value;
         }
 
         [SwaggerSchema(
             Title = "Id",
-            Description = "Id do serviço, deve ser enviado em caso de update",
+            Description = "Id do serviço",
             Format = "int")]
 
         public int Id { get; set; }
@@ -57,21 +66,8 @@ namespace LaBarber.Application.Service.Boundaries
 
         [SwaggerSchema(
             Title = "BarberUnitId",
-            Description = "Id da barbearia, deve ser enviado em caso de admin",
+            Description = "Id da barbearia",
             Format = "int")]
         public int BarberUnitId { get; set; }
-
-        public int UserId { get; private set; }
-        public string UserRole { get; private set; }
-
-        public void SetUserRole(string userRole)
-        {
-            UserRole = userRole;
-        }
-
-        public void SetUserId(int userId)
-        {
-            UserId = userId;
-        }
     }
 }

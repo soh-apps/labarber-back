@@ -49,6 +49,11 @@ using LaBarber.Domain.Entities.Service;
 using LaBarber.Infra.Repository.Service;
 using LaBarber.Application.Service.Commands.CreateService;
 using LaBarber.Application.Service.Handlers;
+using LaBarber.Application.Service.Commands.UpdateService;
+using LaBarber.Application.Service.Commands.GetService;
+using LaBarber.Application.Service.Boundaries;
+using LaBarber.Application.Common.Validation;
+using LaBarber.Application.Service.Commands.ListServices;
 
 namespace LaBarber.IoC
 {
@@ -106,6 +111,12 @@ namespace LaBarber.IoC
             services.AddScoped<IServiceUseCase, ServiceUseCase>();
             services.AddScoped<IServiceRepository, ServiceRepository>();
             services.AddTransient<IRequestHandler<CreateServiceCommand, bool>, CreateServiceHandler>();
+            services.AddTransient<IRequestHandler<UpdateServiceCommand, bool>, UpdateServiceHandler>();
+            services.AddTransient<IRequestHandler<GetServiceCommand, ServiceOutput>, GetServiceHandler>();
+            services.AddTransient<IRequestHandler<ListServicesCommand, List<ServiceOutput>>, ListServicesHandler>();
+
+            //Common
+            services.AddScoped<IValidationUseCase, ValidationUseCase>();
 
             //Email
             services.AddScoped<IEmailSender, EmailSender>();

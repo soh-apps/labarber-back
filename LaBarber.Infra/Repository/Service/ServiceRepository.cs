@@ -37,6 +37,13 @@ namespace LaBarber.Infra.Repository.Service
             return entity;
         }
 
+        public async Task<List<ServiceDto>> ListServicesByBarberUnit(int barberUnitId)
+        {
+            using var context = new ContextBase(_optionsBuilder, _secrets);
+            return await context.Service.Where(x => x.BarberUnitId == barberUnitId)
+            .Select(x => new ServiceDto(x)).AsNoTracking().ToListAsync();
+        }
+
         public async Task<bool> ServiceExists(int id)
         {
             using var context = new ContextBase(_optionsBuilder, _secrets);

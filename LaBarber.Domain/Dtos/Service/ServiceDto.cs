@@ -12,6 +12,7 @@ namespace LaBarber.Domain.Dtos.Service
             Value = 0;
             CommissionPercent = 0;
             BarberUnitId = 0;
+            Description = string.Empty;
         }
 
         public ServiceDto(ServiceEntity entity)
@@ -21,9 +22,12 @@ namespace LaBarber.Domain.Dtos.Service
             TimeToComplete = entity.TimeToComplete;
             CommissionPercent = entity.CommissionPercent;
             BarberUnitId = entity.BarberUnitId;
+            Description = entity.Description;
+            Value = entity.Value;
         }
 
-        public ServiceDto(int id, string name, TimeSpan? timeToComplete, decimal value, int commissionPercent, int barberUnitId)
+        public ServiceDto(int id, string name, TimeSpan? timeToComplete, 
+        decimal value, int commissionPercent, int barberUnitId, string description)
         {
             Id = id;
             Name = name;
@@ -31,6 +35,7 @@ namespace LaBarber.Domain.Dtos.Service
             Value = value;
             CommissionPercent = commissionPercent;
             BarberUnitId = barberUnitId;
+            Description = description;
         }
 
         public int Id { get; set; }
@@ -39,5 +44,6 @@ namespace LaBarber.Domain.Dtos.Service
         public decimal Value { get; set; }
         public int CommissionPercent { get; set; }
         public int BarberUnitId { get; set; }
+        public string Description { get; set; }
     }
 }

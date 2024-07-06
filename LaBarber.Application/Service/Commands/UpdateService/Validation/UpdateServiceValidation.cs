@@ -1,12 +1,16 @@
 using FluentValidation;
 using LaBarber.Application.Service.Boundaries;
 
-namespace LaBarber.Application.Service.Commands.CreateService.Validation
+namespace LaBarber.Application.Service.Commands.UpdateService.Validation
 {
-    public class CreateServiceValidation : AbstractValidator<ServiceInput>
+    public class UpdateServiceValidation : AbstractValidator<ServiceInput>
     {
-        public CreateServiceValidation()
+        public UpdateServiceValidation()
         {
+            RuleFor(x => x.Id)
+            .NotNull().WithMessage("É preciso informar o id do serviço")
+            .GreaterThan(0).WithMessage("É preciso informar o id do serviço");
+
             RuleFor(x => x.Name)
             .NotEmpty().WithMessage("Nome do serviço é obrigatório");
 

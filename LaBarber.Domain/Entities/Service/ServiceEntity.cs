@@ -17,6 +17,7 @@ namespace LaBarber.Domain.Entities.Service
             CommissionPercent = 0;
             BarberUnitId = 0;
             BarberUnit = null;
+            Description = string.Empty;
         }
 
         public ServiceEntity(ServiceDto dto)
@@ -26,6 +27,8 @@ namespace LaBarber.Domain.Entities.Service
             TimeToComplete = dto.TimeToComplete;
             CommissionPercent = dto.CommissionPercent;
             BarberUnitId = dto.BarberUnitId;
+            Description = dto.Description;
+            Value = dto.Value;
         }
 
         [Key]
@@ -40,6 +43,9 @@ namespace LaBarber.Domain.Entities.Service
 
         [Column("Value")]
         public decimal Value { get; set; }
+
+        [Column("Description")]
+        public string Description { get; set; }
 
         [Column("CommissionPercent")]
         public int CommissionPercent { get; set; }
