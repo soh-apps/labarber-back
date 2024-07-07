@@ -1,7 +1,7 @@
+using LaBarber.Domain.Dtos.SigningPlan;
+using LaBarber.Domain.Enums;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using LaBarber.Domain.Entities.Company;
-using LaBarber.Domain.Enums;
 
 namespace LaBarber.Domain.Entities.SigningPlan
 {
@@ -18,14 +18,14 @@ namespace LaBarber.Domain.Entities.SigningPlan
             BarberUnitLimit = 0;
         }
 
-        public SigningPlanEntity(int id, string name, int value, PaymentType paymentType, int barberLimit, int barberUnitLimit)
+        public SigningPlanEntity(SigningPlanDto dto)
         {
-            Id = id;
-            Name = name;
-            Value = value;
-            PaymentType = paymentType;
-            BarberLimit = barberLimit;
-            BarberUnitLimit = barberUnitLimit;
+            Id = dto.Id;
+            Name = dto.Name;
+            Value = dto.Value;
+            PaymentType = dto.PaymentType;
+            BarberLimit = dto.BarberLimit;
+            BarberUnitLimit = dto.BarberUnitLimit;
         }
 
         [Key]

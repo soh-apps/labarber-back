@@ -54,6 +54,11 @@ using LaBarber.Application.Service.Commands.GetService;
 using LaBarber.Application.Service.Boundaries;
 using LaBarber.Application.Common.Validation;
 using LaBarber.Application.Service.Commands.ListServices;
+using LaBarber.Application.SigningPlan.UseCase;
+using LaBarber.Domain.Entities.SigningPlan;
+using LaBarber.Infra.Repository.SigningPlan;
+using LaBarber.Application.SigningPlan.Commands.CreateSigningPlan;
+using LaBarber.Application.SigningPlan.Handlers;
 
 namespace LaBarber.IoC
 {
@@ -114,6 +119,11 @@ namespace LaBarber.IoC
             services.AddTransient<IRequestHandler<UpdateServiceCommand, bool>, UpdateServiceHandler>();
             services.AddTransient<IRequestHandler<GetServiceCommand, ServiceOutput>, GetServiceHandler>();
             services.AddTransient<IRequestHandler<ListServicesCommand, List<ServiceOutput>>, ListServicesHandler>();
+
+            // SigningPlan
+            services.AddScoped<ISigningPlanUseCase, SigningPlanUseCase>();
+            services.AddScoped<ISigningPlanRepository, SigningPlanRepository>();
+            services.AddTransient<IRequestHandler<CreateSigningPlanCommand, bool>, CreateSigningPlanHandler>();
 
             //Common
             services.AddScoped<IValidationUseCase, ValidationUseCase>();
