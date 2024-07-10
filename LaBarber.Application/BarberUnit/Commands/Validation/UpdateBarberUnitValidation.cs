@@ -18,7 +18,7 @@ namespace LaBarber.Application.BarberUnit.Commands.Validation
                 .WithMessage("Nome da barbearia é obrigatório.");
 
             RuleFor(x => x.ZipCode)
-                .ZipCode(true);
+                .ZipCode(false);
 
             RuleFor(x => x.State)
                 .StateAcronym();

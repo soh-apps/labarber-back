@@ -23,7 +23,7 @@ namespace LaBarber.Application.Barber.Commands.Validation
                 .MaximumLength(100);
 
             RuleFor(x => x.ZipCode)
-                .ZipCode(true);
+                .ZipCode(false);
 
             RuleFor(x => x.State)
                 .StateAcronym();
