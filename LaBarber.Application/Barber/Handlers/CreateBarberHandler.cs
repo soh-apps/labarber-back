@@ -76,8 +76,7 @@ namespace LaBarber.Application.Barber.Handlers
                 var credentialId = await _loginUseCase.CreateLogin(createCredentialDto);
                 if (credentialId > 0)
                     await _barberUseCase.CreateBarber(new BarberDto(0, input.Name, input.City, input.State, input.Street,
-                     input.Number, input.Complement, input.ZipCode, input.Commissioned,
-                    input.BarberUnitId, credentialId, BarberStatus.Active));
+                     input.Number, input.Complement, input.ZipCode, input.Phone, input.Cellphone, input.Commissioned, input.BarberUnitId, credentialId, BarberStatus.Active));
             }
             foreach (var error in request.ValidationResult.Errors)
             {

@@ -25,6 +25,12 @@ namespace LaBarber.Application.Barber.Commands.Validation
             RuleFor(x => x.ZipCode)
                 .ZipCode(false);
 
+            RuleFor(x => x.Phone)
+                .Phone(false);
+
+            RuleFor(x => x.Cellphone)
+                .Cellphone(false);
+
             RuleFor(x => x.State)
                 .StateAcronym();
 

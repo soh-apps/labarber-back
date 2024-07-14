@@ -67,6 +67,8 @@ namespace LaBarber.Infra.Repository.Barber
                 entity.Street = dto.Street;
                 entity.Number = dto.Number;
                 entity.ZipCode = dto.ZipCode;
+                entity.Phone = dto.Phone;
+                entity.Cellphone = dto.Cellphone;
                 entity.Complement = dto.Complement;
                 entity.Status = dto.Status;
                 entity.Commissioned = dto.Commissioned;

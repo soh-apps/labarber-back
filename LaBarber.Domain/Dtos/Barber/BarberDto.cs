@@ -13,6 +13,8 @@ namespace LaBarber.Domain.Dtos.Barber
         public string Number { get; set; }
         public string Complement { get; set; }
         public string ZipCode { get; set; }
+        public string Phone { get; set; }
+        public string Cellphone { get; set; }
         public bool Commissioned { get; set; }
         public int BarberUnitId { get; set; }
         public int CredentialId { get; set; }
@@ -29,6 +31,8 @@ namespace LaBarber.Domain.Dtos.Barber
             Number = string.Empty;
             Complement = string.Empty;
             ZipCode = string.Empty;
+            Phone = string.Empty;
+            Cellphone = string.Empty;
             Commissioned = false;
             BarberUnitId = 0;
             CredentialId = 0;
@@ -37,8 +41,7 @@ namespace LaBarber.Domain.Dtos.Barber
         }
 
         public BarberDto(int id, string name, string city, string state,
-         string street, string number, string complement, string zipCode,
-          bool commissioned, int barberUnitId, int credentialId, BarberStatus status)
+         string street, string number, string complement, string zipCode, string phone, string cellphone, bool commissioned, int barberUnitId, int credentialId, BarberStatus status)
         {
             Id = id;
             Name = name;
@@ -48,6 +51,8 @@ namespace LaBarber.Domain.Dtos.Barber
             Number = number;
             Complement = complement;
             ZipCode = zipCode;
+            Phone = phone;
+            Cellphone = cellphone;
             Commissioned = commissioned;
             BarberUnitId = barberUnitId;
             CredentialId = credentialId;
@@ -64,6 +69,8 @@ namespace LaBarber.Domain.Dtos.Barber
             Number = entity.Number;
             Complement = entity.Complement;
             ZipCode = entity.ZipCode;
+            Phone = entity.Phone;
+            Cellphone = entity.Cellphone;
             Commissioned = entity.Commissioned;
             BarberUnitId = entity.BarberUnitId;
             CredentialId = entity.CredentialId;

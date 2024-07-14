@@ -1,6 +1,7 @@
 ﻿using LaBarber.Domain.Dtos.Barber;
 using LaBarber.Domain.Entities.BarberUnit;
 using LaBarber.Domain.Entities.Credential;
+using LaBarber.Domain.Extensions;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -17,6 +18,8 @@ namespace LaBarber.Domain.Entities.Barber
             State = string.Empty;
             Street = string.Empty;
             ZipCode = string.Empty;
+            Phone = string.Empty;
+            Cellphone = string.Empty;
             Status = 0;
             RegisterDate = DateTime.UtcNow;
             BarberUnitId = 0;
@@ -38,6 +41,8 @@ namespace LaBarber.Domain.Entities.Barber
             Street = dto.Street;
             Number = dto.Number;
             ZipCode = dto.ZipCode;
+            Phone = dto.Phone.OnlyNumbers();
+            Cellphone = dto.Cellphone.OnlyNumbers();
             Complement = dto.Complement;
             Status = BarberStatus.Active;
             RegisterDate = DateTime.UtcNow;
@@ -70,6 +75,12 @@ namespace LaBarber.Domain.Entities.Barber
 
         [Column("ZipCode")]
         public string ZipCode { get; set; }
+
+        [Column("Phone")]
+        public string Phone { get; set; }
+
+        [Column("Cellphone")]
+        public string Cellphone { get; set; }
 
         [Column("Status")]
         public BarberStatus Status { get; set; }

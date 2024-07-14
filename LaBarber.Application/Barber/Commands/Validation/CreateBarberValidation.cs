@@ -31,6 +31,12 @@ namespace LaBarber.Application.Barber.Commands.Validation
             RuleFor(x => x.ZipCode)
                 .ZipCode(false);
 
+            RuleFor(x => x.Phone)
+                .Phone(false);
+
+            RuleFor(x => x.Cellphone)
+                .Cellphone(false);
+
             RuleFor(x => x.State)
                 .StateAcronym();
 
@@ -58,11 +64,11 @@ namespace LaBarber.Application.Barber.Commands.Validation
                 .NotNull()
                 .GreaterThan(0)
                 .WithMessage("É preciso estar logado.");
-                        
+
             RuleFor(x => x.UserRole)
                 .NotEmpty()
                 .WithMessage("É preciso estar logado.");
-            
+
             RuleFor(x => x.IsManager)
                 .NotNull()
                 .WithMessage("Informe se o usuário é manager ou não");

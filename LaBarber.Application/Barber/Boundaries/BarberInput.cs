@@ -47,6 +47,18 @@ namespace LaBarber.Application.Barber.Boundaries
         public string ZipCode { get; set; }
 
         [SwaggerSchema(
+            Title = "Phone",
+            Description = "Telefone do barbeiro",
+            Format = "9911112222")]
+        public string Phone { get; set; }
+
+        [SwaggerSchema(
+            Title = "Cellphone",
+            Description = "Celular do barbeiro",
+            Format = "99911112222")]
+        public string Cellphone { get; set; }
+
+        [SwaggerSchema(
             Title = "Commissioned",
             Description = "Se o Barbeiro é comissionado ou não",
             Format = "bool")]
@@ -86,6 +98,8 @@ namespace LaBarber.Application.Barber.Boundaries
             Number = string.Empty;
             Complement = string.Empty;
             ZipCode = string.Empty;
+            Phone = string.Empty;
+            Cellphone = string.Empty;
             Commissioned = false;
             BarberUnitId = 0;
             UserId = 0;

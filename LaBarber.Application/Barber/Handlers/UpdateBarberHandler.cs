@@ -72,7 +72,7 @@ namespace LaBarber.Application.Barber.Handlers
                 await _loginUseCase.ChangeBarberProfile(profileId, input.BarberId);
 
                 var success = await _barberUseCase.UpdateBarber(new BarberDto(input.BarberId, input.Name, input.City, input.State, input.Street,
-                 input.Number, input.Complement, input.ZipCode, input.Commissioned,
+                 input.Number, input.Complement, input.ZipCode, input.Phone, input.Cellphone, input.Commissioned,
                 input.BarberUnitId, 0, input.Status));
 
                 if (!success)
