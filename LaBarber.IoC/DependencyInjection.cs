@@ -59,6 +59,12 @@ using LaBarber.Domain.Entities.SigningPlan;
 using LaBarber.Infra.Repository.SigningPlan;
 using LaBarber.Application.SigningPlan.Commands.CreateSigningPlan;
 using LaBarber.Application.SigningPlan.Handlers;
+using LaBarber.Application.MonthlyPlan.UseCase;
+using LaBarber.Domain.Entities.MonthlyPlan;
+using LaBarber.Infra.Repository.MonthlyPlan;
+using LaBarber.Application.MonthlyPlan.Commands;
+using LaBarber.Application.MonthlyPlan.Handlers;
+using LaBarber.Application.MonthlyPlan.Boundaries;
 
 namespace LaBarber.IoC
 {
@@ -124,6 +130,14 @@ namespace LaBarber.IoC
             services.AddScoped<ISigningPlanUseCase, SigningPlanUseCase>();
             services.AddScoped<ISigningPlanRepository, SigningPlanRepository>();
             services.AddTransient<IRequestHandler<CreateSigningPlanCommand, bool>, CreateSigningPlanHandler>();
+
+            // MonthlyPlan
+            services.AddScoped<IMonthlyPlanUseCase, MonthlyPlanUseCase>();
+            services.AddScoped<IMonthlyPlanRepository, MonthlyPlanRepository>();
+            services.AddTransient<IRequestHandler<CreateMonthlyPlanCommand, bool>, CreateMonthlyPlanHandler>();
+            services.AddTransient<IRequestHandler<UpdateMonthlyPlanCommand, bool>, UpdateMonthlyPlanHandler>();
+            services.AddTransient<IRequestHandler<GetMonthlyPlanByIdCommand, MonthlyPlanOutput>, GetMonthlyPlanByIdHandler>();
+            services.AddTransient<IRequestHandler<GetAllMonthlyPlansCommand, List<MonthlyPlanOutput>>, GetAllMonthlyPlansHandler>();
 
             //Common
             services.AddScoped<IValidationUseCase, ValidationUseCase>();
