@@ -39,7 +39,6 @@ using LaBarber.Application.Company.Commands.UpdateCompany;
 using LaBarber.Application.BarberUnit.Boundaries;
 using LaBarber.Domain.Entities.BarberUnit;
 using LaBarber.Application.Barber.UseCase;
-using LaBarber.Application.Barber;
 using LaBarber.Application.Barber.Commands;
 using LaBarber.Application.Barber.Handlers;
 using LaBarber.Domain.Entities.Barber;
@@ -65,6 +64,7 @@ using LaBarber.Infra.Repository.MonthlyPlan;
 using LaBarber.Application.MonthlyPlan.Commands;
 using LaBarber.Application.MonthlyPlan.Handlers;
 using LaBarber.Application.MonthlyPlan.Boundaries;
+using LaBarber.Application.Service.Commands.DeleteService;
 
 namespace LaBarber.IoC
 {
@@ -123,6 +123,7 @@ namespace LaBarber.IoC
             services.AddScoped<IServiceRepository, ServiceRepository>();
             services.AddTransient<IRequestHandler<CreateServiceCommand, bool>, CreateServiceHandler>();
             services.AddTransient<IRequestHandler<UpdateServiceCommand, bool>, UpdateServiceHandler>();
+            services.AddTransient<IRequestHandler<DeleteServiceCommand, bool>, DeleteServiceHandler>();
             services.AddTransient<IRequestHandler<GetServiceCommand, ServiceOutput>, GetServiceHandler>();
             services.AddTransient<IRequestHandler<ListServicesCommand, List<ServiceOutput>>, ListServicesHandler>();
 

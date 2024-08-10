@@ -1,13 +1,9 @@
-using LaBarber.Application.AppUser.UseCase;
-using LaBarber.Application.Barber.UseCase;
-using LaBarber.Application.BarberUnit.UseCase;
 using LaBarber.Application.Common.Validation;
 using LaBarber.Application.Service.Boundaries;
 using LaBarber.Application.Service.Commands.GetService;
 using LaBarber.Application.Service.UseCase;
 using LaBarber.Domain.Base.Communication;
 using LaBarber.Domain.Base.Messages.Notification;
-using LaBarber.Domain.Enums;
 using MediatR;
 
 namespace LaBarber.Application.Service.Handlers

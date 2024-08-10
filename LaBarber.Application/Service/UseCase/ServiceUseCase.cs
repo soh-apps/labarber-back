@@ -21,6 +21,11 @@ namespace LaBarber.Application.Service.UseCase
             await _repository.CreateService(dto);
         }
 
+        public async Task DeleteServiceById(int id)
+        {
+            await _repository.DeleteServiceById(id);
+        }
+
         public async Task<ServiceDto> GetServiceById(int id)
         {
             return await _repository.GetServiceById(id);

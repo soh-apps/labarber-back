@@ -8,5 +8,6 @@ namespace LaBarber.Application.Service.UseCase
         Task UpdateService(ServiceDto dto);
         Task<ServiceDto> GetServiceById(int id);
         Task<List<ServiceDto>> GetServicesByBarberUnit(int barberUnitId);
+        Task DeleteServiceById(int id);
     }
 }

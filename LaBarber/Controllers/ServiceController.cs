@@ -1,5 +1,6 @@
 using LaBarber.Application.Service.Boundaries;
 using LaBarber.Application.Service.Commands.CreateService;
+using LaBarber.Application.Service.Commands.DeleteService;
 using LaBarber.Application.Service.Commands.GetService;
 using LaBarber.Application.Service.Commands.ListServices;
 using LaBarber.Application.Service.Commands.UpdateService;
@@ -93,6 +94,30 @@ namespace LaBarber.API.Controllers
             if (IsValidOperation())
             {
                 return Ok(respnse);
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
+        }
+
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Admin, Manager")]
+        [SwaggerOperation(
+            Summary = "apaga serviço da barbearia",
+            Description = "apaga um serviço pelo Id")]
+        [SwaggerResponse(204, "Serviço removido")]
+        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
+        public async Task<IActionResult> DeleteService([FromRoute] int id)
+        {
+
+            var command = new DeleteServiceCommand(id, GetUserId(), GetUserRole());
+
+            await _handler.SendCommand<DeleteServiceCommand, bool>(command);
+
+            if (IsValidOperation())
+            {
+                return NoContent();
             }
             else
             {

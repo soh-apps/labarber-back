@@ -58,5 +58,17 @@ namespace LaBarber.Infra.Repository.Service
             context.Service.Update(entity);
             await context.SaveChangesAsync();
         }
+
+        public async Task DeleteServiceById(int id)
+        {
+            using var context = new ContextBase(_optionsBuilder, _secrets);
+            var entity = await context.Service.Where(x => x.Id == id).FirstOrDefaultAsync();
+
+            if (entity != null)
+            {
+                context.Service.Remove(entity);
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }
