@@ -94,6 +94,29 @@ namespace LaBarber.API.Controllers
             }
         }
 
+        [HttpDelete("{id}")]
+        [Authorize(Roles = "Master,Admin")]
+        [SwaggerOperation(
+            Summary = "apagar barbearia",
+            Description = "apaga a barbearia informada.")]
+        [SwaggerResponse(204, "Barberia apagada com sucesso")]
+        [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
+        public async Task<IActionResult> DeleteBarberUnitById([FromRoute] int id)
+        {
+            var command = new DeleteBarberUnitCommand(GetUserId(), GetUserRole(), id);
+
+            await _handler.SendCommand<DeleteBarberUnitCommand, bool>(command);
+
+            if (IsValidOperation())
+            {
+                return NoContent();
+            }
+            else
+            {
+                return BadRequest(GetMessages());
+            }
+        }
+
         [HttpGet("GetBarberUnitsByCompany")]
         [Authorize(Roles = "Master,Admin")]
         [SwaggerOperation(
@@ -101,7 +124,7 @@ namespace LaBarber.API.Controllers
             Description = "Lista as barbearias de uma empresa informada, ou da empresa do usuário administrador logado.")]
         [SwaggerResponse(200, "Barbearias listadas com sucesso", typeof(IEnumerable<BarberUnitOutput>))]
         [SwaggerResponse(400, "Erros de dominio", typeof(List<string>))]
-        public async Task<IActionResult> GetBarberUnitsByCompany([FromQuery]int? id)
+        public async Task<IActionResult> GetBarberUnitsByCompany([FromQuery] int? id)
         {
             var command = new GetBarberUnitsByCompanyCommand(GetUserId(), GetUserRole(), id);
 

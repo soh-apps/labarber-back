@@ -27,6 +27,11 @@ namespace LaBarber.Application.BarberUnit.UseCase
             return await _repository.GetBarberUnitById(barberUnitId);
         }
 
+        public async Task DeleteBarberUnitById(int barberUnitId)
+        {
+            await _repository.DeleteBarberUnitById(barberUnitId);
+        }
+
         public async Task<IEnumerable<BarberUnitDto>> GetBarberUnitsByCompany(int companyId)
         {
             return await _repository.GetBarberUnitsByCompany(companyId);

@@ -91,5 +91,19 @@ namespace LaBarber.Infra.Repository.Barber
                           .AsNoTracking()
                           .ToListAsync();
         }
+
+        public async Task DeleteBarberUnitById(int id)
+        {
+            using var context = new ContextBase(_optionsBuilder, _secrets);
+            var result = await context.BarberUnit
+                .Where(x => x.Id == id)
+                .FirstOrDefaultAsync();
+
+            if (result != null)
+            {
+                context.BarberUnit.Remove(result);
+                await context.SaveChangesAsync();
+            }
+        }
     }
 }

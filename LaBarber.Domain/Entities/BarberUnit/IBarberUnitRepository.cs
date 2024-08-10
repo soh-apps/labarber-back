@@ -12,6 +12,8 @@ namespace LaBarber.Domain.Entities.BarberUnit
         Task<IEnumerable<BarberUnitAvailabilityDto>> GetBarberUnitAvailability(int barberUnitId);
         Task<bool> CreateBarberUnitAvailabilities(IEnumerable<BarberUnitAvailabilityDto> availabilities);
         Task<bool> DeleteAllBarberUnitAvailabilities(int barberUnitId);
-        
+        Task DeleteBarberUnitById(int id);
+
+
     }
 }

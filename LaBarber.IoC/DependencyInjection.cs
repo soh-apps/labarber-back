@@ -109,6 +109,7 @@ namespace LaBarber.IoC
             services.AddTransient<IRequestHandler<GetBarberUnitsByCompanyCommand, IEnumerable<BarberUnitOutput>>, GetBarberUnitsByCompanyHandler>();
             services.AddTransient<IRequestHandler<GetBarberUnitCommand, BarberUnitOutput>, GetBarberUnitByIdHandler>();
             services.AddTransient<IRequestHandler<UpdateBarberUnitCommand, bool>, UpdateBarberUnitHandler>();
+            services.AddTransient<IRequestHandler<DeleteBarberUnitCommand, bool>, DeleteBarberUnitHandler>();
 
             //Barber
             services.AddScoped<IBarberUseCase, BarberUseCase>();

@@ -10,5 +10,6 @@ namespace LaBarber.Application.BarberUnit.UseCase
         Task<BarberUnitDto> GetBarberUnitById(int barberUnitId);
         Task<bool> SetBarberUnitAvailability(IEnumerable<SetBarberUnitAvailabilityDto> availabilities, int barberUnitId);
         Task<IEnumerable<BarberUnitAvailabilityDto>> GetBarberUnitAvailability(int barberUnitId);
+        Task DeleteBarberUnitById(int id);
     }
 }
